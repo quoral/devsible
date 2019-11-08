@@ -1,0 +1,5 @@
+- name: Run package upgrades
+  hosts: computer
+  roles:
+    - i3-gaps
+    - termite

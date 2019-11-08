@@ -1,0 +1,14 @@
+
+- name: "Ensure base folder is created"
+  file:
+    path: "~/Code/Github"
+    state: "directory"
+  register: directory
+
+- name: "Include vte-ng install"
+  include_tasks:
+    file: vte_ng.yml
+
+- name: "Include termite install"
+  include_tasks:
+    file: termite.yml

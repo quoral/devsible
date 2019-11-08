@@ -1,0 +1,40 @@
+- name: "Clone termite"
+  git:
+    recursive: true
+    repo: "https://github.com/thestinger/termite.git"
+    dest: "{{directory.path}}/termite"
+  register: termite_git
+
+- name: "run make"
+  command: make
+  args:
+    chdir: "{{directory.path}}/termite"
+  when: termite_git is changed
+
+- name: "run make install"
+  command: make install
+  args:
+    chdir: "{{directory.path}}/termite"
+  when: termite_git is changed
+  become: true
+
+- name: "Run ldconfig"
+  command: ldconfig
+  args:
+    chdir: "{{directory.path}}/termite"
+  when: termite_git is changed
+  become: true
+
+- name: "Ensure base folder is created"
+  file:
+    path: "/lib/terminfo/x"
+    state: "directory"
+  register: termite_install_directory
+  become: true
+
+- name: "Symlink"
+  file:
+    src: /usr/local/share/terminfo/x/xterm-termite
+    dest: /lib/terminfo/x/xterm-termite
+    state: link
+  become: true

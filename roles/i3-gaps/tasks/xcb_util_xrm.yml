@@ -1,0 +1,34 @@
+
+- name: "Clone xcb-util-xrm"
+  git:
+    recursive: true
+    track_submodules: yes
+    repo: "https://github.com/Airblader/xcb-util-xrm"
+    dest: "{{directory.path}}/xcb-util-xrm"
+  register: xcb_util_xrm_git
+
+- name: "Run autoreconf"
+  command: autoreconf -v --install
+  args:
+    chdir: "{{directory.path}}/xcb-util-xrm"
+  when: xcb_util_xrm_git is changed
+
+- name: "Run configure"
+  command: "{{directory.path}}/xcb-util-xrm/configure -v --enable-maintainer-mode --prefix=/usr"
+  args:
+    chdir: "{{directory.path}}/xcb-util-xrm"
+  when: xcb_util_xrm_git is changed
+
+- name: "Compile xcb-util-xrm"
+  make:
+    chdir: "{{directory.path}}/xcb-util-xrm"
+    params:
+      NUM_THREADS: 4
+  when: xcb_util_xrm_git is changed
+
+- name: "Install xcb-util-xrm"
+  make:
+    chdir: "{{directory.path}}/xcb-util-xrm"
+    target: install
+  become: true
+  when: xcb_util_xrm_git is changed

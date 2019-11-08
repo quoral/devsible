@@ -1,0 +1,87 @@
+
+- name: "Ensure dependencies are in place"
+  apt:
+    name:
+      - g++
+      - libgtk-3-dev
+      - gtk-doc-tools
+      - gnutls-bin
+      - valac
+      - intltool
+      - libpcre2-dev
+      - libglib3.0-cil-dev
+      - libgnutls28-dev
+      - libgirepository1.0-dev
+      - libxml2-utils
+      - gperf
+      - build-essential
+      - autoconf
+      - gtk-doc-tools
+      - libtool
+  become: yes
+
+- name: "Clone vte"
+  git:
+    repo: "https://github.com/thestinger/vte-ng.git"
+    dest: "{{directory.path}}/vte-ng"
+  register: vte_ng
+
+- name: "Copy gtk-doc.make, not available on debian systems"
+  copy:
+    src: /usr/share/gtk-doc/data/gtk-doc.make
+    dest: "{{directory.path}}/vte-ng"
+
+- name: "Run libtoolize"
+  command: "libtoolize"
+  args:
+    chdir: "{{directory.path}}/vte-ng"
+  register: libtoolize
+  changed_when: libtoolize.stdout | length > 0
+
+- name: "Run intltoolize --force"
+  command: intltoolize --force
+  args:
+    chdir: "{{directory.path}}/vte-ng"
+  register: intltoolize
+  changed_when: false
+
+- name: "Run autoreconf"
+  command: autoreconf
+  args:
+    chdir: "{{directory.path}}/vte-ng"
+  register: autoreconf
+  ignore_errors: true
+  changed_when: autoreconf.stdout | length > 0
+
+- name: "Run automake"
+  command: automake --add-missing
+  args:
+    chdir: "{{directory.path}}/vte-ng"
+  when: "autoreconf is failed"
+
+- name: "Re-Run autoreconf"
+  command: autoreconf
+  args:
+    chdir: "{{directory.path}}/vte-ng"
+  when: "autoreconf is failed"
+  register: autoreconf_rerun
+  changed_when: autoreconf_rerun | length > 0
+
+- name: "Run ./configure"
+  command: ./configure
+  args:
+    chdir: "{{directory.path}}/vte-ng"
+  when: vte_ng is changed
+
+- name: "Run make"
+  command: make
+  args:
+    chdir: "{{directory.path}}/vte-ng"
+  when: vte_ng is changed
+
+- name: "Run make install"
+  command: make install
+  args:
+    chdir: "{{directory.path}}/vte-ng"
+  when: vte_ng is changed
+  sudo: true
