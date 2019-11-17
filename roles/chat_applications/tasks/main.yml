@@ -1,3 +1,4 @@
 - name: "Install role applications"
   snap:
     name: "{{ snap_applications }}"
+  become: true
