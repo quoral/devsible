@@ -14,3 +14,8 @@
     autoclean: yes
     cache_valid_time: 172800 # Once every other day
   become: yes
+
+- name: "Ensure snap is present"
+  apt:
+    name: snapd
+  become: true
