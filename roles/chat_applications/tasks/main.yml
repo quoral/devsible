@@ -1,4 +1,12 @@
-- name: "Install role applications"
+- name: "Install base chat applications"
   snap:
-    name: "{{ snap_applications }}"
+    name:
+      - discord
+      - whatsdesk
   become: true
+
+- name: "Install slack"
+  snap:
+    name:
+      - slack
+    classic: yes
