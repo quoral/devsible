@@ -4,8 +4,4 @@
       - python3
       - python2.7
     state: latest
-
-- name: "Pyenv Repository"
-  git:
-    repo: "https://github.com/pyenv/pyenv.git"
-    dest: "~/.pyenv"
+  become: true
