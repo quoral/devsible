@@ -11,24 +11,24 @@
   command: autoreconf -v --install
   args:
     chdir: "{{directory.path}}/xcb-util-xrm"
-  when: xcb_util_xrm_git is changed
+  when: xcb_util_xrm_git.changed
 
 - name: "Run configure"
   command: "{{directory.path}}/xcb-util-xrm/configure -v --enable-maintainer-mode --prefix=/usr"
   args:
     chdir: "{{directory.path}}/xcb-util-xrm"
-  when: xcb_util_xrm_git is changed
+  when: xcb_util_xrm_git.changed
 
 - name: "Compile xcb-util-xrm"
   make:
     chdir: "{{directory.path}}/xcb-util-xrm"
     params:
       NUM_THREADS: 4
-  when: xcb_util_xrm_git is changed
+  when: xcb_util_xrm_git.changed
 
 - name: "Install xcb-util-xrm"
   make:
     chdir: "{{directory.path}}/xcb-util-xrm"
     target: install
   become: true
-  when: xcb_util_xrm_git is changed
+  when: xcb_util_xrm_git.changed

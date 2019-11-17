@@ -20,6 +20,13 @@
       - libtool
       - automake
       - compton
+      - libinput-tools
+      - dunst
+      - i3blocks
+      - i3lock
+      - scrot
+      - imagemagick
+
   become: true
 
 - name: "Ensure base folder is created"
@@ -35,3 +42,7 @@
 - name: "Include i3-gaps install"
   include_tasks:
     file: i3_gaps.yml
+
+- name: "Include i3locks-fancy install"
+  include_tasks:
+    file: i3locks_fancy.yml

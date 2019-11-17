@@ -12,30 +12,36 @@
   command: autoreconf --force --install
   args:
     chdir: "{{directory.path}}/i3-gaps"
+  when: i3_gaps_git.changed or xcb_util_xrm_git.changed
 
 - name: "Remove build folder"
   file:
     path: "{{directory.path}}/i3-gaps/build"
     state: absent
+  when: i3_gaps_git.changed or xcb_util_xrm_git.changed
 
 - name: "Create build folder"
   file:
     path: "{{directory.path}}/i3-gaps/build"
     state: directory
+  when: i3_gaps_git.changed or xcb_util_xrm_git.changed
 
 - name: "Run configure"
   command: "{{directory.path}}/i3-gaps/configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers"
   args:
     chdir: "{{directory.path}}/i3-gaps/build"
+  when: i3_gaps_git.changed or xcb_util_xrm_git.changed
 
 - name: "Compile i3-gaps"
   make:
     chdir: "{{directory.path}}/i3-gaps/build"
     params:
       NUM_THREADS: 4
+  when: i3_gaps_git.changed or xcb_util_xrm_git.changed
 
 - name: "Install i3-gaps"
   make:
     chdir: "{{directory.path}}/i3-gaps/build"
     target: install
   become: true
+  when: i3_gaps_git.changed or xcb_util_xrm_git.changed
