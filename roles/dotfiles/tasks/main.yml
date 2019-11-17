@@ -9,6 +9,12 @@
     repo: '{{ dotfiles_repository }}'
     dest: "~/Code/Own/dotfiles"
 
+- name: "Ensure all basefolders are created"
+  file:
+    dest: "{{ item.dest | dirname }}"
+    state: directory
+  with_items: "{{ links }}"
+
 - name: "Ensure all symlinks are placed"
   file:
     src: "{{ dotfiles_folder.path }}/{{ item.src }}"
