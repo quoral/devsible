@@ -1,10 +1,10 @@
 ---
-- name: "Upgrade all packages, low cache time"
+- name: "Install package managers are present"
   apt:
-    upgrade: "yes"
-    update_cache: "yes"
-    cache_valid_time: 3600
-  become: yes
+    name:
+      - aptitude
+      - snapd
+  become: true
 
 - name: "Full dist-upgrade, long cache time"
   apt:
@@ -12,10 +12,5 @@
     update_cache: "yes"
     autoremove: yes
     autoclean: yes
-    cache_valid_time: 172800 # Once every other day
+    cache_valid_time: 3600
   become: yes
-
-- name: "Ensure snap is present"
-  apt:
-    name: snapd
-  become: true
