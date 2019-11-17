@@ -84,4 +84,4 @@
   args:
     chdir: "{{directory.path}}/vte-ng"
   when: vte_ng is changed
-  sudo: true
+  become: true
