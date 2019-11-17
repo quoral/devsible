@@ -9,3 +9,9 @@
   snap:
     name: glances
   become: true
+
+- name: "Install utilities"
+  apt:
+    name:
+      - curl
+      - wget
