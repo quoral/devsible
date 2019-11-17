@@ -4,6 +4,11 @@
     dest: ~/Code/Own/dotfiles
   register: dotfiles_folder
 
+- name: "Install powerline"
+  pip:
+    executable: pip3
+    name: powerline-status
+
 - name: "Clone Dotfiles repository"
   git:
     repo: '{{ dotfiles_repository }}'
