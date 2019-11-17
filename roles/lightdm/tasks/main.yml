@@ -10,7 +10,7 @@
 
 - name: "Set default displaymanager to lightdm"
   copy:
-    content: "{{ lightdm_location.stodut }}"
+    content: "{{ lightdm_location.stdout }}"
     dest: /etc/X11/default-display-manager
   become: true
 
