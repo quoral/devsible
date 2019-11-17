@@ -10,3 +10,4 @@
     name:
       - slack
     classic: yes
+  become: true

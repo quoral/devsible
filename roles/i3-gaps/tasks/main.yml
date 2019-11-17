@@ -1,6 +1,7 @@
 - name: "Install i3-gaps dependent packages"
   apt:
     name:
+      - lightdm
       - libxcb1-dev
       - libxcb-keysyms1-dev
       - libpango1.0-dev
