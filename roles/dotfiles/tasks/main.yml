@@ -14,4 +14,4 @@
     src: "{{ dotfiles_folder.path }}/{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
-  with_items: links
+  with_items: "{{ links }}"
