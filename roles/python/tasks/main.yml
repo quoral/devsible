@@ -1,0 +1,11 @@
+- name: "Get latest python 3"
+  apt:
+    name:
+      - python3
+      - python2.7
+    state: latest
+
+- name: "Pyenv Repository"
+  git:
+    repo: "https://github.com/pyenv/pyenv.git"
+    dest: "~/.pyenv"

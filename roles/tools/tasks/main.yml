@@ -1,0 +1,10 @@
+- name: "Ensure neofetch is available"
+  apt:
+    name:
+      - neofetch
+      - ranger
+  become: true
+
+- name: "Install role applications"
+  snap:
+    name: glances
