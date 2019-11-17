@@ -1,5 +1,6 @@
 - name: Run package upgrades
   hosts: computer
   roles:
+    - lightdm
     - i3-gaps
     - termite
