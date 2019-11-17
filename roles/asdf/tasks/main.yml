@@ -14,6 +14,11 @@
   command: ~/.asdf/bin/asdf update
   changed_when: false
 
+- name: "Create completions folder"
+  file:
+    path: ~/.config/fish/completions/asdf.fish
+    state: directory
+
 - name: "Get completions"
   tags:
     - asdf
