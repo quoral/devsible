@@ -75,7 +75,7 @@
   changed_when: autoreconf_rerun | length > 0
 
 - name: "Run ./configure"
-  command: ./configure
+  command: ./configure --disable-vala
   args:
     chdir: "{{directory.path}}/vte-ng"
   when: vte_ng is changed
