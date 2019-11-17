@@ -45,8 +45,15 @@
   register: intltoolize
   changed_when: false
 
+- name: "Run gtkdocize --force"
+  command: gtkdocize --copy --flavour no-tmpl
+  args:
+    chdir: "{{directory.path}}/vte-ng"
+  register: gtkdocize
+  changed_when: false
+
 - name: "Run autoreconf"
-  command: autoreconf
+  command: autoreconf --force --install
   args:
     chdir: "{{directory.path}}/vte-ng"
   register: autoreconf
@@ -60,7 +67,7 @@
   when: "autoreconf is failed"
 
 - name: "Re-Run autoreconf"
-  command: autoreconf
+  command: autoreconf --force --install
   args:
     chdir: "{{directory.path}}/vte-ng"
   when: "autoreconf is failed"
