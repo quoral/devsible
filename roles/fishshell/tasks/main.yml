@@ -1,0 +1,15 @@
+- name: "Install fish"
+  apt:
+    name: fish
+  become: true
+
+- name: "Register where fish is installed"
+  command: "which fish"
+  register: fish_location
+  changed_when: False
+
+- name: "Set shell on my user"
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: "{{ fish_location.stdout }}"
+  become: true

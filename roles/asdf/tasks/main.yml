@@ -8,18 +8,18 @@
     update: false
   register: asdf_git_pre
 
+- name: "Update asdf to latest"
+  tags:
+    - asdf
+  command: ~/.asdf/bin/asdf update
+  changed_when: false
+
 - name: "Get completions"
   tags:
     - asdf
   copy:
     src: ~/.asdf/completions/asdf.fish
     dest: ~/.config/fish/completions/asdf.fish
-
-- name: "Update asdf to latest"
-  tags:
-    - asdf
-  command: ~/.asdf/bin/asdf update
-  changed_when: false
 
 - name: "Did asdf update?"
   tags:
