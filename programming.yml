@@ -4,3 +4,4 @@
   roles:
     - python
     - asdf
+    - dotfiles

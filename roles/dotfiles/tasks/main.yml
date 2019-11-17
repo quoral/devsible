@@ -1,0 +1,17 @@
+- name: "Ensure folder is created"
+  file:
+    state: directory
+    dest: ~/Code/Own/dotfiles
+  register: dotfiles_folder
+
+- name: "Clone Dotfiles repository"
+  git:
+    repo: '{{ dotfiles_repository }}'
+    dest: "~/Code/Own/dotfiles"
+
+- name: "Ensure all symlinks are placed"
+  file:
+    src: "{{ dotfiles_folder.path }}/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items: links
