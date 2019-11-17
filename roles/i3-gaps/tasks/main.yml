@@ -25,6 +25,7 @@
       - dunst
       - i3blocks
       - i3lock
+      - i3status
       - scrot
       - imagemagick
 
