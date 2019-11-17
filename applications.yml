@@ -1,0 +1,6 @@
+---
+- name: Run package upgrades
+  hosts: computer
+  roles:
+    - chat_applications
+    - tools

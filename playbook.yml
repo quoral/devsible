@@ -1,2 +1,5 @@
 ---
+- import_playbook: upgrade.yml
 - import_playbook: programming.yml
+- import_playbook: applications.yml
+- import_playbook: i3.yml
