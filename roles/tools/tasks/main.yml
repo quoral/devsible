@@ -15,4 +15,5 @@
     name:
       - curl
       - wget
+      - fzf
   become: true
