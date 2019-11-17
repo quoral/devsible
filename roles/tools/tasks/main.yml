@@ -8,3 +8,4 @@
 - name: "Install role applications"
   snap:
     name: glances
+  become: true
