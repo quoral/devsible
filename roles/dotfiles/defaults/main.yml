@@ -27,6 +27,9 @@ links:
   - src: config/fish/functions/edit.fish
     dest: ~/.config/fish/functions/edit.fish
 
+  - src: wallpapers/planet.jpg
+    dest: ~/wallpapers/planet.jpg
+
   - src: bin/1pass.py
     dest: ~/.local/bin/1pass.py
 
