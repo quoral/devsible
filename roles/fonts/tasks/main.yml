@@ -1,0 +1,27 @@
+- name: "Ensure base folder is created"
+  file:
+    path: "~/Code/Github"
+    state: "directory"
+  register: directory
+
+- name: "Ensure font folder is created"
+  file:
+    path: "~/.local/fonts"
+    state: "directory"
+
+- name: "Clone source-code-pro"
+  git:
+    recursive: true
+    repo: "https://github.com/adobe-fonts/source-code-pro.git"
+    dest: "{{directory.path}}/source-code-pro"
+  register: git_repo
+
+- name: "Symlink folder to font directory"
+  file:
+    src: "{{directory.path}}/source-code-pro"
+    dest: "~/.local/fonts/source-code-pro"
+    state: link
+
+- name: "Run fc-cache"
+  command: fc-cache -f -v
+  when: git_repo.changed

@@ -3,3 +3,4 @@
   hosts: computer
   roles:
     - base_packages
+    - fonts

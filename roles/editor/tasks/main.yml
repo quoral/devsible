@@ -1,0 +1,5 @@
+- name: "VsCode"
+  snap:
+    name: code-insiders
+    classic: yes
+  become: true
