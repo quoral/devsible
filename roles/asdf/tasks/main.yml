@@ -47,7 +47,7 @@
   command: "asdf install {{ item.name }} {{ item.version }}"
   with_items: "{{ asdf_packages }}"
   register: asdf_package
-  changed_when: 'asdf_package.stdout is not search("already installed")'
+  changed_when: asdf_package.stdout is not search("already installed")
 
 - name: "Force reshim after plugins"
   command: "asdf reshim"
