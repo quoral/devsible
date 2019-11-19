@@ -5,10 +5,12 @@
 - name: "Install apt based browsers"
   apt:
     name: firefox-trunk
+  become: true
 
 - name: "Install snap based browsers"
   snap:
     name: chromium
+  become: true
 
 - name: "Get the firefox-trunk location"
   command: which firefox-trunk
