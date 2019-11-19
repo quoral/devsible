@@ -26,8 +26,9 @@
       - i3blocks
       - i3lock
       - i3status
-      - scrot
+      - maim
       - imagemagick
+      - feh
 
   become: true
 
