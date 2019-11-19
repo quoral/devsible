@@ -35,3 +35,19 @@
     update: false
   register: asdf_git_post
   changed_when: "asdf_git_pre.before != asdf_git_post.before"
+
+- name: "Install asdf plugins"
+  command: "asdf plugin add {{ item.name }}"
+  with_items: "{{ packages }}"
+  register: asdf_plugin
+  changed_when: "'already added' not in asdf_plugin.stdout"
+
+- name: "Install asdf packages"
+  command: "asdf install {{ item.name }} {{ item.version }}"
+  with_items: "{{ packages }}"
+  register: asdf_plugin
+  changed_when: "'already installed' not in asdf_plugin.stdout"
+
+- name: "Force reshim after plugins"
+  command: "asdf reshim"
+  changed_when: False
