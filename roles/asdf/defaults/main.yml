@@ -1,6 +1,6 @@
 asdf_git_info:
   before: HEAD
 
-packages:
+asdf_packages:
   - name: 1password
     version: 0.8.0
