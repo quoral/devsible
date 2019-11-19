@@ -1,3 +1,8 @@
+- name: "Install font dependencies"
+  apt:
+    name: fontconfig
+  become: true
+
 - name: "Ensure base folder is created"
   file:
     path: "~/Code/Github"
