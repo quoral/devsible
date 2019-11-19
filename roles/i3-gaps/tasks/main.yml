@@ -29,6 +29,7 @@
       - maim
       - imagemagick
       - feh
+      - dmenu
 
   become: true
 
