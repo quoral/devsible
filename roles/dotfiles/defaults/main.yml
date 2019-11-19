@@ -7,6 +7,9 @@ links:
   - src: zshrc
     dest: ~/.zshrc
 
+  - src: config/termite/config
+    dest: ~/.config/termite/config
+
   - src: config/i3/config
     dest: ~/.config/i3/config
   - src: config/i3status/config
