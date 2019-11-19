@@ -17,3 +17,17 @@
       - wget
       - fzf
   become: true
+
+- name: "Connect glances"
+  command: "snap connect glances:{{item}}"
+  become: true
+  with_items:
+    - network
+    - system-observe
+    - mount-observe
+    - hardware-observe
+    - log-observe
+    - network-observe
+    - physical-memory-observe
+    - upower-observe
+  changed_when: false
