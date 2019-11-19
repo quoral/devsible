@@ -1,6 +1,7 @@
 - name: "Install ppa for Firefox Trunk"
   apt_repository:
     repo: ppa:ubuntu-mozilla-daily/ppa
+  become: true
 
 - name: "Install apt based browsers"
   apt:
