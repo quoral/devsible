@@ -1,0 +1,15 @@
+- name: "Install ppa for Firefox Trunk"
+  apt_repository:
+    repo: ppa:ubuntu-mozilla-daily/ppa
+
+- name: "Install apt based browsers"
+  apt:
+    name: firefox-trunk
+
+- name: "Install snap based browsers"
+  snap:
+    name: chromium
+
+- name: "Get the firefox-trunk location"
+  command: which firefox-trunk
+  register: firefox_trunk
