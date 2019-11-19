@@ -37,18 +37,18 @@
   changed_when: "asdf_git_pre.before != asdf_git_post.before"
 
 - name: "Install asdf plugins"
-  command: "asdf plugin-add {{ item.name }}"
+  command: "~/.asdf/bin/asdf plugin-add {{ item.name }}"
   with_items: "{{ asdf_packages }}"
   register: asdf_plugin
   failed_when: "asdf_plugin.rc not in (0, 2)"
   changed_when: "asdf_plugin.rc != 2"
 
 - name: "Install asdf packages"
-  command: "asdf install {{ item.name }} {{ item.version }}"
+  command: "~/.asdf/bin/asdf install {{ item.name }} {{ item.version }}"
   with_items: "{{ asdf_packages }}"
   register: asdf_package
   changed_when: asdf_package.rc == 0
 
 - name: "Force reshim after plugins"
-  command: "asdf reshim"
+  command: "~/.asdf/bin/asdf reshim"
   changed_when: False
