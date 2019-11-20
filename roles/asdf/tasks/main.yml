@@ -49,6 +49,11 @@
   register: asdf_package
   changed_when: asdf_package.stdout is not search("already installed")
 
+- name: "Set global versions"
+  command: "~/.asdf/bin/asdf global {{ item.name }} {{ item.version }}"
+  with_items: "{{ asdf_packages }}"
+  changed_when: False
+
 - name: "Force reshim after plugins"
   command: "~/.asdf/bin/asdf reshim"
   changed_when: False
