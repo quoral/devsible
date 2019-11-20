@@ -2,6 +2,7 @@
   git:
     repo: '{{ dotfiles_repository }}'
     dest: "{{ playbook_dir }}/roles/dotfiles"
+    version: "{{ dotfiles_branch }}"
 
 - name: "Include role"
   include_role:
