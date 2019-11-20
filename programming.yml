@@ -4,5 +4,5 @@
   roles:
     - python
     - asdf
-    - dotfiles
+    - dotfiles_bootstrap
     - editor
