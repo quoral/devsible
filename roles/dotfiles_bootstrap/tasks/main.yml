@@ -1,0 +1,8 @@
+- name: "Clone Dotfiles repository"
+  git:
+    repo: '{{ dotfiles_repository }}'
+    dest: "{{ playbook_dir }}/roles/dotfiles"
+
+- name: "Include role"
+  include_role:
+    name: dotfiles
