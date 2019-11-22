@@ -1,0 +1,15 @@
+- name: "Install wlroots dependencies"
+  apt:
+    name:
+      - libegl
+      - glesv2
+      - libdrm
+      - libgdm1
+      - libinput-bin
+      - libinput10
+      - libxkbcommon0
+      - udev
+      - pixman-1-0
+      - systemd
+      - elogind
+      - libcap2

@@ -1,0 +1,15 @@
+- name: "Install sway dependencies"
+  apt:
+    name:
+      - meson
+      - wayland
+      - wayland-protocols
+      - libpcre++0v5
+      - libjson-c3
+      - libpango-1.0-0
+      - libcairo2-dev
+      - libgdk-pixbuf2.0-dev
+      - scdoc
+      - libegl
+      - GLESv2
+  become: true
