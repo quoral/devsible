@@ -1,2 +1,3 @@
 dotfiles_repository: https://github.com/kallekrantz/dotfiles
 dotfiles_branch: "master"
+check_dotfiles_repo: true

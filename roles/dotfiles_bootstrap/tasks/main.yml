@@ -3,6 +3,7 @@
     repo: '{{ dotfiles_repository }}'
     dest: "{{ playbook_dir }}/roles/dotfiles"
     version: "{{ dotfiles_branch }}"
+  when: check_dotfiles_repo|bool
 
 - name: "Include role"
   include_role:
