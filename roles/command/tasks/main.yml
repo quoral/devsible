@@ -1,0 +1,5 @@
+- name: "Symlink Devsible shortcut"
+  file:
+    src: "{{ playbook_dir }}/files/devsible.py"
+    dest: "~/.local/bin/devsible"
+    state: link
