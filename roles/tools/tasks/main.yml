@@ -16,6 +16,9 @@
       - curl
       - wget
       - fzf
+      - htop
+      - net-tools
+      - wl-clipboard
   become: true
 
 - name: "Connect glances"
