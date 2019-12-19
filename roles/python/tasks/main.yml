@@ -7,3 +7,9 @@
       - python3-pip
     state: latest
   become: true
+
+- name: "Ensure other deps are made available"
+  pip:
+    executable: pip3
+    name:
+      - pipenv
