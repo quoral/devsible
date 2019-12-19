@@ -16,3 +16,4 @@
 - name: "Get the firefox-trunk location"
   command: which firefox-trunk
   register: firefox_trunk
+  changed_when: False
