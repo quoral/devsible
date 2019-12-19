@@ -4,3 +4,9 @@ asdf_git_info:
 asdf_packages:
   - name: 1password
     version: 0.8.0
+  - name: kubectl
+    version: 1.16.4
+  - name: bazel
+    version: 1.2.0
+  - name: minikube
+    version: 1.6.1
