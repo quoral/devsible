@@ -4,3 +4,4 @@
   roles:
     - base_packages
     - fonts
+    - kernel_settings

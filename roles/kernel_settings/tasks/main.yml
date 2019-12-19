@@ -1,0 +1,6 @@
+- name: "Set maximum file watchers to something insanely high. Large repos yo."
+  sysctl:
+    name: fs.inotify.max_user_watches
+    value: '524288'
+    state: present
+  become: True
