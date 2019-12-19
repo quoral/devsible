@@ -1,0 +1,4 @@
+misc_lib_dependencies:
+  - libreadline-dev
+  - libbz2-dev
+  - libssl-dev
