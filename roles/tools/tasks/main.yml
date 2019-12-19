@@ -23,6 +23,20 @@
       - jq
   become: true
 
+- name: "install virtualbox and dependencies"
+  apt:
+    name:
+      - virtualbox 
+      - virtualbox-dkms
+      - linux-headers-generic
+  become: true
+
+- name: "start virtualbox socket"
+  service:
+    name: virtualbox
+    state: started
+  become: true
+
 - name: "Connect glances"
   command: "snap connect glances:{{item}}"
   become: true
