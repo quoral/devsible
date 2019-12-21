@@ -1,0 +1,10 @@
+- name: "Add yubico ppa"
+  apt_repository:
+    repo: ppa:yubico/stable
+  become: True
+  
+- name: "Install udev driver"
+  apt:
+    name: libfido2-udev
+    update_cache: True
+  become: True
