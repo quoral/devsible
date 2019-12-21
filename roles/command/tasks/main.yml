@@ -1,3 +1,8 @@
+- name: "Ensure folder exists"
+  file:
+    state: directory 
+    dest: "~/.local/bin"
+
 - name: "Symlink Devsible shortcut"
   file:
     src: "{{ playbook_dir }}/files/devsible.py"
