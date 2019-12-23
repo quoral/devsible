@@ -13,3 +13,6 @@
     executable: pip3
     name:
       - pipenv
+      - psutil
+      - emoji
+      - pulsectl
