@@ -7,6 +7,7 @@
       - swayidle
       - slurp
       - grim
+      - ffmpeg
   become: True
 
 - name: "Install build time dependencies"
