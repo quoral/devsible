@@ -2,5 +2,5 @@
   hosts: computer
   roles:
     - lightdm
-    - i3-gaps
     - termite
+    - sway

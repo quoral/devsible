@@ -1,0 +1,50 @@
+- name: Install basic sway and its dependencies
+  apt:
+    name:
+      - sway
+      - swaybg
+      - swaylock
+      - swayidle
+      - slurp
+      - grim
+  become: True
+
+- name: "Install build time dependencies"
+  apt:
+    name:
+      - meson
+      - ninja-build
+      - wayland-protocols
+      - libwayland-dev
+  become: True
+
+- name: "Ensure base folder is created"
+  file:
+    path: "~/Code/Github"
+    state: "directory"
+  register: directory
+
+- name: "wl-clipboard does not have a good version in apt. Compile it yourself"
+  git:
+    repo: "https://github.com/bugaevc/wl-clipboard.git"
+    dest: "{{directory.path}}/wl-clipboard"
+  register: wl_clipboard_repo
+
+- name: "meson build"
+  command: meson build
+  args:
+    chdir: "{{directory.path}}/wl-clipboard"
+  when: wl_clipboard_repo.changed
+
+- name: "ninja build"
+  command: ninja
+  args:
+    chdir: "{{directory.path}}/wl-clipboard/build"
+  when: wl_clipboard_repo.changed
+
+- name: "ninja install"
+  command: ninja install
+  args:
+    chdir: "{{directory.path}}/wl-clipboard/build"
+  when: wl_clipboard_repo.changed
+  become: True
