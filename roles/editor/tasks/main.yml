@@ -3,3 +3,24 @@
     name: code-insiders
     classic: yes
   become: true
+
+- name: "Install emacs ppa"
+  apt_repository:
+    repo: ppa:ubuntu-elisp/ppa
+  become: True
+
+- name: "Install emacs"
+  apt:
+    name:
+      - emacs-snapshot
+    update_cache: True
+  become: True
+
+- name: "emacs doom git repository"
+  git:
+    repo: https://github.com/hlissner/doom-emacs
+    dest: ~/.emacs.d
+  register: emacs_doom
+
+- name: "install emacs doom"
+  command: ~/.emacs.d/bin/doom --yes install
