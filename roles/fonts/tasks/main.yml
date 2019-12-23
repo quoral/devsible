@@ -27,6 +27,13 @@
     dest: "~/.local/share/fonts/source-code-pro"
     state: link
 
+- name: "Install color libraries"
+  apt:
+    name:
+      - fonts-noto-color-emoji
+      - fonts-powerline
+  become: True
+
 - name: "Run fc-cache"
   command: fc-cache -f -v
   when: git_repo.changed
