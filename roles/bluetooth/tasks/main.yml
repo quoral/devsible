@@ -1,0 +1,6 @@
+- name: "Install blueman"
+  apt:
+    name:
+      - blueman
+      - bluez-tools
+  become: True
