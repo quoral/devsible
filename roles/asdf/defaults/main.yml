@@ -10,3 +10,5 @@ asdf_packages:
     version: 1.2.0
   - name: minikube
     version: 1.6.1
+  - name: java
+    version: adopt-openjdk-8u232-b09
