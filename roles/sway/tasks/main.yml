@@ -8,6 +8,8 @@
       - slurp
       - grim
       - ffmpeg
+      - brightnessctl
+      - acpid
   become: True
 
 - name: "Install build time dependencies"
@@ -24,6 +26,53 @@
     path: "~/Code/Github"
     state: "directory"
   register: directory
+
+- name: "Get a better backlight manager"
+  git:
+    repo: "https://github.com/haikarainen/light"
+    dest: "{{directory.path}}/light"
+  register: light_repo
+
+- name: "light - autogen.sh"
+  command: ./autogen.sh
+  args:
+    chdir: "{{directory.path}}/light"
+  when: light_repo.changed
+
+- name: "light - configure"
+  command: ./configure --with-udev
+  args:
+    chdir: "{{directory.path}}/light"
+  when: light_repo.changed
+
+- name: "light - make"
+  make:
+    chdir: "{{directory.path}}/light"
+  when: light_repo.changed
+
+- name: "light - make"
+  make:
+    chdir: "{{directory.path}}/light"
+    target: install
+  become: True
+  when: light_repo.changed
+
+- name: "Add acpid brightness controls"
+  copy:
+    src: "files/{{ item }}"
+    dest: "/etc/{{ item }}"
+  with_items:
+    - acpi/events/bl-down
+    - acpi/events/bl-up
+  become: True
+  register: acpid_controls
+
+- name: "Reload acpid"
+  service:
+    name: acpid
+    state: restarted
+  become: True
+  when: acpid_controls.changed
 
 - name: "wl-clipboard does not have a good version in apt. Compile it yourself"
   git:
