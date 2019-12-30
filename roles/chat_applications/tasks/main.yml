@@ -5,6 +5,11 @@
       - whatsdesk
   become: true
 
+- name: "Connect discord to system-observe"
+  command: snap connect discord:system-observe
+  become: True
+  changed_when: false
+
 - name: "Install slack"
   snap:
     name:
