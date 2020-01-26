@@ -9,10 +9,15 @@
     repo: ppa:ubuntu-elisp/ppa
   become: True
 
+- name: "Install emacs ppa"
+  apt_repository:
+    repo: ppa:kelleyk/emacs
+  become: True
+
 - name: "Install emacs"
   apt:
     name:
-      - emacs-snapshot
+      - emacs26
     update_cache: True
   become: True
 
@@ -22,5 +27,11 @@
     dest: ~/.emacs.d
   register: emacs_doom
 
-- name: "install emacs doom"
+- name: "Stat doom folder"
+  stat:
+    path: ~/.doom.d
+  register: doom_path
+
+- name: "Install doom if folder not exists"
   command: ~/.emacs.d/bin/doom --yes install
+  when: not doom_path.stat.isdir
