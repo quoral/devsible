@@ -39,9 +39,16 @@
       - ssh-askpass
       - jq
       - silversearcher-ag
+      - ripgrep
       - xdg-utils
       - mime-support
   become: true
+
+- name: "Install python tools"
+  pip:
+    executable: pip3
+    name:
+      - awscli
 
 - name: "install virtualbox and dependencies"
   apt:

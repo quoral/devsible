@@ -3,6 +3,18 @@
     state: directory 
     dest: "~/.local/bin"
 
+- name: "Install aptlib pip"
+  apt:
+    name: python3-apt
+  become: True
+
+- name: "Install dependencies of the executable"
+  pip:
+    executable: pip3
+    name:
+      - gitpython
+      - python-dateutil
+
 - name: "Symlink Devsible shortcut"
   file:
     src: "{{ playbook_dir }}/files/devsible.py"

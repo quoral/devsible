@@ -6,6 +6,11 @@
       - snapd
   become: true
 
+- name: "Live on the edge, add source!"
+  apt_repository:
+    repo: "deb http://archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-proposed restricted main multiverse universe"
+  become: True
+
 - name: "Full dist-upgrade, long cache time"
   apt:
     upgrade: "dist"
@@ -14,3 +19,32 @@
     autoclean: yes
     cache_valid_time: 3600
   become: yes
+
+- name: "Ensure var folder"
+  file:
+    state: directory
+    path: "/var/lib/devsible"
+  become: True
+
+- name: "Symlink apt-updater.py to /usr/local/bin"
+  file:
+    src: "{{ playbook_dir }}/files/apt-updater.py"
+    dest: "/usr/local/bin/apt-updater"
+    state: link
+  become: True
+
+- name: Ensure apt update is run regularly
+  cron:
+    name: apt updater
+    special_time: hourly
+    user: root
+    job: /usr/local/bin/apt-updater
+    cron_file: desvible_apt-update
+  become: True
+
+- name: "Write current timestamp to file."
+  copy:
+    content: "{{ ansible_date_time.iso8601 }}"
+    dest: /var/lib/devsible/last_run
+  changed_when: False
+  become: True
