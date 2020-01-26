@@ -98,3 +98,64 @@
     chdir: "{{directory.path}}/wl-clipboard/build"
   when: wl_clipboard_repo.changed
   become: True
+
+- name: "Get Kanshi"
+  git:
+    repo: "https://github.com/emersion/kanshi.git"
+    dest: "{{directory.path}}/kanshi"
+  register: kanshi_repo
+
+- name: "meson build"
+  command: meson build
+  args:
+    chdir: "{{directory.path}}/kanshi"
+  when: kanshi_repo.changed
+
+- name: "ninja build"
+  command: ninja
+  args:
+    chdir: "{{directory.path}}/kanshi/build"
+  when: kanshi_repo.changed
+
+- name: "ninja install"
+  command: ninja install
+  args:
+    chdir: "{{directory.path}}/kanshi/build"
+  when: kanshi_repo.changed
+  become: True
+
+- name: "Install mako dependencies"
+  apt:
+    name:
+      - libcairo2-dev
+      - libcairo2
+      - libgdk-pixbuf2.0-0
+      - cmake
+      - pkg-config
+      - libsystemd-dev
+  become: True
+
+- name: "Get Mako"
+  git:
+    repo: "https://github.com/emersion/mako.git"
+    dest: "{{directory.path}}/mako"
+  register: mako_repo
+
+- name: "meson build"
+  command: meson build
+  args:
+    chdir: "{{directory.path}}/mako"
+  when: mako_repo.changed
+
+- name: "ninja build"
+  command: ninja
+  args:
+    chdir: "{{directory.path}}/mako/build"
+  when: mako_repo.changed
+
+- name: "ninja install"
+  command: ninja install
+  args:
+    chdir: "{{directory.path}}/mako/build"
+  when: mako_repo.changed
+  become: True
