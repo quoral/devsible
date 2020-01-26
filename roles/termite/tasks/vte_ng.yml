@@ -37,6 +37,7 @@
     chdir: "{{directory.path}}/vte-ng"
   register: libtoolize
   changed_when: libtoolize.stdout | length > 0
+  when: vte_ng.changed
 
 - name: "Run intltoolize --force"
   command: intltoolize --force
@@ -44,6 +45,7 @@
     chdir: "{{directory.path}}/vte-ng"
   register: intltoolize
   changed_when: false
+  when: vte_ng.changed
 
 - name: "Run gtkdocize --force"
   command: gtkdocize --copy --flavour no-tmpl
@@ -51,6 +53,7 @@
     chdir: "{{directory.path}}/vte-ng"
   register: gtkdocize
   changed_when: false
+  when: vte_ng.changed
 
 - name: "Run autoreconf"
   command: autoreconf --force --install
@@ -59,6 +62,7 @@
   register: autoreconf
   ignore_errors: true
   changed_when: False
+  when: vte_ng.changed
 
 - name: "Run automake"
   command: automake --add-missing
@@ -73,6 +77,7 @@
   when: "autoreconf is failed"
   register: autoreconf_rerun
   changed_when: autoreconf_rerun | length > 0
+  when: vte_ng.changed
 
 - name: "Run ./configure"
   command: ./configure --disable-vala
