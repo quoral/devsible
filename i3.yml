@@ -1,6 +1,0 @@
-- name: Run package upgrades
-  hosts: computer
-  roles:
-    - ly
-    - termite
-    - sway

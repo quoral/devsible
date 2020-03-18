@@ -1,0 +1,73 @@
+- name: "Install Kitty Run-Time Dependencies"
+  apt:
+    name:
+      - python3.7
+      - libharfbuzz0b
+      - zlib1g
+      - libpng16-16
+      - libfreetype6
+      - libfontconfig1
+      - libcanberra0
+      - imagemagick-6.q16
+      - python3-pygments
+  become: True
+
+- name: "Build time dependencies"
+  apt:
+    name:
+      - libdbus-1-dev
+      - libxcursor-dev
+      - libxrandr-dev
+      - libxi-dev
+      - libxinerama-dev
+      - libgl1-mesa-dev
+      - libxkbcommon-x11-dev
+      - libfontconfig-dev
+      - libpython3.7-dev
+      - python3-sphinx
+  become: True
+
+- name: "Ensure base folder is created"
+  file:
+    path: "~/Code/Github"
+    state: "directory"
+  register: directory
+
+- name: "Clone kitty"
+  git:
+    recursive: true
+    repo: "https://github.com/kovidgoyal/kitty"
+    dest: "{{directory.path}}/kitty"
+  register: kitty_git
+
+- name: "Build kitty"
+  make:
+    chdir: "{{directory.path}}/kitty"
+  when: kitty_git.changed
+
+- name: "Build kitty"
+  command: python3 setup.py linux-package
+  args:
+    chdir: "{{directory.path}}/kitty"
+  when: kitty_git.changed
+
+- name: "Copy kitty folder"
+  copy:
+    src: "{{ directory.path }}/kitty/linux-package/"
+    dest: "/usr/local/"
+  become: True
+  when: kitty_git.changed
+
+- name: "Ensure kitty is executable"
+  file:
+    path: "/usr/local/bin/kitty"
+    state: file
+    mode: "755"
+  become: True
+
+- name: "Ensure kitty is executable"
+  file:
+    path: "/usr/local/share/terminfo/x/xterm-kitty"
+    state: file
+    mode: "755"
+  become: True
