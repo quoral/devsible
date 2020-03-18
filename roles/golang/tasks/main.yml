@@ -1,0 +1,4 @@
+- name: "Install Go Packages"
+  command: "go get -u {{ item }}"
+  with_items: "{{ default_packages }}"
+  changed_when: false

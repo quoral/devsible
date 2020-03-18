@@ -4,6 +4,7 @@
   roles:
     - python
     - asdf
+    - golang
     - dotfiles_bootstrap
     - editor
     - google
