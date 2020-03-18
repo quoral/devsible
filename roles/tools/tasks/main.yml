@@ -44,6 +44,7 @@
       - xdg-utils
       - mime-support
       - atool
+      - tree
   become: true
 
 - name: "Install python tools"

@@ -26,11 +26,11 @@
     path: "/var/lib/devsible"
   become: True
 
-- name: "Symlink apt-updater.py to /usr/local/bin"
-  file:
+- name: "Create apt-updater.py in /usr/local/bin"
+  copy:
     src: "{{ playbook_dir }}/files/apt-updater.py"
     dest: "/usr/local/bin/apt-updater"
-    state: link
+    mode: '755'
   become: True
 
 - name: Ensure apt update is run regularly
