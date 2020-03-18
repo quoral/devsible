@@ -3,13 +3,15 @@ asdf_git_info:
 
 asdf_packages:
   - name: 1password
-    version: 0.8.0
+    version: 0.9.2
   - name: kubectl
-    version: 1.16.4
+    version: 1.17.3
   - name: bazel
     version: 1.2.0
+  - name: hub
+    version: v2.14.2
   - name: minikube
-    version: 1.6.1
+    version: 1.7.3
   - name: java
     version: adopt-openjdk-8u232-b09
   - name: golang
