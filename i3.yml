@@ -1,6 +1,6 @@
 - name: Run package upgrades
   hosts: computer
   roles:
-    - lightdm
+    - ly
     - termite
     - sway
