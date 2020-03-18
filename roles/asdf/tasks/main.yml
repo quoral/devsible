@@ -26,7 +26,7 @@
     src: ~/.asdf/completions/asdf.fish
     dest: ~/.config/fish/completions/asdf.fish
 
-- name: "Did asdf update?"
+- name: "asdf state"
   tags:
     - asdf
   git:
