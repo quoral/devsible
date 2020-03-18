@@ -16,3 +16,4 @@
       - psutil
       - emoji
       - pulsectl
+      - cookiecutter

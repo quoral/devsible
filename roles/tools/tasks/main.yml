@@ -39,9 +39,11 @@
       - ssh-askpass
       - jq
       - silversearcher-ag
+      - ncdu
       - ripgrep
       - xdg-utils
       - mime-support
+      - atool
   become: true
 
 - name: "Install python tools"
