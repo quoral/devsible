@@ -1,0 +1,6 @@
+- name: Run package upgrades
+  hosts: computer
+  roles:
+    - ly
+    - kitty
+    - sway
