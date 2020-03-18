@@ -5,6 +5,7 @@
       - swaybg
       - swaylock
       - swayidle
+      - libevdev-tools
       - slurp
       - grim
       - ffmpeg
