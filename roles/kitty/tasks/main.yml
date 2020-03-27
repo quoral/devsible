@@ -8,6 +8,7 @@
       - libfreetype6
       - libfontconfig1
       - libcanberra0
+      - libglfw3-wayland
       - imagemagick-6.q16
       - python3-pygments
   become: True
