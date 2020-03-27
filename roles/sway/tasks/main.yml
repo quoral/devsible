@@ -133,6 +133,7 @@
       - libcairo2
       - libgdk-pixbuf2.0-0
       - cmake
+      - python3-mako
       - pkg-config
       - libsystemd-dev
   become: True
