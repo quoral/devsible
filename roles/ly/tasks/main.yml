@@ -2,6 +2,7 @@
   apt:
     name:
       - libpam0g-dev
+      - libx11-xcb-dev
       - xcb
   become: True
 
