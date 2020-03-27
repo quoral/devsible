@@ -3,6 +3,7 @@
     name:
       - python3.7
       - libharfbuzz0b
+      - libharfbuzz-dev
       - zlib1g
       - libpng16-16
       - libfreetype6
