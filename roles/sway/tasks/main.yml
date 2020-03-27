@@ -6,6 +6,7 @@
       - swaylock
       - swayidle
       - libevdev-tools
+      - autoconf
       - slurp
       - grim
       - ffmpeg
