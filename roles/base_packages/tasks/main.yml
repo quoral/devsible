@@ -4,6 +4,7 @@
     name:
       - aptitude
       - snapd
+      - pip3
   become: true
 
 - name: "Live on the edge, add source!"
