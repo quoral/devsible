@@ -45,6 +45,7 @@
       - mime-support
       - atool
       - tree
+      - cloc
   become: true
 
 - name: "Install python tools"
