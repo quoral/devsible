@@ -34,4 +34,4 @@
 
 - name: "Install doom if folder not exists"
   command: ~/.emacs.d/bin/doom --yes install
-  when: not p.stat.exists
+  when: not doom_path.stat.exists
