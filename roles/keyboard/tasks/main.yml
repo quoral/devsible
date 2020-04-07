@@ -1,0 +1,21 @@
+- name: "Install build-time dependencies"
+  include_tasks:
+    file: deps.yml
+    apply:
+      tags:
+        - keyboard
+  tags: keyboard
+
+- name: "Ensure folder"
+  file:
+    state: directory
+    path: "{{ keyboard_path }}"
+  register: directory
+  tags: keyboard
+
+- name: "Ensure Repo"
+  git:
+    repo: "{{ keyboard_remote }}"
+    dest: "{{ keyboard_path }}"
+    update: no
+  tags: keyboard

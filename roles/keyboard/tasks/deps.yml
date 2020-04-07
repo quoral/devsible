@@ -1,0 +1,51 @@
+- name: "Create tmp-folder"
+  file:
+    state: "directory"
+    path: "{{tmp_folder}}"
+
+- stat:
+    path: "{{ arduino_location }}"
+  register: p
+
+- name: "Extract arduino"
+  unarchive:
+    src: "{{ location }}"
+    dest: "{{ tmp_folder }}"
+    remote_src: yes
+  when: not p.stat.exists
+
+- name: "Install Arduino"
+  command: ./install.sh
+  args:
+    chdir: "{{ arduino_location }}"
+  become: True
+  when: not p.stat.exists
+
+- name: "Install teensy dependencies"
+  apt:
+    name:
+      - libusb-dev
+  become: True
+
+- name: "Clone teensy-loader"
+  git:
+    repo: "{{ teensy_repo }}"
+    dest: "{{ teensy_location }}"
+  register: "teensy_git"
+
+- name: "Make!"
+  make:
+    chdir: "{{ teensy_location }}"
+
+- name: "Install teensy"
+  copy:
+    src: "{{ teensy_bin }}"
+    dest: "{{ teensy_install_location }}"
+    mode: preserve
+  become: True
+
+- name: "Install wrapper"
+  copy:
+    src: "files/keyboard.sh"
+    dest: "~/.local/bin/keyboard"
+    mode: preserve
