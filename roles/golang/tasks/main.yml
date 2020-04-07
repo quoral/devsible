@@ -1,4 +1,10 @@
+- name: "Get go-asdf location"
+  command: "asdf which go"
+  register: go_location
+  changed_when: false
+
+
 - name: "Install Go Packages"
-  command: "go get -u {{ item }}"
+  command: "{{ go_location.stdout }} get -u {{ item }}"
   with_items: "{{ default_packages }}"
   changed_when: false
