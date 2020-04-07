@@ -1,5 +1,5 @@
 - name: "Get go-asdf location"
-  command: "asdf which go"
+  command: "~/.asdf/bin/asdf which go"
   register: go_location
   changed_when: false
 
