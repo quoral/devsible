@@ -13,6 +13,7 @@
       - brightnessctl
       - libpango-1.0-0
       - acpid
+      - playerctl
   become: True
 
 - name: "Install build time dependencies"
