@@ -1,7 +1,6 @@
 - name: Install basic sway and its dependencies
   apt:
     name:
-      - sway
       - swaybg
       - swaylock
       - swayidle
@@ -19,11 +18,18 @@
 - name: "Install build time dependencies"
   apt:
     name:
-      - meson
       - ninja-build
       - wayland-protocols
       - libwayland-dev
   become: True
+
+- name: "Compile and install sway"
+  include_tasks:
+    file: sway.yml
+    apply:
+      tags:
+        - sway
+  tags: sway
 
 - name: "Ensure base folder is created"
   file:
@@ -77,6 +83,31 @@
     state: restarted
   become: True
   when: acpid_controls.changed
+
+- name: "Get wofi"
+  hg:
+    repo: "https://hg.sr.ht/~scoopta/wofi"
+    dest: "{{ directory.path }}/wofi"
+  register: wofi_repo
+
+- name: "meson build"
+  command: meson build
+  args:
+    chdir: "{{directory.path}}/wofi"
+  when: wofi_repo.changed
+
+- name: "ninja build"
+  command: ninja -C build
+  args:
+    chdir: "{{directory.path}}/wofi"
+  when: wofi_repo.changed
+
+- name: "ninja build"
+  command: ninja -C build install
+  args:
+    chdir: "{{directory.path}}/wofi"
+  when: wofi_repo.changed
+  become: True
 
 - name: "wl-clipboard does not have a good version in apt. Compile it yourself"
   git:

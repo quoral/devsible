@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Name=Sway
+Comment=Sway - i3 on Wayland
+# Please choose matching path
+Exec=dbus-launch --exit-with-session /usr/local/bin/sway
+Type=Application

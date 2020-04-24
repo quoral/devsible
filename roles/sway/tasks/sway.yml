@@ -1,0 +1,124 @@
+- name: "Ensure base folder is created"
+  file:
+    path: "~/Code/Github"
+    state: "directory"
+  register: directory
+
+- name: "Get and install wayland"
+  git:
+    repo: https://gitlab.freedesktop.org/wayland/wayland
+    dest: "{{ directory.path }}/wayland"
+  register: wayland_repo
+
+- name: "Install dependency"
+  apt:
+    name:
+      - libxml2-dev
+      - graphviz
+      - doxygen
+      - xmlto
+  become: True
+
+- name: "meson build"
+  command: meson build/ --prefix=/usr
+  args:
+    chdir: "{{directory.path}}/wayland"
+  when: wayland_repo.changed
+
+- name: "ninja build"
+  command: ninja -C build/ install
+  args:
+    chdir: "{{directory.path}}/wayland"
+  when: wayland_repo.changed
+  become: True
+
+- name: "wlroot dependencies"
+  apt:
+    name:
+      - wayland-protocols
+      - libwayland-dev
+      - libegl1
+      - libgles2
+      - libglvnd-dev
+      - libglvnd0
+      - libgles2-mesa
+      - libgles2-mesa-dev
+      - libgbm1
+      - libgbm-dev
+      - libdrm2
+      - libinput10
+      - libinput-dev
+      - libxkbcommon0
+      - udev
+      - libpixman-1-0
+      - libcap2
+      - libjson-c-dev
+      - libx11-xcb-dev
+      - libxcb-xinput-dev
+      - libxcb-xinput0
+      - libcap2
+      - libcap-dev
+      - libxcb-composite0
+      - libxcb-composite0-dev
+  become: True
+
+- name: "Clone wlroots"
+  git:
+    repo: "https://github.com/swaywm/wlroots.git"
+    dest: "{{ directory.path }}/wlroots"
+  register: wlroots_repo
+
+- name: "meson build"
+  command: meson build -Dauto_features=enabled -Dlogind-provider=systemd -Dxwayland=enabled -Dxcb-errors=disabled
+  args:
+    chdir: "{{directory.path}}/wlroots"
+  when: wlroots_repo.changed
+
+- name: "ninja build"
+  command: ninja -C build
+  args:
+    chdir: "{{directory.path}}/wlroots"
+  when: wlroots_repo.changed
+
+- name: "ninja install"
+  command: ninja -C build install
+  args:
+    chdir: "{{directory.path}}/wlroots"
+  when: wlroots_repo.changed
+  become: True
+
+
+- name: "Clone sway"
+  git:
+    repo: "https://github.com/swaywm/sway.git"
+    dest: "{{ directory.path }}/sway"
+  register: sway_repo
+
+- name: "Should we recompile?"
+  set_fact:
+    recompile: "{{ wlroots_repo.changed or wayland_repo.changed or sway_repo.changed }}"
+
+- name: "meson build"
+  command: meson build -Dxwayland=enabled
+  args:
+    chdir: "{{directory.path}}/sway"
+  when: recompile
+
+- name: "ninja build"
+  command: ninja -C build
+  args:
+    chdir: "{{directory.path}}/sway"
+  when: recompile
+
+- name: "ninja install"
+  command: ninja -C build install
+  args:
+    chdir: "{{directory.path}}/sway"
+  when: recompile
+  become: True
+
+- name: "Ensure session file is in place"
+  copy:
+    src: wayland-sessions/sway.desktop
+    dest: /usr/share/wayland-sessions/sway.desktop
+  become: True

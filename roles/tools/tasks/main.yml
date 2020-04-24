@@ -46,6 +46,7 @@
       - atool
       - tree
       - cloc
+      - mercurial
   become: true
 
 - name: "Install python tools"
