@@ -1,0 +1,19 @@
+- name: "Get a better backlight manager"
+  git:
+    repo: "https://github.com/haikarainen/light"
+    dest: "{{ light_directory }}"
+  notify: light-changed
+  tags:
+    - light
+
+- name: "Add acpid brightness controls"
+  copy:
+    src: "files/{{ item }}"
+    dest: "/etc/{{ item }}"
+  with_items:
+    - acpi/events/bl-down
+    - acpi/events/bl-up
+  become: True
+  tags:
+    - light
+  notify: acpid-changed

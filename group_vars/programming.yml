@@ -1,5 +1,5 @@
 code_path: "~/Code"
-github_path: "{{ code_path }}/Github"
+github_code_path: "{{ code_path }}/Github"
 own_code_path: "{{ code_path }}/Own"
 github_base: "https://github.com/"
 github_postfix: ""

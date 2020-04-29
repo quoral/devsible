@@ -10,6 +10,6 @@ keyboard_path: "{{ own_code_path }}/ergodox-ez"
 
 
 teensy_repo: "https://github.com/PaulStoffregen/teensy_loader_cli"
-teensy_location: "{{ github_path }}/teensy_loader_cli"
+teensy_location: "{{ github_code_path }}/teensy_loader_cli"
 teensy_bin: "{{ teensy_location }}/teensy_loader_cli"
 teensy_install_location: "/usr/local/bin/teensy_loader_cli"

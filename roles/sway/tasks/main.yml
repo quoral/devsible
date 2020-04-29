@@ -14,6 +14,8 @@
       - acpid
       - playerctl
   become: True
+  tags:
+    - sway
 
 - name: "Install build time dependencies"
   apt:
@@ -22,176 +24,83 @@
       - wayland-protocols
       - libwayland-dev
   become: True
+  tags:
+    - sway
 
-- name: "Compile and install sway"
-  include_tasks:
-    file: sway.yml
-    apply:
-      tags:
-        - sway
-  tags: sway
-
-- name: "Ensure base folder is created"
-  file:
-    path: "~/Code/Github"
-    state: "directory"
-  register: directory
-
-- name: "Get a better backlight manager"
+- name: "Get and install wayland"
   git:
-    repo: "https://github.com/haikarainen/light"
-    dest: "{{directory.path}}/light"
-  register: light_repo
+    repo: https://gitlab.freedesktop.org/wayland/wayland
+    dest: "{{ wayland_path }}"
+  register: wayland_repo
+  notify: wayland-changed
+  tags:
+    - sway
 
-- name: "light - autogen.sh"
-  command: ./autogen.sh
-  args:
-    chdir: "{{directory.path}}/light"
-  when: light_repo.changed
-
-- name: "light - configure"
-  command: ./configure --with-udev
-  args:
-    chdir: "{{directory.path}}/light"
-  when: light_repo.changed
-
-- name: "light - make"
-  make:
-    chdir: "{{directory.path}}/light"
-  when: light_repo.changed
-
-- name: "light - make"
-  make:
-    chdir: "{{directory.path}}/light"
-    target: install
-  become: True
-  when: light_repo.changed
-
-- name: "Add acpid brightness controls"
-  copy:
-    src: "files/{{ item }}"
-    dest: "/etc/{{ item }}"
-  with_items:
-    - acpi/events/bl-down
-    - acpi/events/bl-up
-  become: True
-  register: acpid_controls
-
-- name: "Reload acpid"
-  service:
-    name: acpid
-    state: restarted
-  become: True
-  when: acpid_controls.changed
-
-- name: "Get wofi"
-  hg:
-    repo: "https://hg.sr.ht/~scoopta/wofi"
-    dest: "{{ directory.path }}/wofi"
-  register: wofi_repo
-
-- name: "meson build"
-  command: meson build
-  args:
-    chdir: "{{directory.path}}/wofi"
-  when: wofi_repo.changed
-
-- name: "ninja build"
-  command: ninja -C build
-  args:
-    chdir: "{{directory.path}}/wofi"
-  when: wofi_repo.changed
-
-- name: "ninja build"
-  command: ninja -C build install
-  args:
-    chdir: "{{directory.path}}/wofi"
-  when: wofi_repo.changed
-  become: True
-
-- name: "wl-clipboard does not have a good version in apt. Compile it yourself"
-  git:
-    repo: "https://github.com/bugaevc/wl-clipboard.git"
-    dest: "{{directory.path}}/wl-clipboard"
-  register: wl_clipboard_repo
-
-- name: "meson build"
-  command: meson build
-  args:
-    chdir: "{{directory.path}}/wl-clipboard"
-  when: wl_clipboard_repo.changed
-
-- name: "ninja build"
-  command: ninja
-  args:
-    chdir: "{{directory.path}}/wl-clipboard/build"
-  when: wl_clipboard_repo.changed
-
-- name: "ninja install"
-  command: ninja install
-  args:
-    chdir: "{{directory.path}}/wl-clipboard/build"
-  when: wl_clipboard_repo.changed
-  become: True
-
-- name: "Get Kanshi"
-  git:
-    repo: "https://github.com/emersion/kanshi.git"
-    dest: "{{directory.path}}/kanshi"
-  register: kanshi_repo
-
-- name: "meson build"
-  command: meson build
-  args:
-    chdir: "{{directory.path}}/kanshi"
-  when: kanshi_repo.changed
-
-- name: "ninja build"
-  command: ninja
-  args:
-    chdir: "{{directory.path}}/kanshi/build"
-  when: kanshi_repo.changed
-
-- name: "ninja install"
-  command: ninja install
-  args:
-    chdir: "{{directory.path}}/kanshi/build"
-  when: kanshi_repo.changed
-  become: True
-
-- name: "Install mako dependencies"
+- name: "Install dependency"
   apt:
     name:
-      - libcairo2-dev
-      - libcairo2
-      - libgdk-pixbuf2.0-0
-      - cmake
-      - python3-mako
-      - pkg-config
-      - libsystemd-dev
+      - libxml2-dev
+      - graphviz
+      - doxygen
+      - xmlto
   become: True
+  tags:
+    - sway
 
-- name: "Get Mako"
+- name: "wlroot dependencies"
+  apt:
+    name:
+      - wayland-protocols
+      - libwayland-dev
+      - libegl1
+      - libgles2
+      - libglvnd-dev
+      - libglvnd0
+      - libgles2-mesa
+      - libgles2-mesa-dev
+      - libgbm1
+      - libgbm-dev
+      - libdrm2
+      - libinput10
+      - libinput-dev
+      - libxkbcommon0
+      - udev
+      - libpixman-1-0
+      - libcap2
+      - libjson-c-dev
+      - libx11-xcb-dev
+      - libxcb-xinput-dev
+      - libxcb-xinput0
+      - libcap2
+      - libcap-dev
+      - libxcb-composite0
+      - libxcb-composite0-dev
+  become: True
+  tags:
+    - sway
+
+- name: "Clone wlroots"
   git:
-    repo: "https://github.com/emersion/mako.git"
-    dest: "{{directory.path}}/mako"
-  register: mako_repo
+    repo: "https://github.com/swaywm/wlroots.git"
+    dest: "{{ wlroots_path }}"
+  notify: wlroots-changed
+  tags:
+    - sway
 
-- name: "meson build"
-  command: meson build
-  args:
-    chdir: "{{directory.path}}/mako"
-  when: mako_repo.changed
+- name: "Clone sway"
+  git:
+    repo: "https://github.com/swaywm/sway.git"
+    dest: "{{ sway_path }}"
+  notify: sway-changed
+  tags:
+    - sway
 
-- name: "ninja build"
-  command: ninja
-  args:
-    chdir: "{{directory.path}}/mako/build"
-  when: mako_repo.changed
-
-- name: "ninja install"
-  command: ninja install
-  args:
-    chdir: "{{directory.path}}/mako/build"
-  when: mako_repo.changed
+- name: "Ensure session file is in place"
+  copy:
+    src: wayland-sessions/sway.desktop
+    dest: /usr/share/wayland-sessions/sway.desktop
   become: True
+  tags:
+    - sway
+ 
+- meta: flush_handlers

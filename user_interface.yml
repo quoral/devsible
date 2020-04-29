@@ -1,6 +1,9 @@
 - name: Run package upgrades
   hosts: computer
   roles:
+    - sway
     - ly
     - kitty
-    - sway
+    - light
+    - wl-clipboard
+    - kanshi

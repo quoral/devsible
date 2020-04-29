@@ -1,0 +1,35 @@
+- name: "autogen.sh"
+  command: ./autogen.sh
+  args:
+    chdir: "{{ light_directory }}"
+  listen:
+    - light-changed
+
+- name: "configure"
+  command: ./configure --with-udev
+  args:
+    chdir: "{{ light_directory }}"
+  listen:
+    - light-changed
+
+- name: "make"
+  make:
+    chdir: "{{ light_directory }}"
+  listen:
+    - light-changed
+
+- name: "make install"
+  make:
+    chdir: "{{ light_directory | expanduser }}"
+    target: install
+  become: True
+  listen:
+    - light-changed
+
+- name: "Reload acpid"
+  service:
+    name: acpid
+    state: restarted
+  become: True
+  listen:
+    - acpid-changed

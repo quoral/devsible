@@ -1,0 +1,21 @@
+- name: "meson build"
+  command: meson build
+  args:
+    chdir: "{{ kanshi_directory }}"
+  listen:
+    - kanshi-changed
+
+- name: "ninja build"
+  command: ninja
+  args:
+    chdir: "{{ kanshi_directory }}/build"
+  listen:
+    - kanshi-changed
+
+- name: "ninja install"
+  command: ninja install
+  args:
+    chdir: "{{ kanshi_directory | expanduser }}/build"
+  listen:
+    - kanshi-changed
+  become: True

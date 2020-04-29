@@ -1,0 +1,65 @@
+- name: "WAYLAND - meson build"
+  command: meson build/ --prefix=/usr
+  args:
+    chdir: "{{ wayland_path }}"
+  listen: "wayland-changed"
+
+- name: "WAYLAND - ninja build"
+  command: ninja -C build/ install
+  args:
+    chdir: "{{ wayland_path | expanduser }}"
+  listen: "wayland-changed"
+  become: True
+
+- name: "WLROOTS - meson build"
+  command: meson build -Dauto_features=enabled -Dlogind-provider=systemd -Dxwayland=enabled -Dxcb-errors=disabled
+  args:
+    chdir: "{{ wlroots_path }}"
+  listen:
+    - wlroots-changed
+    - wayland-changed
+
+- name: "WLROOTS - ninja build"
+  command: ninja -C build
+  args:
+    chdir: "{{ wlroots_path }}"
+  listen:
+    - wlroot-changed
+    - wayland-changed
+
+- name: "WLROOTS - ninja install"
+  command: ninja -C build install
+  args:
+    chdir: "{{ wlroots_path | expanduser}}"
+  listen:
+    - wlroot-changed
+    - wayland-changed
+  become: True
+
+- name: "SWAY - meson build"
+  command: meson build -Dxwayland=enabled
+  args:
+    chdir: "{{ sway_path }}"
+  listen:
+    - sway-changed
+    - wlroots-changed
+    - wayland-changed
+
+- name: "SWAY - ninja build"
+  command: ninja -C build
+  args:
+    chdir: "{{ sway_path }}"
+  listen:
+    - sway-changed
+    - wlroots-changed
+    - wayland-changed
+
+- name: "SWAY - ninja install"
+  command: ninja -C build install
+  args:
+    chdir: "{{ sway_path | expanduser }}"
+  become: True
+  listen:
+    - sway-changed
+    - wlroots-changed
+    - wayland-changed

@@ -1,0 +1,3 @@
+wayland_path: "{{ github_code_path }}/wayland"
+wlroots_path: "{{ github_code_path }}/wlroots"
+sway_path: "{{ github_code_path }}/sway"

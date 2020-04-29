@@ -1,0 +1,21 @@
+- name: "meson build"
+  command: meson build
+  args:
+    chdir: "{{ mako_directory }}"
+  listen:
+    - mako-changed
+
+- name: "ninja build"
+  command: ninja
+  args:
+    chdir: "{{ mako_directory }}/build"
+  listen:
+    - mako-changed
+
+- name: "ninja install"
+  command: ninja install
+  args:
+    chdir: "{{ mako_directory | expanduser}}"
+  listen:
+    - mako-changed
+  become: True
