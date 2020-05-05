@@ -51,6 +51,7 @@
 - name: "Register where ly is installed"
   command: "which ly"
   register: ly_location
+  check_mode: no
   changed_when: False
 
 - name: "Set default displaymanager to ly"

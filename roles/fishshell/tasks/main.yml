@@ -7,6 +7,7 @@
   command: "which fish"
   register: fish_location
   changed_when: False
+  check_mode: no
 
 - name: "Set shell on my user"
   user:
