@@ -18,6 +18,7 @@ parser.add_argument("--no-ansible", action='store_false',
                     help="Do not run ansible.")
 parser.add_argument("--upgradable-packages", action='store_true', help="Get upgradable packages")
 parser.add_argument("--tags", "-t", action="store", dest="tags", help="Set tags")
+parser.add_argument("--check", action="store_true", dest="check", help="No-Op! Check!")
 
 git_repositories = [(repo_location, "devsible"), (Path(repo_location, "roles/dotfiles"), "dotfiles")]
 
@@ -48,6 +49,9 @@ def upgradable_packages():
 
 if args.ignore_changes:
     command += ["-e", "check_dotfiles_repo=false"]
+
+if args.check:
+    command += ["--check", "--diff"]
 
 if args.tags:
     command += ["--tags={}".format(args.tags)]
