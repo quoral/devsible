@@ -12,27 +12,10 @@
     - kitty-changed
 
 - name: "Copy kitty folder"
-  copy:
+  synchronize:
     src: "{{ kitty_path | expanduser }}/linux-package"
     dest: "/usr/local/"
-  become: True
-  listen:
-    - kitty-changed
-
-- name: "Ensure kitty is executable"
-  file:
-    path: "/usr/local/bin/kitty"
-    state: file
-    mode: "755"
-  become: True
-  listen:
-    - kitty-changed
-
-- name: "Ensure kitty is executable"
-  file:
-    path: "/usr/local/share/terminfo/x/xterm-kitty"
-    state: file
-    mode: "755"
+    perms: yes
   become: True
   listen:
     - kitty-changed
