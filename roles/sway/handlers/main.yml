@@ -12,7 +12,7 @@
   become: True
 
 - name: "WLROOTS - meson build"
-  command: meson build -Dauto_features=enabled -Dlogind-provider=systemd -Dxwayland=enabled -Dxcb-errors=disabled
+  command: meson build -Dauto_features=enabled -Dlogind-provider=systemd -Dxwayland=enabled -Dxcb-errors=disabled -Dlibseat=disabled
   args:
     chdir: "{{ wlroots_path }}"
   listen:
