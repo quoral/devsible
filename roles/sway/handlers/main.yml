@@ -24,7 +24,7 @@
   args:
     chdir: "{{ wlroots_path }}"
   listen:
-    - wlroot-changed
+    - wlroots-changed
     - wayland-changed
 
 - name: "WLROOTS - ninja install"
@@ -32,7 +32,7 @@
   args:
     chdir: "{{ wlroots_path | expanduser}}"
   listen:
-    - wlroot-changed
+    - wlroots-changed
     - wayland-changed
   become: True
 
