@@ -5,14 +5,23 @@ asdf_packages:
   - name: 1password
     version: 0.9.2
   - name: kubectl
-    version: 1.17.3
+    version: 1.19.1
   - name: bazel
     version: 1.2.0
   - name: hub
     version: v2.14.2
   - name: minikube
-    version: 1.7.3
+    version: 1.11.0
+  - name: kind
+    version: 0.9.0
   - name: java
     version: adopt-openjdk-8u232-b09
   - name: golang
     version: 1.14
+  - name: gohugo
+    version: extended_0.68.1
+  - name: "nodejs"
+    version: 14.4.0
+    hook: "bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring"
+  - name: "github-cli"
+    version: "0.11.1"

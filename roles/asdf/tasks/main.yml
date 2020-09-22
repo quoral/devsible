@@ -37,23 +37,41 @@
   changed_when: "asdf_git_pre.before != asdf_git_post.before"
 
 - name: "Install asdf plugins"
+  tags:
+    - asdf
   command: "~/.asdf/bin/asdf plugin-add {{ item.name }}"
   with_items: "{{ asdf_packages }}"
   register: asdf_plugin
   failed_when: "asdf_plugin.rc not in (0, 2)"
   changed_when: "asdf_plugin.rc != 2"
 
+- name: "Run asdf plugin hooks"
+  tags:
+    - asdf
+  command: "{{ item.hook}}"
+  with_items: "{{ asdf_packages }}"
+  when: item.hook is defined
+  register: asdf_hook
+  failed_when: "asdf_hook.rc not in (0, 2)"
+  changed_when: false
+
 - name: "Install asdf packages"
+  tags:
+    - asdf
   command: "~/.asdf/bin/asdf install {{ item.name }} {{ item.version }}"
   with_items: "{{ asdf_packages }}"
   register: asdf_package
   changed_when: asdf_package.stdout is not search("already installed")
 
 - name: "Set global versions"
+  tags:
+    - asdf
   command: "~/.asdf/bin/asdf global {{ item.name }} {{ item.version }}"
   with_items: "{{ asdf_packages }}"
   changed_when: False
 
 - name: "Force reshim after plugins"
+  tags:
+    - asdf
   command: "~/.asdf/bin/asdf reshim"
   changed_when: False
