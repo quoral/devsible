@@ -1,0 +1,23 @@
+- name: "Add 1password apt key"
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
+  become: True
+  tags:
+    - 1password
+
+- name: "Add 1password deb repo"
+  apt_repository:
+    repo: "deb [arch=amd64] https://onepassword.s3.amazonaws.com/linux/debian edge main"
+    state: present
+    update_cache: True
+  become: True
+  tags:
+    - 1password
+
+- name: "Install 1password"
+  apt:
+    name: 1password
+  become: True
+  tags:
+    - 1password
