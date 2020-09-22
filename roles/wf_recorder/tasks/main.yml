@@ -1,0 +1,30 @@
+- name: "Install dependencies"
+  apt:
+    name:
+      - libavutil-dev
+      - libavcodec-dev
+      - libavformat-dev
+      - libswscale-dev
+      - libpulse-dev
+
+  tags:
+    - wf-recorder
+  notify: wf-recorder-changed
+  become: True
+
+- name: "Clone wf-recorder"
+  git:
+    recursive: true
+    repo: "https://github.com/ammen99/wf-recorder"
+    dest: "{{ wf_recorder_path }}"
+  notify: wf-recorder-changed
+  tags:
+    - wf-recorder
+
+- name: "Symlink recording script"
+  file:
+    src: "{{ own_code_path }}/devsible/files/screen-record.sh"
+    dest: "{{ ansible_env.HOME }}/.local/bin/screen-record"
+    state: link
+  tags:
+    - wf-recorder
