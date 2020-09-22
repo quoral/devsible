@@ -32,6 +32,8 @@
     name:
       - fonts-noto-color-emoji
       - fonts-powerline
+      - fonts-roboto
+      - fonts-font-awesome
   become: True
 
 - name: "Run fc-cache"
