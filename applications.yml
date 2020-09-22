@@ -4,7 +4,6 @@
   roles:
     - fishshell
     - chat_applications
-    - tools
     - browsers
     - command
     - lib_dependencies
