@@ -63,3 +63,42 @@
     - sway-changed
     - wlroots-changed
     - wayland-changed
+
+- name: "WAYBAR - meson build"
+  command: meson build/ --prefix=/usr
+  args:
+    chdir: "{{ waybar_path }}"
+  listen: "waybar-changed"
+
+- name: "WAYBAR - ninja build"
+  command: ninja -C build/ install
+  args:
+    chdir: "{{ waybar_path | expanduser }}"
+  listen: "waybar-changed"
+  become: True
+
+- name: "SWAYIDLE - meson build"
+  command: meson build/ --prefix=/usr
+  args:
+    chdir: "{{ swayidle_path }}"
+  listen: "swayidle-changed"
+
+- name: "SWAYIDLE - ninja build"
+  command: ninja -C build/ install
+  args:
+    chdir: "{{ swayidle_path | expanduser }}"
+  listen: "swayidle-changed"
+  become: True
+
+- name: "SWAYLOCK - meson build"
+  command: meson build/ --prefix=/usr
+  args:
+    chdir: "{{ swaylock_path }}"
+  listen: "swaylock-changed"
+
+- name: "SWAYLOCK - ninja build"
+  command: ninja -C build/ install
+  args:
+    chdir: "{{ swaylock_path | expanduser }}"
+  listen: "swaylock-changed"
+  become: True

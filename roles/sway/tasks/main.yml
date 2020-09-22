@@ -12,6 +12,8 @@
       - libpango-1.0-0
       - acpid
       - playerctl
+      - gir1.2-playerctl-2.0
+      - libplayerctl-dev
   become: True
   tags:
     - sway
@@ -20,20 +22,20 @@
   apt:
     name:
       - ninja-build
-      - wayland-protocols
-      - libwayland-dev
+      - libdrm-dev
   become: True
   tags:
     - sway
 
 - name: "Get and install wayland"
   git:
-    repo: https://gitlab.freedesktop.org/wayland/wayland
+    repo: https://github.com/wayland-project/wayland
     dest: "{{ wayland_path }}"
   register: wayland_repo
   notify: wayland-changed
   tags:
     - sway
+    - git
 
 - name: "Install dependency"
   apt:
@@ -85,6 +87,7 @@
   notify: wlroots-changed
   tags:
     - sway
+    - git
 
 - name: "Clone sway"
   git:
@@ -93,6 +96,7 @@
   notify: sway-changed
   tags:
     - sway
+    - git
 
 - name: "Ensure session file is in place"
   copy:
@@ -101,5 +105,67 @@
   become: True
   tags:
     - sway
- 
+
+- name: "Waybar dependencies"
+  apt:
+    name:
+      - clang-tidy
+      - gobject-introspection
+      - libdbusmenu-gtk3-dev
+      - libfmt-dev
+      - libgirepository1.0-dev
+      - libgtk-3-dev
+      - libgtkmm-3.0-dev
+      - libinput-dev
+      - libjsoncpp-dev
+      - libmpdclient-dev
+      - libnl-3-dev
+      - libnl-genl-3-dev
+      - libpulse-dev
+      - libsigc++-2.0-dev
+      - libspdlog-dev
+      - scdoc
+  become: True
+  tags:
+    - waybar
+  notify:
+    - waybar-changed
+
+- name: "Clone Waybar"
+  git:
+    repo: "https://github.com/Alexays/Waybar"
+    dest: "{{ waybar_path }}"
+  tags:
+    - waybar
+  notify:
+    - waybar-changed
+
+- name: "Copy misc file"
+  copy:
+    src: "{{ waybar_path | expanduser }}/resources/custom_modules/mediaplayer.py"
+    dest: "/usr/local/bin/mediaplayer.py"
+    remote_src: yes
+    mode: preserve
+  become: True
+  tags:
+    - waybar
+
+- name: "Clone swaylock"
+  git:
+    repo: "https://github.com/swaywm/swaylock"
+    dest: "{{swaylock_path}}"
+  tags:
+    - wayland
+  notify:
+    - swaylock-changed
+
+- name: "Clone swayidle"
+  git:
+    repo: "https://github.com/swaywm/swayidle"
+    dest: "{{swayidle_path}}"
+  tags:
+    - wayland
+  notify:
+    - swayidle-changed
+
 - meta: flush_handlers
