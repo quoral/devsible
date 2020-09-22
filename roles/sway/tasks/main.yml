@@ -2,7 +2,6 @@
   apt:
     name:
       - swaybg
-      - swaylock
       - swayidle
       - libevdev-tools
       - autoconf
