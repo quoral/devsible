@@ -1,3 +1,6 @@
+devsible_location: "{{ own_code_path }}/devsible"
+devsible_repostiory:  "{{ github_base }}kallekrantz/devsible{{ github_postfix }}"
 dotfiles_repository: "{{ github_base }}kallekrantz/dotfiles{{ github_postfix }}"
+dotfiles_location: "{{ devsible_location }}/roles/dotfiles"
 dotfiles_branch: "master"
 check_dotfiles_repo: true

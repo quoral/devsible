@@ -1,10 +1,29 @@
+- name: "Create the directory"
+  file:
+    state: directory
+    path: "{{ own_code_path }}"
+  tags:
+    - dotfiles
+
+- name: "Clone devsible repository"
+  git:
+    repo: '{{ devsible_repostiory }}'
+    dest: "{{ devsible_location }}"
+    update: no
+  tags:
+    - dotfiles
+
 - name: "Clone Dotfiles repository"
   git:
     repo: '{{ dotfiles_repository }}'
-    dest: "{{ playbook_dir }}/roles/dotfiles"
+    dest: "{{ dotfiles_location }}"
     version: "{{ dotfiles_branch }}"
   when: check_dotfiles_repo|bool
+  tags:
+    - dotfiles
 
 - name: "Include role"
   include_role:
     name: dotfiles
+  tags:
+    - dotfiles

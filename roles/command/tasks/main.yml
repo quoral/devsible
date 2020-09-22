@@ -1,13 +1,21 @@
 - name: "Ensure folder exists"
   file:
     state: directory 
-    dest: "~/.local/bin"
+    dest: "{{ ansible_env.HOME }}/.local/bin"
   tags:
     - command
 
 - name: "Install aptlib pip"
   apt:
-    name: python3-apt
+    name:
+      - python3-apt
+      - python-setuptools
+  become: True
+
+- name: "Install vagrant from source"
+  apt:
+    deb: "https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb"
+
   become: True
   tags:
     - command
@@ -23,8 +31,8 @@
 
 - name: "Symlink Devsible shortcut"
   file:
-    src: "{{ playbook_dir }}/files/devsible.py"
-    dest: "~/.local/bin/devsible"
+    src: "{{ own_code_path }}/devsible/files/devsible.py"
+    dest: "{{ ansible_env.HOME }}/.local/bin/devsible"
     state: link
   tags:
     - command

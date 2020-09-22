@@ -1,4 +1,10 @@
 ---
+
+- name: "Ensure cache is updated"
+  apt:
+    update_cache: yes
+  become: True
+
 - name: "Install package managers are present"
   apt:
     name:
