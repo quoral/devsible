@@ -29,6 +29,7 @@
       - libfontconfig-dev
       - libpython3.7-dev
       - python3-sphinx
+      - liblcms2-dev
   become: True
   tags:
     - kitty
