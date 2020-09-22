@@ -30,15 +30,16 @@
 - name: "Clone teensy-loader"
   git:
     repo: "{{ teensy_repo }}"
-    dest: "{{ teensy_location }}"
+    dest: "{{ teensy_location | expanduser }}"
   register: "teensy_git"
 
 - name: "Make!"
   make:
-    chdir: "{{ teensy_location }}"
+    chdir: "{{ teensy_location  }}"
 
 - name: "Install teensy"
   copy:
+    remote_src: yes
     src: "{{ teensy_bin }}"
     dest: "{{ teensy_install_location }}"
     mode: preserve

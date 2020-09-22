@@ -1,7 +1,7 @@
 base_url: "https://www.arduino.cc"
 file_name: "arduino-nightly-linux64.tar.xz"
 location: "{{base_url}}/download.php?f=/{{file_name}}"
-tmp_folder: "~/.tmp"
+tmp_folder: "{{ ansible_env.HOME }}/.tmp"
 tmp_location: "{{tmp_folder}}/{{file_name}}"
 arduino_location: "{{tmp_folder}}/arduino-nightly"
 
