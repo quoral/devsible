@@ -1,0 +1,71 @@
+- name: "Install dependencies"
+  apt:
+    name:
+      - libpam0g-dev
+      - libx11-xcb-dev
+      - xcb
+  become: True
+
+- name: "Ensure base folder is created"
+  file:
+    path: "~/Code/Github/ly"
+    state: "directory"
+  register: directory
+
+- name: "Clone ly"
+  git:
+    repo: "https://www.github.com/cylgom/ly"
+    dest: "{{directory.path}}"
+    force: yes
+  register: ly_repo
+  changed_when: "ly_repo.before != ly_repo.after"
+
+- name: "Did Ly actually change"
+  set_fact:
+    ly_changed: "{{ ly_repo.before != ly_repo.after }}"
+
+- name: "Ensure submodules are updated"
+  make:
+    chdir: "{{directory.path}}"
+    target: github
+  when: ly_changed
+
+- name: "Compile ly"
+  make:
+    chdir: "{{directory.path}}"
+  when: ly_changed
+
+- name: "Install ly"
+  make:
+    chdir: "{{directory.path}}"
+    target: installnoconf
+  when: ly_changed
+  become: True
+
+- name: "Enable ly.service"
+  systemd:
+    enabled: yes
+    name: ly
+  become: True
+
+- name: "Register where ly is installed"
+  command: "which ly"
+  register: ly_location
+  check_mode: no
+  changed_when: False
+
+- name: "Set default displaymanager to ly"
+  copy:
+    content: "{{ ly_location.stdout }}"
+    dest: /etc/X11/default-display-manager
+  become: true
+  register: ly_displaymanager
+
+- name: "Set config file"
+  template:
+    src: "files/config.ini"
+    dest: "/etc/ly/config.ini"
+    owner: root
+    group: root
+    mode: '0644'
+  become: True
