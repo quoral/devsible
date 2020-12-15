@@ -1,0 +1,4 @@
+- aur:
+    name: light-git
+  become: True
+  become_user: aur_builder
