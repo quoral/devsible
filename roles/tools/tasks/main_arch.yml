@@ -8,7 +8,7 @@
       - wget
       - fzf
       - htop
-      - ssh-askpass
+      - x11-ssh-askpass
       - jq
       - the_silver_searcher
       - ncdu
