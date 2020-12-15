@@ -20,11 +20,6 @@
       - mercurial
   become: true
 
-- name: Pip
-  community.general.pacman:
-    name: python-pip
-  become: True
-
 # - name: Utilities
 #   community.general.pacman:
 #     name:
