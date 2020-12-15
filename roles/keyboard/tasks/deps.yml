@@ -44,9 +44,3 @@
     dest: "{{ teensy_install_location }}"
     mode: preserve
   become: True
-
-- name: "Install wrapper"
-  copy:
-    src: "files/keyboard.sh"
-    dest: "~/.local/bin/keyboard"
-    mode: preserve

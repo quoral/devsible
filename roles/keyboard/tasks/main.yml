@@ -5,6 +5,23 @@
       tags:
         - keyboard
   tags: keyboard
+  when: ansible_distribution == "Ubuntu"
+
+- name: "Install arch dependencies"
+  community.general.pacman:
+    name:
+      - teensy-loader-cli
+      - arduino-avr-core
+      - arduino-cli
+      - arduino
+  become: True
+  when: ansible_distribution == "Archlinux"
+
+- name: "Install wrapper"
+  copy:
+    src: "files/keyboard.sh"
+    dest: "~/.local/bin/keyboard"
+    mode: preserve
 
 - name: "Ensure folder"
   file:
