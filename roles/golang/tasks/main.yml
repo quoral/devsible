@@ -3,9 +3,29 @@
   register: go_location
   check_mode: no
   changed_when: false
+  tags: golang
 
 
 - name: "Install Go Packages"
-  command: "{{ go_location.stdout }} get -u {{ item }}"
+  command: "{{ go_location.stdout }} get {{ item }}"
   with_items: "{{ default_packages }}"
   changed_when: false
+  tags: golang
+
+- name: "Where is the bazelisk binary?"
+  command: "which bazelisk"
+  register: bazelisk_location
+  check_mode: no
+  changed_when: false
+  tags:
+    - golang
+    - bazelisk
+
+- name: "Symlink it to bazel trucker!"
+  file:
+    src: "{{ bazelisk_location.stdout }}"
+    dest: "{{ ansible_env.HOME }}/.local/bin/bazel"
+    state: link
+  tags:
+    - golang
+    - bazelisk

@@ -7,3 +7,4 @@ default_packages:
   - "golang.org/x/tools/cmd/guru"
   - "github.com/cweill/gotests/..."
   - "github.com/fatih/gomodifytags"
+  - "github.com/bazelbuild/bazelisk"
