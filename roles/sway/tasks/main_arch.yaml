@@ -1,3 +1,4 @@
-- yay:
+- aur:
     name: sway-git
   become: True
+  become_user: aur_builder
