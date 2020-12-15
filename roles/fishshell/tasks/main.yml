@@ -2,6 +2,13 @@
   apt:
     name: fish
   become: true
+  when: ansible_distribution == "Ubuntu"
+
+- name: "Install fish"
+  community.general.pacman:
+    name: fish
+  become: true
+  when: ansible_distribution == "Archlinux"
 
 - name: "Register where fish is installed"
   command: "which fish"
