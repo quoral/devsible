@@ -2,7 +2,9 @@
 - name: emacs install
   community.general.pacman:
     name: emacs
+  become: True
 
 - name: vscode install
   community.general.pacman:
     name: code
+  become: True
