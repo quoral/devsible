@@ -29,3 +29,7 @@
     create: yes
     validate: 'visudo -cf %s'
   become: True
+
+- git:
+    repo: 'https://github.com/kewlfft/ansible-aur'
+    dest: "{{ ansible_env.HOME }}/.ansible/plugins/modules/aur"
