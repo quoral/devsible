@@ -5,21 +5,6 @@
   tags:
     - command
 
-- name: "Install aptlib pip"
-  apt:
-    name:
-      - python3-apt
-      - python-setuptools
-  become: True
-
-- name: "Install vagrant from source"
-  apt:
-    deb: "https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb"
-
-  become: True
-  tags:
-    - command
-
 - name: "Install dependencies of the executable"
   pip:
     executable: pip3

@@ -2,4 +2,11 @@
   apt:
     name: libfido2-1
     update_cache: True
+  when: ansible_distribution == "Ubuntu"
+  become: True
+
+- name: "Install udev driver"
+  community.general.pacman:
+    name: libfido2
+  when: ansible_distribution == "Archlinux"
   become: True

@@ -3,4 +3,13 @@
     name:
       - blueman
       - bluez-tools
+  when: ansible_distribution == "Ubuntu"
+  become: True
+
+- name: "Install blueman"
+  community.general.pacman:
+    name:
+      - blueman
+      - bluez-tools
+  when: ansible_distribution == "Archlinux"
   become: True
