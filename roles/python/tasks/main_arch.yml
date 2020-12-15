@@ -1,0 +1,5 @@
+- name: Python install
+  community.general.pacman:
+    name:
+      - python
+      - python-pip

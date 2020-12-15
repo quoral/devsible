@@ -3,6 +3,7 @@
   hosts: programming
   roles:
     - python
+    - tools
     - asdf
     - golang
     - dotfiles_bootstrap

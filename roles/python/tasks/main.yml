@@ -1,13 +1,8 @@
-- name: "Get latest python 3"
-  apt:
-    name:
-      - python3
-      - python3-pip
-      - python3-setuptools
-    state: latest
-  become: true
-  tags:
-    - python
+- include_tasks: main_ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+
+- include_tasks: main_ubuntu.yml
+  when: ansible_distribution == "Archlinux"
 
 - name: "Ensure other deps are made available"
   pip:
@@ -21,16 +16,5 @@
       - ninja
       - meson
     state: latest
-  tags:
-    - python
-
-- name: "Lazy way to ensure that I can compile stuff on root"
-  pip:
-    executable: pip3
-    name:
-      - ninja
-      - meson
-    state: latest
-  become: True
   tags:
     - python
