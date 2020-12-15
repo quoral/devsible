@@ -10,22 +10,13 @@
   command: "{{ go_location.stdout }} get {{ item }}"
   with_items: "{{ default_packages }}"
   environment:
-    GOPATH: "~/Code/go"
+    GOPATH: "{{ ansible_env.HOME }}/Code/go"
   changed_when: false
   tags: golang
 
-- name: "Where is the bazelisk binary?"
-  command: "which bazelisk"
-  register: bazelisk_location
-  check_mode: no
-  changed_when: false
-  tags:
-    - golang
-    - bazelisk
-
 - name: "Symlink it to bazel trucker!"
   file:
-    src: "{{ bazelisk_location.stdout }}"
+    src: "{{ ansible_env.HOME }}/Code/go/bin/bazelisk"
     dest: "{{ ansible_env.HOME }}/.local/bin/bazel"
     state: link
   tags:
