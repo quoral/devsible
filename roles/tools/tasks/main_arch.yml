@@ -18,8 +18,10 @@
       - tree
       - cloc
       - mercurial
+  become: true
 
 - name: Utilities
   community.general.pacman:
     name:
       - spotify
+  become: true
