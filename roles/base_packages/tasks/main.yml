@@ -7,4 +7,4 @@
 
 - name: "Include Arch Tasks"
   include_tasks: "main_arch.yml"
-  when: ansible_distribution == "ArchLinux"
+  when: ansible_distribution == "Archlinux"
