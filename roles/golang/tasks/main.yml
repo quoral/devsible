@@ -9,6 +9,8 @@
 - name: "Install Go Packages"
   command: "{{ go_location.stdout }} get {{ item }}"
   with_items: "{{ default_packages }}"
+  environment:
+    GOPATH: "~/Code/go"
   changed_when: false
   tags: golang
 
