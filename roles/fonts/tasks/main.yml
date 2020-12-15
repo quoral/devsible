@@ -1,7 +1,6 @@
-- name: "Install font dependencies"
-  apt:
-    name: fontconfig
-  become: true
+
+- name: "include tasks"
+  include_tasks: "main_dependencies.yml"
 
 - name: "Ensure base folder is created"
   file:
@@ -26,15 +25,6 @@
     src: "{{directory.path}}/source-code-pro"
     dest: "~/.local/share/fonts/source-code-pro"
     state: link
-
-- name: "Install color libraries"
-  apt:
-    name:
-      - fonts-noto-color-emoji
-      - fonts-powerline
-      - fonts-roboto
-      - fonts-font-awesome
-  become: True
 
 - name: "Run fc-cache"
   command: fc-cache -f -v

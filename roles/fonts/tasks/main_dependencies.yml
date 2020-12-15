@@ -1,0 +1,21 @@
+---
+- name: "Install font dependencies"
+  apt:
+    name:
+      - fontconfig
+      - fonts-noto-color-emoji
+      - fonts-powerline
+      - fonts-roboto
+      - fonts-font-awesome
+  become: true
+  when: ansible_distribution == "Ubuntu"
+
+- name: "Install font dependencies"
+  community.general.pacman:
+    name:
+      - fontconfig
+      - ttf-font-awesome
+      - ttf-roboto
+      - noto-fonts-emoji
+      - fonts-powerline
+  when: ansible_distribution == "Archlinux"
