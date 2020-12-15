@@ -1,25 +1,8 @@
-- name: "VsCode"
-  snap:
-    name: code-insiders
-    classic: yes
-  become: true
+- include_tasks: "main_arch.yml"
+  when: ansible_distribution == "Archlinux"
 
-- name: "Install emacs ppa"
-  apt_repository:
-    repo: ppa:ubuntu-elisp/ppa
-  become: True
-
-- name: "Install emacs ppa"
-  apt_repository:
-    repo: ppa:kelleyk/emacs
-  become: True
-
-- name: "Install emacs"
-  apt:
-    name:
-      - emacs26
-    update_cache: True
-  become: True
+- include_tasks: "main_ubuntu.yml"
+  when: ansible_distribution == "Ubuntu"
 
 - name: "emacs doom git repository"
   git:

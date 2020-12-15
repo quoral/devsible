@@ -1,0 +1,8 @@
+
+- name: emacs install
+  community.general.pacman:
+    name: emacs
+
+- name: vscode install
+  community.general.pacman:
+    name: code
