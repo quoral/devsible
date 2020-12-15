@@ -1,7 +1,7 @@
 - include_tasks: main_ubuntu.yml
   when: ansible_distribution == "Ubuntu"
 
-- include_tasks: main_ubuntu.yml
+- include_tasks: main_arch.yml
   when: ansible_distribution == "Archlinux"
 
 - name: "Ensure other deps are made available"
