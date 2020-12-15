@@ -1,79 +1,11 @@
-- name: "Ensure neofetch is available"
-  apt:
-    name:
-      - neofetch
-      - ranger
-  become: true
+- include_tasks: main_ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
 
-- name: "Install snap applications"
-  snap:
-    name:
-      - glances
-  become: true
-
-- name: "Install spotify key"
-  apt_key:
-    url: https://download.spotify.com/debian/pubkey.gpg
-  become: True
-
-- name: "Install spotify repo"
-  apt_repository:
-    repo: deb http://repository.spotify.com stable non-free
-    update_cache: True
-  become: True
-
-- name: "Install spotify-client"
-  apt:
-    name: spotify-client
-  become: True
-
-- name: "Install utilities"
-  apt:
-    name:
-      - curl
-      - unzip
-      - wget
-      - fzf
-      - htop
-      - net-tools
-      - wl-clipboard
-      - ssh-askpass
-      - jq
-      - silversearcher-ag
-      - ncdu
-      - ripgrep
-      - xdg-utils
-      - mime-support
-      - atool
-      - tree
-      - cloc
-      - mercurial
-  become: true
+- include_tasks: main_arch.yml
+  when: ansible_distribution == "Archlinux"
 
 - name: "Install python tools"
   pip:
     executable: pip3
     name:
       - awscli
-
-- name: "install virtualbox and dependencies"
-  apt:
-    name:
-      - virtualbox 
-      - virtualbox-dkms
-      - linux-headers-generic
-  become: true
-
-- name: "Connect glances"
-  command: "snap connect glances:{{item}}"
-  become: true
-  with_items:
-    - network
-    - system-observe
-    - mount-observe
-    - hardware-observe
-    - log-observe
-    - network-observe
-    - physical-memory-observe
-    - upower-observe
-  changed_when: false

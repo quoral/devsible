@@ -1,0 +1,25 @@
+- name: "Tools"
+  community.general.pacman:
+    name:
+      - neofetch
+      - ranger
+      - curl
+      - unzip
+      - wget
+      - fzf
+      - htop
+      - ssh-askpass
+      - jq
+      - the_silver_searcher
+      - ncdu
+      - ripgrep
+      - xdg-utils
+      - atool
+      - tree
+      - cloc
+      - mercurial
+
+- name: Utilities
+  community.general.pacman:
+    name:
+      - spotify
