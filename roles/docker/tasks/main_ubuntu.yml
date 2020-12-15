@@ -1,0 +1,31 @@
+- name: Add an Apt signing key to a specific keyring file
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+  become: True
+  
+- name: "Add docker package source"
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu disco stable
+    state: present
+  become: True
+  register: docker_package_source
+
+- name: Update cache if we just added the above
+  apt:
+    update_cache: true
+  when: "docker_package_source.changed|bool"
+  become: True
+
+- name: Install docker
+  apt:
+    name: 
+      - docker-ce 
+      - docker-ce-cli 
+      - containerd.io
+  become: true
+
+- name: Start docker
+  service:
+    name: docker
+    state: started
+  become: True

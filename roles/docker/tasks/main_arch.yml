@@ -1,0 +1,4 @@
+- name: vscode install
+  community.general.pacman:
+    name: docker
+  become: True
