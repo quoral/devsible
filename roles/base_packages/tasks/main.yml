@@ -1,57 +1,10 @@
 ---
+---
 
-- name: "Ensure cache is updated"
-  apt:
-    update_cache: yes
-  become: True
+- name: "Include Ubuntu Tasks"
+  include_tasks: "main_ubuntu.yml"
+  when: ansible_distribution == "Ubuntu"
 
-- name: "Install package managers are present"
-  apt:
-    name:
-      - aptitude
-      - snapd
-      - python3-pip
-  become: true
-
-- name: "Live on the edge, add source!"
-  apt_repository:
-    repo: "deb http://archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-proposed restricted main multiverse universe"
-  become: True
-
-- name: "Full dist-upgrade, long cache time"
-  apt:
-    upgrade: "dist"
-    update_cache: "yes"
-    autoremove: yes
-    autoclean: yes
-    cache_valid_time: 3600
-  become: yes
-
-- name: "Ensure var folder"
-  file:
-    state: directory
-    path: "/var/lib/devsible"
-  become: True
-
-- name: "Create apt-updater.py in /usr/local/bin"
-  copy:
-    src: "{{ playbook_dir }}/files/apt-updater.py"
-    dest: "/usr/local/bin/apt-updater"
-    mode: '755'
-  become: True
-
-- name: Ensure apt update is run regularly
-  cron:
-    name: apt updater
-    special_time: hourly
-    user: root
-    job: /usr/local/bin/apt-updater
-    cron_file: desvible_apt-update
-  become: True
-
-- name: "Write current timestamp to file."
-  copy:
-    content: "{{ ansible_date_time.iso8601 }}"
-    dest: /var/lib/devsible/last_run
-  changed_when: False
-  become: True
+- name: "Include Arch Tasks"
+  include_tasks: "main_arch.yml"
+  when: ansible_distribution == "ArchLinux"

@@ -1,0 +1,19 @@
+---
+
+- name: "Ensure cache is updated"
+  community.general.pacman:
+    upgrade: yes
+  become: True
+
+- name: "Ensure var folder"
+  file:
+    state: directory
+    path: "/var/lib/devsible"
+  become: True
+
+- name: "Write current timestamp to file."
+  copy:
+    content: "{{ ansible_date_time.iso8601 }}"
+    dest: /var/lib/devsible/last_run
+  changed_when: False
+  become: True
