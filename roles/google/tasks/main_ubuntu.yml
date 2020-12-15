@@ -1,0 +1,24 @@
+- name: Add an Apt signing key to a specific keyring file
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    keyring: /usr/share/keyrings/cloud.google.gpg
+  become: True
+  
+- name: "Add google package source"
+  apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main
+    state: present
+  become: True
+  register: package_source
+
+- name: Update cache if we just added the above
+  apt:
+    update_cache: true
+  when: package_source.changed  
+  become: True
+
+- name: "Install google tooling"
+  apt:
+    name:
+      - google-cloud-sdk
+  become: True
