@@ -6,3 +6,9 @@
     - kanshi
   notify:
     - kanshi-changed
+  when: ansible_distribution == "Archlinux"
+
+- aur:
+    name: kanshi-git
+  become: True
+  become_user: aur_builder
