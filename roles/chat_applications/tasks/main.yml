@@ -4,11 +4,13 @@
       - discord
       - whatsdesk
   become: true
+  when: ansible_distribution == "Ubuntu"
 
 - name: "Connect discord to system-observe"
   command: snap connect discord:system-observe
   become: True
   changed_when: false
+  when: ansible_distribution == "Ubuntu"
 
 - name: "Install slack"
   snap:
@@ -16,3 +18,4 @@
       - slack
     classic: yes
   become: true
+  when: ansible_distribution == "Ubuntu"
