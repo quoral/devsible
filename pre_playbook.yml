@@ -1,0 +1,29 @@
+---
+# tasks file for ansible_aur_install
+
+# Instructions as per https://wiki.archlinux.org/index.php/Ansible#AUR
+- name: Boostrap Ansible
+  gather_facts: false
+  hosts: computer
+  tasks:
+  - name: Setup the aur_builder user
+    user: name=aur_builder
+    become: yes
+
+  - name: Add the aur_builder to sudo
+    lineinfile:
+        path: /etc/sudoers.d/aur_builder-allow-to-sudo-pacman
+        state: present
+        line: "aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+        validate: /usr/sbin/visudo -cf %s
+        create: yes
+    become: yes
+
+  - name: Install the ansible-aur module
+    git:
+      repo: https://github.com/kewlfft/ansible-aur.git
+      dest: "{{ library_path }}/ansible-aur"
+    become: yes
+
+  - name: "Install galaxy dependency"
+    command: ansible-galaxy collection install community.general
