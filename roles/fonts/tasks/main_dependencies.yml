@@ -18,4 +18,5 @@
       - ttf-roboto
       - noto-fonts-emoji
       - fonts-powerline
+  become: True
   when: ansible_distribution == "Archlinux"
