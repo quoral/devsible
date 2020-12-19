@@ -1,0 +1,4 @@
+- aur:
+    name: wl-clipboard-git
+  become: True
+  become_user: aur_builder
