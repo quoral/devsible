@@ -22,7 +22,7 @@
   - name: Install the ansible-aur module
     git:
       repo: https://github.com/kewlfft/ansible-aur.git
-      dest: "{{ library_path }}/ansible-aur"
+      dest: "{{ ansible_env.HOME }}/.ansible/plugins/modules/aur"
     become: yes
 
   - name: "Install galaxy dependency"
