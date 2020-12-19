@@ -1,5 +1,4 @@
 ---
----
 
 - name: "Include Ubuntu Tasks"
   include_tasks: "main_ubuntu.yml"
