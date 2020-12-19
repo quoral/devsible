@@ -3,7 +3,6 @@
 
 # Instructions as per https://wiki.archlinux.org/index.php/Ansible#AUR
 - name: Boostrap Ansible
-  gather_facts: false
   hosts: computer
   tasks:
   - name: Setup the aur_builder user
@@ -21,3 +20,8 @@
 
   - name: "Install galaxy dependency"
     command: ansible-galaxy collection install community.general
+
+  - name: "Install aur dependency"
+    git:
+      repo: 'https://github.com/kewlfft/ansible-aur'
+      dest: "{{ ansible_env.HOME }}/.ansible/plugins/modules/aur"
