@@ -34,3 +34,15 @@
     create: yes
     validate: 'visudo -cf %s'
   become: True
+
+- name: Make sure a service is running
+  systemd:
+    name: systemd-networkd
+    enabled: True
+  become: True
+
+- name: Make sure a service is running
+  systemd:
+    name: systemd-resolved
+    enabled: True
+  become: True
