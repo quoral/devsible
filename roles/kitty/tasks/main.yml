@@ -2,4 +2,4 @@
   when: ansible_distribution == "Ubuntu"
 
 - include_tasks: main_arch.yml
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_distribution == "Archlinux"

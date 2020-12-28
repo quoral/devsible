@@ -5,6 +5,11 @@
     upgrade: yes
   become: True
 
+- name: "Ensure cache is updated"
+  community.general.pacman:
+    name: sshpass
+  become: True
+
 - name: "Ensure var folder"
   file:
     state: directory

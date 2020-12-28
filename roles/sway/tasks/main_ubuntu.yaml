@@ -76,9 +76,12 @@
       - libcap-dev
       - libxcb-composite0
       - libxcb-composite0-dev
+      - libxcb-dri3-dev
+      - libxcb-present-dev
   become: True
   tags:
     - sway
+  notify: wlroots-changed
 
 - name: "Clone wlroots"
   git:

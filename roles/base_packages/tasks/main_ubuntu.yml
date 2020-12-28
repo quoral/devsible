@@ -11,6 +11,7 @@
       - aptitude
       - snapd
       - python3-pip
+      - sshpass
   become: true
 
 - name: "Live on the edge, add source!"

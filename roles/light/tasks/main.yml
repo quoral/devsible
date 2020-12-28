@@ -4,13 +4,6 @@
 - include_tasks: main_arch.yml
   when: ansible_distribution == "Archlinux"
 
-- name: "Get a better backlight manager"
-  git:
-    repo: "https://github.com/haikarainen/light"
-    dest: "{{ light_directory }}"
-  notify: light-changed
-  tags:
-    - light
 
 - name: "Add acpid brightness controls"
   copy:
