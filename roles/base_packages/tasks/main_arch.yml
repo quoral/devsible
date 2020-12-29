@@ -46,3 +46,10 @@
     name: systemd-resolved
     enabled: True
   become: True
+
+- name: Copy network configuration
+  copy:
+    src: "files/{{ item }}"
+    dest: "/etc/systemd/network/{{ item }}"
+  with_items: network_files
+  become: True
