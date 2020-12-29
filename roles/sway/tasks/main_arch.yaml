@@ -2,7 +2,6 @@
     name:
       - sway-git
       - wlroots-git
-      - waybar-git
       - kanshi-git
   become: True
   become_user: aur_builder
@@ -10,6 +9,7 @@
 - name: "Ensure cache is updated"
   community.general.pacman:
     name:
+      - waybar
       - dmenu
       - swayidle
       - mako
