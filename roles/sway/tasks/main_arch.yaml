@@ -1,4 +1,16 @@
 - aur:
-    name: sway-git
+    name:
+      - sway-git
+      - wlroots-git
+      - waybar-git
+      - kanshi-git
   become: True
   become_user: aur_builder
+
+- name: "Ensure cache is updated"
+  community.general.pacman:
+    name:
+      - dmenu
+      - swayidle
+      - mako
+  become: True
