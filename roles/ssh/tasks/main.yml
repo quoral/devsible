@@ -1,9 +1,9 @@
 - name: ensure directory exists
-  copy:
-    dest: "{{ ansible_env.HOME }}/.ssh"
+  file:
+    path: "{{ ansible_env.HOME }}/.ssh"
     state: directory
 
 - name: ensure file exists
   copy:
-    dest: "{{ ansible_env.HOME }}/.ssh/environment"
+    path: "{{ ansible_env.HOME }}/.ssh/environment"
     state: touch
