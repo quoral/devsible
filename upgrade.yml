@@ -3,5 +3,6 @@
   hosts: computer
   roles:
     - base_packages
+    - ssh
     - fonts
     - kernel_settings
