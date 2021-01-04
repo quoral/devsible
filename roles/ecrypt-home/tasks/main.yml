@@ -11,15 +11,20 @@
     name: ecryptfs
     state: present
   become: True
+  ignore_errors: True
+  register: load_kernel_module
 
-- name: "Get password"
-  pause:
-    prompt: "Enter users password"
-    echo: no
-  register: user_password
+- block:
+  - name: "Get password"
+    pause:
+        prompt: "Enter users password"
+        echo: no
+    register: user_password
 
-- name: "Encrypt users homefolder"
-  command: ecryptfs-migrate-home --user {{ ansible_user }}
-  args:
-    stdin: "{{ user_password.user_input }}"
-    chdir: /
+  - name: "Encrypt users homefolder"
+    command: ecryptfs-migrate-home --user {{ ansible_user }}
+    args:
+        stdin: "{{ user_password.user_input }}"
+        chdir: /
+    become: True
+  when: load_kernel_module is not failed
