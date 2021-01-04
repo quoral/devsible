@@ -4,7 +4,7 @@
       - ecryptfs-utils
       - rsync
       - lsof
-    become: True
+  become: True
 
 - name: "Load kernel module"
   community.general.modprobe:
