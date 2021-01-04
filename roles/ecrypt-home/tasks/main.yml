@@ -9,7 +9,7 @@
 - name: "Load kernel module"
   community.general.modprobe:
     name: ecryptfs
-    state: Present
+    state: present
   become: True
 
 - name: "Get password"
