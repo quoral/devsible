@@ -3,6 +3,7 @@
   hosts: computer
   roles:
     - base_packages
+    - ecrypt-home
     - ssh
     - fonts
     - kernel_settings
