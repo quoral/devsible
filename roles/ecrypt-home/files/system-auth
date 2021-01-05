@@ -23,7 +23,7 @@ password    optional                    pam_ecryptfs.so
 password    required                    pam_unix.so         try_first_pass nullok shadow
 password    optional                    pam_permit.so
 
-session     required                    pam_limit.so
+session     required                    pam_limits.so
 session     required                    pam_unix.so
 session     optional                    pam_ecryptfs.so     unwrap
 session     optional                    pam_permit.so
