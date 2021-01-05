@@ -14,17 +14,20 @@
   ignore_errors: True
   register: load_kernel_module
 
-- block:
-  - name: "Get password"
-    pause:
-        prompt: "Enter users password"
-        echo: no
-    register: user_password
+- name: stat ecryptfs
+  stat:
+    path: "{{ ansible_env.HOME }}/."
+  register: ecrypt_folder
 
-  - name: "Encrypt users homefolder"
-    command: ecryptfs-migrate-home --user {{ ansible_user }}
-    args:
-        stdin: "{{ user_password.user_input }}"
-        chdir: /
-    become: True
-  when: load_kernel_module is not failed
+- block:
+  - name: "Create ecryptfs module load component"
+    copy:
+      dest: /etc/modules-load.d/ecryptfs.conf
+      content: "ecryptfs"
+
+  - name: "Dump our own pam config if we're running in encrypted mode"
+    copy:
+      src: files/system-auth
+      dest: /etc/pam.d/system-auth
+  become: True
+  when: load_kernel_module is not failed and ecrypt_folder.stat.exists and ecrypt_folder.stat.isdir
