@@ -1,0 +1,6 @@
+- name: "Install firefox and chrome stable"
+  community.general.pacman:
+    name:
+      - chromium
+      - firefox
+  become: True

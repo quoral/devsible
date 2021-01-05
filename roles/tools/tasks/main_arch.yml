@@ -20,8 +20,9 @@
       - mercurial
   become: true
 
-# - name: Utilities
-#   community.general.pacman:
-#     name:
-#       - spotify
-#   become: true
+- name: Spotify install
+  aur:
+    name:
+      - spotify
+  become: True
+  become_user: aur_builder
