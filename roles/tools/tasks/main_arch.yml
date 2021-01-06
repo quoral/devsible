@@ -20,9 +20,9 @@
       - mercurial
   become: true
 
-# - name: Spotify install
-#   aur:
-#     name:
-#       - spotify
-#   become: True
-#   become_user: aur_builder
+- name: Spotify install
+  aur:
+    name:
+      - spotify
+  become: True
+  become_user: aur_builder

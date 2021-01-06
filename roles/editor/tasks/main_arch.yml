@@ -4,6 +4,11 @@
     name: emacs
   become: True
 
+- name: vim install
+  community.general.pacman:
+    name: vim
+  become: True
+
 - name: vscode install
   community.general.pacman:
     name: code
