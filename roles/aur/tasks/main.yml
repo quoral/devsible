@@ -32,3 +32,4 @@
   become: True
   become_user: aur_builder
   with_items: "{{ keys }}"
+  changed_when: False
