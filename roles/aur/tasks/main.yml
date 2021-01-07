@@ -21,7 +21,7 @@
   copy:
     src: files/dirmngr.conf
     dest: /home/aur_builder/.gnupg/dirmngr.conf
-  trigger: kill-aur-builder-dirmngr
+  notify: kill-aur-builder-dirmngr
   become: True
   become_user: aur_builder
 
