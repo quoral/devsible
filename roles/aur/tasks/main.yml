@@ -37,5 +37,5 @@
   command: "gpg --keyserver {{ item.keyserver }} --recv-keys {{ item.key }}"
   become: True
   become_user: aur_builder
-  when: item not in gpg_keys.stdout_lines
+  when: item not in gpg_keys.stdout
   with_items: "{{ keys }}"
