@@ -27,7 +27,7 @@
 
 - meta: flush_handlers
 
-- name: Import specific keys that are nice :tm:
+- name: "Import specific keys that are nice :tm:"
   command: "gpg --keyserver {{ item.keyserver }} --recv-keys {{ item.key }}"
   become: True
   become_user: aur_builder
