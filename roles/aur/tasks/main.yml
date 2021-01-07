@@ -27,9 +27,15 @@
 
 - meta: flush_handlers
 
+- name: "Get existing keys"
+  shell: gpg --with-colons --fingerprint | awk "-F:" '$1 == "fpr" {print $10;}'
+  become: True
+  become_user: aur_builder
+  register: gpg_keys
+
 - name: "Import specific keys that are nice :tm:"
   command: "gpg --keyserver {{ item.keyserver }} --recv-keys {{ item.key }}"
   become: True
   become_user: aur_builder
   with_items: "{{ keys }}"
-  changed_when: False
+  when: "item not in gpg_keys.stdout_lines"

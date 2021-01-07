@@ -1,3 +1,5 @@
 keys:
   - key: 8FD3D9A8D3800305A9FFF259D1742AD60D811D58
     keyserver: hkp://keyserver.ubuntu.com:80
+  - key: 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
+    keyserver: hkp://keyserver.ubuntu.com:80
