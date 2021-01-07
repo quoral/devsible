@@ -1,5 +1,6 @@
 - name: kill all dirmngr instances for user
-  command: killall dirmngr
+  command: pkill -9 --exact dirmngr
   become: True
   become_user: aur_builder
+  ignore_errors: True
   listen: kill-aur-builder-dirmngr
