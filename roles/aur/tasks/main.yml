@@ -32,6 +32,7 @@
   become: True
   become_user: aur_builder
   register: gpg_keys
+  changed_when: False
 
 - name: "Import specific keys that are nice :tm:"
   command: "gpg --keyserver {{ item.keyserver }} --recv-keys {{ item.key }}"
