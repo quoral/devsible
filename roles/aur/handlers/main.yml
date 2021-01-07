@@ -1,0 +1,5 @@
+- name: kill all dirmngr instances for user
+  command: killall dirmngr
+  become: True
+  become_user: aur_builder
+  listen: kill-aur-builder-dirmngr

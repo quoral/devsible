@@ -1,0 +1,34 @@
+- user:
+    name: aur_builder
+    group: wheel
+  become: True
+
+- lineinfile:
+    path: /etc/sudoers.d/11-install-aur_builder
+    line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+    create: yes
+    validate: 'visudo -cf %s'
+  become: True
+
+- name: "Ensure aur_builder .gnupg folder exists"
+  file:
+    path: "/home/aur_builder/.gnupg"
+    state: directory
+  become: True
+  become_user: aur_builder
+
+- name: "Copy our dirmngr.conf"
+  copy:
+    src: files/dirmngr.conf
+    dest: /home/aur_builder/.gnupg/dirmngr.conf
+  trigger: kill-aur-builder-dirmngr
+  become: True
+  become_user: aur_builder
+
+- meta: flush_handlers
+
+- name: Import specific keys that are nice :tm:
+  command: "gpg --keyserver {{ item.keyserver }} --recv-keys {{ item.key }}"
+  become: True
+  become_user: aur_builder
+  with_items: "{{ keys }}"
