@@ -1,5 +1,5 @@
 [Match]
-Name=wifi*
+Name=wlp*
 
 [Network]
 DHCP=yes

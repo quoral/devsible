@@ -42,4 +42,6 @@
   with_items:
   - 10-wired.network
   - 11-wifi.network
+  - 12-wlp.network
+  become: True
   become: True
