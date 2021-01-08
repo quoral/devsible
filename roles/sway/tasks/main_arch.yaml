@@ -13,4 +13,8 @@
       - dmenu
       - swayidle
       - mako
+      - grim
+      - slurp
+      - swayidle
+      - swaylock
   become: True
