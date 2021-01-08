@@ -23,7 +23,18 @@
   changed_when: False
   become: True
 
-- name: Make sure a service is running
+- name: Install iwd
+  community.general.pacman:
+    name: iwd
+  become: True
+
+- name: "Make sure iwd is enabled"
+  systemd:
+    name: iwd.service
+    enabled: True
+  become: True
+
+- name: Make sure networkd is enabled
   systemd:
     name: systemd-networkd
     enabled: True
@@ -44,4 +55,20 @@
   - 11-wifi.network
   - 12-wlp.network
   become: True
+
+- name: Copy iwd configuration
+  copy:
+    src: "files/iwd-main.conf"
+    dest: /etc/iwd/main.conf
   become: True
+
+# Below idea is taken from https://github.com/nextcloud/nextcloud-snap/issues/881
+# Should resolve issues where our system cannot resolve external things.
+
+- name: configure `/etc/resolv.conf` to point to dynamic stub
+  file:
+    path: /etc/resolv.conf
+    src: /run/systemd/resolve/stub-resolv.conf
+    force: yes
+    state: link
+  become: yes
