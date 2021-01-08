@@ -5,7 +5,7 @@
     upgrade: yes
   become: True
 
-- name: "Ensure cache is updated"
+- name: "Ensure sshpass is installed"
   community.general.pacman:
     name: sshpass
   become: True
@@ -40,7 +40,7 @@
     enabled: True
   become: True
 
-- name: Make sure a service is running
+- name: Make sure resolved is enabled
   systemd:
     name: systemd-resolved
     enabled: True
