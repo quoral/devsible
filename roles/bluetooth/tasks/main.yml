@@ -11,5 +11,14 @@
     name:
       - blueman
       - bluez-tools
+      - bluez-utils
+  when: ansible_distribution == "Archlinux"
+  become: True
+
+- name: "Make sure snapd is enabled"
+  systemd:
+    name: bluetooth.service
+    state: started
+    enabled: True
   when: ansible_distribution == "Archlinux"
   become: True
