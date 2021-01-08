@@ -15,7 +15,7 @@
   when: ansible_distribution == "Archlinux"
   become: True
 
-- name: "Make sure snapd is enabled"
+- name: "Make sure bluetooth is enabled and started"
   systemd:
     name: bluetooth.service
     state: started
