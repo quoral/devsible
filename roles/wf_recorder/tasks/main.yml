@@ -3,3 +3,11 @@
 
 - include_tasks: main_arch.yml
   when: ansible_distribution == "Archlinux"
+
+- name: "Symlink recording script"
+  file:
+    src: "{{ own_code_path }}/devsible/files/screen-record.sh"
+    dest: "{{ ansible_env.HOME }}/.local/bin/screen-record"
+    state: link
+  tags:
+    - wf-recorder
