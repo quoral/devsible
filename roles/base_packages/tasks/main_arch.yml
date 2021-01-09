@@ -75,14 +75,3 @@
     src: "files/iwd-main.conf"
     dest: /etc/iwd/main.conf
   become: True
-
-# Below idea is taken from https://github.com/nextcloud/nextcloud-snap/issues/881
-# Should resolve issues where our system cannot resolve external things.
-
-- name: configure `/etc/resolv.conf` to point to dynamic stub
-  file:
-    path: /etc/resolv.conf
-    src: /run/systemd/resolve/stub-resolv.conf
-    force: yes
-    state: link
-  become: yes
