@@ -10,20 +10,6 @@
     name: sshpass
   become: True
 
-- name: "Install snapd"
-  aur:
-    name:
-      - snapd
-  become: True
-  become_user: aur_builder
-
-- name: "Make sure snapd is enabled"
-  systemd:
-    name: snapd.service
-    state: started
-    enabled: True
-  become: True
-
 - name: "Ensure var folder"
   file:
     state: directory

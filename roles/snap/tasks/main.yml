@@ -1,0 +1,27 @@
+- name: "Install snapd"
+  aur:
+    name:
+      - snapd
+  become: True
+  become_user: aur_builder
+
+- name: "Make sure snapd is enabled"
+  systemd:
+    name: snapd.service
+    state: started
+    enabled: True
+  become: True
+
+- name: collect facts about system services
+  service_facts:
+  register: services_state
+
+- name: Try to install snaps if snapd is running
+  snap:
+    name:
+      - "{{ item.name }}"
+    channel: "{{ item.channel | default('stable') }}"
+    classic: "{{ item.classic | default(False) }}"
+  with_items: "{{ snaps }}"
+  when: services_state.ansible_facts.services["snapd.service"].state == "running"
+  become: True

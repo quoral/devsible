@@ -3,7 +3,7 @@
   hosts: computer
   roles:
     - fishshell
-    - chat_applications
+    - snap
     - browsers
     - command
     - lib_dependencies

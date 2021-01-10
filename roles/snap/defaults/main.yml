@@ -1,0 +1,6 @@
+snaps:
+  - name: whatsdesk
+  - name: discord
+    channel: beta
+  - name: slack
+    classic: True
