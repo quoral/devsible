@@ -56,6 +56,12 @@
   - 12-wlp.network
   become: True
 
+- name: Ensure iwd configuration folder
+  file:
+    state: directory
+    dest: /etc/iwd
+  become: True
+
 - name: Copy iwd configuration
   copy:
     src: "files/iwd-main.conf"
