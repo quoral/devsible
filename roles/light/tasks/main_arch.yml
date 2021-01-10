@@ -2,3 +2,14 @@
     name: light-git
   become: True
   become_user: aur_builder
+
+- community.general.pacman:
+    name: acpid
+  become: True
+
+- name: "Make sure acpid is enabled and running"
+  systemd:
+    name: acpid.service
+    enabled: True
+    state: started
+  become: True
