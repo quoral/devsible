@@ -2,7 +2,10 @@
 import os
 import subprocess
 import argparse
-import apt
+try:
+    import apt
+except ImportError:
+    pass
 
 from git import Repo
 from pathlib import Path
