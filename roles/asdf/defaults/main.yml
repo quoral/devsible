@@ -18,5 +18,7 @@ asdf_packages:
     version: 1.14
   - name: gohugo
     version: extended_0.68.1
+  - name: java
+    version: adoptopenjdk-8.0.275+1.openj9-0.23.0
   - name: "github-cli"
     version: "0.11.1"
