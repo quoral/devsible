@@ -1,5 +1,13 @@
-- include_tasks: main_ubuntu.yaml
+- include_tasks:
+    file: main_ubuntu.yaml
+    apply:
+      tags: sway
   when: ansible_distribution == "Ubuntu"
+  tags: sway
 
-- include_tasks: main_arch.yaml
+- include_tasks:
+    file: main_arch.yaml
+    apply:
+      tags: sway
   when: ansible_distribution == "Archlinux"
+  tags: sway
