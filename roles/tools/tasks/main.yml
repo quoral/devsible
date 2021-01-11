@@ -1,11 +1,20 @@
-- include_tasks: main_ubuntu.yml
+- include_tasks:
+    file: main_ubuntu.yml
+    apply:
+      tags: tools
   when: ansible_distribution == "Ubuntu"
+  tags: tools
 
-- include_tasks: main_arch.yml
+- include_tasks:
+    file: main_arch.yml
+    apply:
+      tags: tools
   when: ansible_distribution == "Archlinux"
+  tags: tools
 
 - name: "Install python tools"
   pip:
     executable: pip3
     name:
       - awscli
+  tags: tools
