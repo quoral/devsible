@@ -13,6 +13,7 @@
       - bluez-tools
       - bluez-utils
   when: ansible_distribution == "Archlinux"
+  tags: bluetooth
   become: True
 
 - name: "Make sure bluetooth is enabled and started"
@@ -21,4 +22,14 @@
     state: started
     enabled: True
   when: ansible_distribution == "Archlinux"
+  tags: bluetooth
+  become: True
+
+- name: "Copy over bluetooth configuration"
+  copy:
+    src: files/main.conf
+    dest: /etc/bluetooth/main.conf
+  when: ansible_distribution == "Archlinux"
+  notify: bluetooth-restart
+  tags: bluetooth
   become: True

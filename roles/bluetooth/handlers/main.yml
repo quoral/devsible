@@ -1,0 +1,7 @@
+- name: "bluetooth restart"
+  systemd:
+    name: bluetooth.service
+    state: restarted
+  become: True
+  listen:
+    - bluetooth-restart
