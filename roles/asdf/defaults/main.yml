@@ -21,4 +21,4 @@ asdf_packages:
   - name: java
     version: adoptopenjdk-8.0.275+1.openj9-0.23.0
   - name: "github-cli"
-    version: "0.11.1"
+    version: "1.4.0"
