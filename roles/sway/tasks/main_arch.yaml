@@ -4,6 +4,7 @@
       - wlroots-git
       - kanshi-git
       - grim-git
+      - wofi-hg
   become: True
   become_user: aur_builder
 
