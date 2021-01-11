@@ -20,9 +20,10 @@
       - mercurial
   become: true
 
-- name: Spotify install
+- name: Tools from AUR
   aur:
     name:
       - spotify
+      - gcalcli
   become: True
   become_user: aur_builder
