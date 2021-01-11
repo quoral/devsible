@@ -17,4 +17,5 @@
       - slurp
       - swayidle
       - swaylock
+      - playerctl
   become: True
