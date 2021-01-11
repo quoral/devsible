@@ -1,0 +1,29 @@
+
+- name: "Ensure cache is updated"
+  community.general.pacman:
+    name:
+      - pipewire
+      - xdg-desktop-portal
+      - xdg-desktop-portal-wlr
+      - libpipewire02
+  tags:
+    - pipewire
+  become: True
+
+- name: make sure xdg-desktop-portal is running
+  systemd:
+    name: xdg-desktop-portal
+    enabled: yes
+    state: started
+    scope: user
+  tags:
+    - pipewire
+
+- name: make sure pipewire is running
+  systemd:
+    name: pipewire
+    enabled: yes
+    state: started
+    scope: user
+  tags:
+    - pipewire

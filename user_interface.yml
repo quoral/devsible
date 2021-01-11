@@ -2,6 +2,7 @@
   hosts: computer
   roles:
     - sway
+    - pipewire
     - kitty
     - light
     - wl-clipboard
