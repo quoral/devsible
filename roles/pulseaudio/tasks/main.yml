@@ -1,0 +1,17 @@
+-
+- name: "Install pulseaudio and other good stuff"
+  community.general.pacman:
+    name:
+      - pulseaudio
+      - pulseaudio-alsa
+      - pulseaudio-bluetooth
+      - playerctl
+  become: True
+  tags: pulseaudio
+
+- aur:
+    name:
+      - pacmixer
+  become: True
+  become_user: aur_builder
+  tags: pulseaudio
