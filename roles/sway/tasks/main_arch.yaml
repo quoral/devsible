@@ -3,6 +3,7 @@
       - sway-git
       - wlroots-git
       - kanshi-git
+      - grim-git
   become: True
   become_user: aur_builder
 
@@ -13,7 +14,6 @@
       - dmenu
       - swayidle
       - mako
-      - grim
       - slurp
       - swayidle
       - swaylock
