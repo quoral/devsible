@@ -14,7 +14,6 @@
   systemd:
     name: xdg-desktop-portal
     enabled: yes
-    state: started
     scope: user
   tags:
     - pipewire
@@ -23,7 +22,6 @@
   systemd:
     name: pipewire
     enabled: yes
-    state: started
     scope: user
   tags:
     - pipewire
