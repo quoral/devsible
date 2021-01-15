@@ -60,8 +60,22 @@
     - asdf
   command: "~/.asdf/bin/asdf install {{ item.name }} {{ item.version }}"
   with_items: "{{ asdf_packages }}"
-  register: asdf_package
-  changed_when: asdf_package.stdout is not search("already installed")
+  register: async_asdf_package
+  async: 60
+  poll: 0
+  changed_when: False
+
+- name: Wait for all asdf packages to have been installed
+  tags:
+    - asdf
+  async_status:
+    jid: "{{ item.ansible_job_id }}"
+  register: _asdf_install_result
+  retries: 20
+  delay: 2
+  until: _asdf_install_result.finished
+  loop: "{{ async_asdf_package.results }}"
+  changed_when: _asdf_install_result.finished and _asdf_install_result.stdout is not search("already installed")
 
 - name: "Set global versions"
   tags:
