@@ -18,7 +18,17 @@
       - tree
       - cloc
       - mercurial
+      - ansible-lint
+      - remmina
+      - freerdp
   become: true
+
+- name: "Install virtualbox"
+  community.general.pacman:
+    name:
+      - virtualbox
+      - virtualbox-host-dkms
+  become: True
 
 - name: Tools from AUR
   aur:
