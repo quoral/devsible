@@ -6,27 +6,12 @@
   tags: golang
 
 
-- name: "Async trigger the install of Go Packages"
+- name: "install Go Packages"
   command: "{{ go_location.stdout }} get {{ item }}"
   with_items: "{{ default_packages }}"
   environment:
     GOPATH: "{{ ansible_env.HOME }}/Code/go"
   changed_when: false
-  register: async_go_get_result
-  tags: golang
-  async: 300
-  poll: 0
-
-
-- name: Wait for all go packages to have been installed
-  async_status:
-    jid: "{{ item.ansible_job_id }}"
-  register: _go_install_result
-  retries: 20
-  delay: 2
-  until: _go_install_result.finished
-  loop: "{{ async_go_get_result.results }}"
-  changed_when: "item.changed"
   tags: golang
 
 - name: "Symlink it to bazel trucker!"
