@@ -40,3 +40,9 @@
   become_user: aur_builder
   when: item.key not in gpg_keys.stdout_lines
   with_items: "{{ keys }}"
+
+- name: Upgrade all packages...
+  aur:
+    upgrade: True
+  become: True
+  become_user: aur_builder
