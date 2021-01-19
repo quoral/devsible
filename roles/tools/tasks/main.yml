@@ -11,10 +11,3 @@
       tags: tools
   when: ansible_distribution == "Archlinux"
   tags: tools
-
-- name: "Install python tools"
-  pip:
-    executable: pip3
-    name:
-      - awscli
-  tags: tools

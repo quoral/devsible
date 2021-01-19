@@ -37,3 +37,11 @@
       - gcalcli
   become: True
   become_user: aur_builder
+
+- name: AWS Tools from AUR
+  aur:
+    name:
+      - aws-cli-v2-bin
+      - aws-session-manager-plugin
+  become: True
+  become_user: aur_builder
