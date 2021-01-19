@@ -2,6 +2,7 @@
 
 - name: "Ensure cache is updated"
   community.general.pacman:
+    update_cache: yes
     upgrade: yes
   become: True
 
