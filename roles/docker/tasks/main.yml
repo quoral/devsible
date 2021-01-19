@@ -1,5 +1,26 @@
-- include_tasks: "main_ubuntu.yml"
+- include_tasks:
+    file: "main_ubuntu.yml"
+    apply:
+      tags: docker
   when: ansible_distribution == "Ubuntu"
+  tags: docker
 
-- include_tasks: "main_arch.yml"
+- include_tasks:
+    file: "main_arch.yml"
+    apply:
+      tags: docker
   when: ansible_distribution == "Archlinux"
+  tags: docker
+
+- name: "Create docker group"
+  group:
+    name: docker
+  become: True
+  tags: docker
+
+- name: "Add current user to docker group"
+  user:
+    name: "{{ ansible_env.USER }}"
+    group: docker
+  become: True
+  tags: docker

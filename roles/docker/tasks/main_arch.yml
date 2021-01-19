@@ -2,3 +2,9 @@
   community.general.pacman:
     name: docker
   become: True
+
+- name: "Enable the docker daemon"
+  systemd:
+    name: docker
+    enabled: yes
+  become: True
