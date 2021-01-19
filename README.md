@@ -36,3 +36,12 @@ Now your system is prepared to run the playbook, so fire it away:
 ```
 ansible-playbook -i inventory/work.ini playbook.yml
 ```
+
+This will take a long time, and while I try to keep it fairly stable in terms of being able to run it on both Ubuntu/Arch, I make no guarantees to the current state of it at a single point in time.
+
+# Roadmap
+- Being able to run multiple plays simultaneously (dynamic runtime playbook generation)
+- Automatic CI runs on supported operating systems
+- Ansible linter (Blocked by ansible-lint misbehaving on currently released versions, master version should be fine though)
+- System cron/Systemd service for easily being able to query if a run "Should" happen
+- Better management of the dotfiles repository, it's strictly dumb to have to write `--ignore-changes` constantly.
