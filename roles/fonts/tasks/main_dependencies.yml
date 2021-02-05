@@ -18,5 +18,7 @@
       - ttf-roboto
       - noto-fonts-emoji
       - powerline-fonts
+      - adobe-source-han-sans-otc-fonts
+      - adobe-source-han-sans-otc-fonts
   become: True
   when: ansible_distribution == "Archlinux"

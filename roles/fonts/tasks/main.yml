@@ -1,17 +1,25 @@
-
 - name: "include tasks"
-  include_tasks: "main_dependencies.yml"
+  include_tasks:
+    file: "main_dependencies.yml"
+    apply:
+      tags: fonts
+  tags:
+    - fonts
 
 - name: "Ensure base folder is created"
   file:
     path: "~/Code/Github"
     state: "directory"
   register: directory
+  tags:
+    - fonts
 
 - name: "Ensure font folder is created"
   file:
     path: "~/.local/share/fonts"
     state: "directory"
+  tags:
+    - fonts
 
 - name: "Clone source-code-pro"
   git:
@@ -19,13 +27,19 @@
     repo: "https://github.com/adobe-fonts/source-code-pro.git"
     dest: "{{directory.path}}/source-code-pro"
   register: git_repo
+  tags:
+    - fonts
 
 - name: "Symlink folder to font directory"
   file:
     src: "{{directory.path}}/source-code-pro"
     dest: "~/.local/share/fonts/source-code-pro"
     state: link
+  tags:
+    - fonts
 
 - name: "Run fc-cache"
   command: fc-cache -f -v
   when: git_repo.changed
+  tags:
+    - fonts
