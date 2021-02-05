@@ -1,0 +1,4 @@
+---
+- name: Laptop specific settings
+  hosts: laptop
+  roles:

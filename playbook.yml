@@ -1,5 +1,6 @@
 ---
 - import_playbook: upgrade.yml
+- import_playbook: laptop.yml
 - import_playbook: programming.yml
 - import_playbook: applications.yml
 - import_playbook: user_interface.yml
