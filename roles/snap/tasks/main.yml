@@ -4,6 +4,7 @@
       - snapd
   become: True
   become_user: aur_builder
+  tags: snap
 
 - name: "Make sure snapd is enabled"
   systemd:
@@ -11,10 +12,17 @@
     state: started
     enabled: True
   become: True
+  tags: snap
 
 - name: collect facts about system services
   service_facts:
   register: services_state
+  tags: snap
+
+- name: Ensure that other targets know whether or not snapd is running
+  set_fact:
+    is_snapd_running: services_state.ansible_facts.services["snapd.service"].state == "running"
+  tags: snap
 
 - name: Try to install snaps if snapd is running
   snap:
@@ -23,5 +31,6 @@
     channel: "{{ item.channel | default('stable') }}"
     classic: "{{ item.classic | default(False) }}"
   with_items: "{{ snaps }}"
-  when: services_state.ansible_facts.services["snapd.service"].state == "running"
+  when: is_snapd_running and not no_install
   become: True
+  tags: snap

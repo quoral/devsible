@@ -4,3 +4,5 @@ snaps:
     channel: beta
   - name: slack
     classic: True
+
+no_install: False
