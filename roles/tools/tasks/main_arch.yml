@@ -35,6 +35,8 @@
     name:
       - spotify
       - gcalcli
+      - spicetify-cli
+      - spicetify-themes-git
   become: True
   become_user: aur_builder
 
