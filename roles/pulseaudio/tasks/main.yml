@@ -5,6 +5,9 @@
       - pulseaudio
       - pulseaudio-alsa
       - pulseaudio-bluetooth
+      - gstreamer
+      - libldac
+      - libopenaptx
       - playerctl
   become: True
   tags: pulseaudio
