@@ -15,6 +15,7 @@
       - cookiecutter
       - ninja
       - meson
+      - pre-commit
     state: latest
   tags:
     - python

@@ -8,3 +8,5 @@ default_packages:
   - "github.com/cweill/gotests/..."
   - "github.com/fatih/gomodifytags"
   - "github.com/bazelbuild/bazelisk"
+  - "github.com/tfsec/tfsec/cmd/tfsec"
+  - "github.com/terraform-docs/terraform-docs"

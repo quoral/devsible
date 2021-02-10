@@ -11,6 +11,7 @@
   with_items: "{{ default_packages }}"
   environment:
     GOPATH: "{{ ansible_env.HOME }}/Code/go"
+    GO111MODULE: "on"
   changed_when: false
   tags: golang
 

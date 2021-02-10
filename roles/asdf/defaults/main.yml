@@ -13,7 +13,11 @@ asdf_packages:
   - name: kind
     version: 0.9.0
   - name: terraform
-    version: 0.13.5
+    version: 0.14.4
+  - name: tflint
+    version: 0.24.1
+  - name: terragrunt
+    version: 0.28.2
   - name: golang
     version: 1.14
   - name: gohugo
