@@ -5,6 +5,7 @@
       - kanshi-git
       - grim-git
       - wofi-hg
+      - persway
   become: True
   become_user: aur_builder
 
