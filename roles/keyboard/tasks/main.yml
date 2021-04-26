@@ -14,8 +14,33 @@
       - arduino-avr-core
       - arduino-cli
       - arduino
+      - binutils
   become: True
+  tags: keyboard
   when: ansible_distribution == "Archlinux"
+
+- aur:
+    name:
+      - qmk
+  become: True
+  become_user: aur_builder
+  tags: keyboard
+  when: ansible_distribution == "Archlinux"
+
+- name: "Register where teensy installed"
+  command: "which teensy-loader-cli"
+  register: teensy_location
+  check_mode: no
+  changed_when: False
+  tags: keyboard
+
+- name: Create a symbolic link
+  ansible.builtin.file:
+    src: "{{ teensy_location.stdout }}"
+    dest: /usr/bin/teensy_loader_cli
+    state: link
+  become: True
+  tags: keyboard
 
 - name: "Install wrapper"
   copy:
