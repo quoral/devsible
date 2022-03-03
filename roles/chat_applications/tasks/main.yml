@@ -1,24 +1,8 @@
-- name: "Install base chat applications"
-  snap:
+- aur:
     name:
-      - whatsdesk
-  become: true
-
-- name: "Install base chat applications"
-  snap:
-    name:
-      - discord
-    channel: beta
-  become: true
-
-- name: "Connect discord to system-observe"
-  command: snap connect discord:system-observe
+      - discord_arch_electron
+      - slack-desktop
   become: True
-  changed_when: false
-
-- name: "Install slack"
-  snap:
-    name:
-      - slack
-    classic: yes
-  become: true
+  become_user: aur_builder
+  tags:
+    - chat_applications

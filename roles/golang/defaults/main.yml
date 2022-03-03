@@ -1,5 +1,5 @@
 default_packages:
-  - "github.com/motemen/gore/cmd/gore"
+  - "github.com/x-motemen/gore/cmd/gore"
   - "github.com/stamblerre/gocode"
   - "golang.org/x/tools/cmd/godoc"
   - "golang.org/x/tools/cmd/goimports"
@@ -8,6 +8,7 @@ default_packages:
   - "github.com/cweill/gotests/..."
   - "github.com/fatih/gomodifytags"
   - "github.com/bazelbuild/bazelisk"
-  - "github.com/tfsec/tfsec/cmd/tfsec"
+  - "github.com/aquasecurity/tfsec/cmd/tfsec"
   - "github.com/terraform-docs/terraform-docs@v0.11.0"
   - "github.com/bazelbuild/buildtools/buildozer"
+  - "github.com/bazelbuild/buildtools/buildifier"

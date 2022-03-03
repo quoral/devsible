@@ -2,8 +2,6 @@ asdf_git_info:
   before: HEAD
 
 asdf_packages:
-  - name: 1password
-    version: 0.9.2
   - name: kubectl
     version: 1.19.1
   - name: hub
@@ -11,18 +9,20 @@ asdf_packages:
   - name: minikube
     version: 1.11.0
   - name: kind
-    version: 0.9.0
   - name: terraform
     version: 0.14.4
   - name: tflint
-    version: 0.24.1
   - name: terragrunt
     version: 0.28.2
   - name: golang
-    version: 1.14
+    version: 1.17.5
   - name: gohugo
     version: extended_0.68.1
   - name: java
     version: adoptopenjdk-8.0.275+1.openj9-0.23.0
   - name: "github-cli"
-    version: "1.4.0"
+    version: "latest"
+  - name: nodejs
+    version: "14.17.0"
+  - name: yarn
+    version: latest

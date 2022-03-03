@@ -58,7 +58,7 @@
 - name: "Install asdf packages"
   tags:
     - asdf
-  command: "~/.asdf/bin/asdf install {{ item.name }} {{ item.version }}"
+  command: "~/.asdf/bin/asdf install {{ item.name }} {{ item.version | default('latest') }}"
   with_items: "{{ asdf_packages }}"
   register: async_asdf_package
   async: 60
@@ -80,7 +80,7 @@
 - name: "Set global versions"
   tags:
     - asdf
-  command: "~/.asdf/bin/asdf global {{ item.name }} {{ item.version }}"
+  command: "~/.asdf/bin/asdf global {{ item.name }} {{ item.version | default('latest') }}"
   with_items: "{{ asdf_packages }}"
   changed_when: False
 

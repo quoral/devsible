@@ -9,7 +9,7 @@
     name: vim
   become: True
 
-- name: vscode install
-  community.general.pacman:
-    name: code
+- aur:
+    name: visual-studio-code-bin
   become: True
+  become_user: aur_builder
