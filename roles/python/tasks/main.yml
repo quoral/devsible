@@ -4,6 +4,23 @@
 - include_tasks: main_arch.yml
   when: ansible_distribution == "Archlinux"
 
+- community.general.homebrew:
+    name:
+        - python3
+  when: ansible_distribution == "MacOSX"
+
+- name: "Ensure linux Python deps are made available"
+  pip:
+    executable: pip3
+    name:
+      - pulsectl
+      - ninja
+      - meson
+    state: latest
+  tags:
+    - python
+  when: ansible_distribution == "Archlinux" or ansible_distribution == "Ubuntu"
+
 - name: "Ensure other deps are made available"
   pip:
     executable: pip3
@@ -11,10 +28,7 @@
       - pipenv
       - psutil
       - emoji
-      - pulsectl
       - cookiecutter
-      - ninja
-      - meson
       - pre-commit
     state: latest
   tags:

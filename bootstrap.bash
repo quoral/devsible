@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-
-git clone https://github.com/kewlfft/ansible-aur ~/.ansible/plugins/modules/aur
+if [[ $OSTYPE == 'darwin'* ]]
+then
+	export PATH="/opt/homebrew/bin:$PATH"
+	brew install ansible
+else
+ansible-galaxy collection install kewlfft.aur
 ansible-galaxy collection install community.general

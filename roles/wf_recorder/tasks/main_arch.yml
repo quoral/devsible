@@ -1,4 +1,4 @@
-- aur:
+- kewlfft.aur.aur:
     name: wf-recorder-git
   become: True
   become_user: aur_builder

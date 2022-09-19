@@ -7,7 +7,7 @@
 
 
 - name: "install Go Packages"
-  command: "{{ go_location.stdout }} get {{ item }}"
+  command: "{{ go_location.stdout }} install {{ item }}@latest"
   with_items: "{{ default_packages }}"
   environment:
     GOPATH: "{{ ansible_env.HOME }}/Code/go"

@@ -1,11 +1,14 @@
 ---
 - name: Run package upgrades
-  hosts: computer
+  hosts: base
   roles:
-    - fishshell
-    - snap
-    - browsers
     - command
+    - browsers
+
+- name: Run package upgrades
+  hosts: linux
+  roles:
+    - snap
     - lib_dependencies
     - yubikey
     - bluetooth

@@ -1,14 +1,10 @@
-# - name: "Google SDK"
-#   dev_install:
-#     apt: {{ apt_packages }}
-#     aur: {{ aur_packages }}
-#     ubuntu_file:  {{ ubuntu_fallback_file }}
-#     file: {{ fallback_file }}
-
-
-
 - include_tasks: "main_ubuntu.yml"
   when: ansible_distribution == "Ubuntu"
 
 - include_tasks: "main_arch.yml"
   when: ansible_distribution == "Archlinux"
+
+- community.general.homebrew_cask:
+    name:
+      - google-cloud-sdk
+  when: ansible_distribution == "MacOSX"

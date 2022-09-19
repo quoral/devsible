@@ -1,5 +1,5 @@
 - name: "Install ly"
-  aur:
+  kewlfft.aur.aur:
     name:
       - ly-git
   become: True

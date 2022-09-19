@@ -1,4 +1,4 @@
-- aur:
+- kewlfft.aur.aur:
     name: kitty-git
   become: True
   become_user: aur_builder

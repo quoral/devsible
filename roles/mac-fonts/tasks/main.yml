@@ -1,0 +1,13 @@
+- community.general.homebrew_tap:
+    name:
+      - homebrew/cask-fonts 
+  tags:
+    - fonts
+
+- community.general.homebrew_cask:
+    name:
+      - font-source-code-pro 
+      - font-source-code-pro-for-powerline
+      - font-source-sans-pro
+  tags:
+    - fonts

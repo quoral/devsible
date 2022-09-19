@@ -81,6 +81,8 @@
   tags:
     - asdf
   command: "~/.asdf/bin/asdf global {{ item.name }} {{ item.version | default('latest') }}"
+  environment:
+    PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.asdf/bin"
   with_items: "{{ asdf_packages }}"
   changed_when: False
 

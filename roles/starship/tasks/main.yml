@@ -1,5 +1,11 @@
-- aur:
+- kewlfft.aur.aur:
     name:
       - starship
   become: True
   become_user: aur_builder
+  when: ansible_distribution == "Archlinux"
+
+- community.general.homebrew:
+    name:
+      - starship
+  when: ansible_distribution == "MacOSX"

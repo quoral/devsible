@@ -4,6 +4,10 @@
 - include_tasks: "main_ubuntu.yml"
   when: ansible_distribution == "Ubuntu"
 
+- include_tasks:
+    file: main_mac.yml
+  when: ansible_distribution == 'MacOSX'
+
 - name: "emacs doom git repository"
   git:
     repo: https://github.com/hlissner/doom-emacs

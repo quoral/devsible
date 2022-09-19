@@ -3,7 +3,7 @@
 
 # Instructions as per https://wiki.archlinux.org/index.php/Ansible#AUR
 - name: Boostrap Ansible
-  hosts: computer
+  hosts: linux
   tasks:
   - name: Setup the aur_builder user
     user: name=aur_builder

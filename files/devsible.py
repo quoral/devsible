@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import sys
 import subprocess
 import argparse
 try:
@@ -26,8 +27,15 @@ parser.add_argument("--verbose", "-v", action="store_true", dest="verbose", help
 
 git_repositories = [(repo_location, "devsible"), (Path(repo_location, "roles/dotfiles"), "dotfiles")]
 
+inventory_file = None
+
+if sys.platform.startswith('linux'):
+    inventory_file = "linux.ini"
+elif sys.platform.startswith('darwin'):
+    inventory_file = "mac.ini"
+
 args = parser.parse_args()
-command = ["ansible-playbook", "--inventory=inventory/work.ini", "playbook.yml"]
+command = ["ansible-playbook", "--inventory=inventory/{}".format(inventory_file), "playbook.yml"]
 
 def get_changes(repo, name):
     changed = repo.is_dirty()

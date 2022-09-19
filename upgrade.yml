@@ -1,10 +1,19 @@
 ---
-- name: Run package upgrades
-  hosts: computer
+- name: Run Base
+  hosts: base
   roles:
     - base_packages
+
+- name: Run Linux base
+  hosts: linux
+  roles:
     - aur
     - ssh
-    - fonts
     - kernel_settings
+    - linux-fonts
     - pulseaudio
+    
+- name: "Run Mac Base"
+  hosts: mac
+  roles:    
+    - mac-fonts

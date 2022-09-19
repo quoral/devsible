@@ -1,0 +1,17 @@
+- name: "Ensure tools is available"
+  community.general.homebrew:
+    name:
+      - gnupg
+      - gnu-tar
+      - subversion
+      - fzf
+      - the_silver_searcher
+      - jq
+      - awscli
+      - golangci-lint
+
+- community.general.homebrew_cask:
+    name: 
+      - spotify
+      - session-manager-plugin
+      - vagrant

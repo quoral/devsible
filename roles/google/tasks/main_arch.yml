@@ -1,4 +1,4 @@
-- aur:
+- kewlfft.aur.aur:
     name: google-cloud-sdk
   become: True
   become_user: aur_builder

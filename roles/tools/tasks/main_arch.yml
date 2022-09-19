@@ -32,7 +32,7 @@
   become: True
 
 - name: Tools from AUR
-  aur:
+  kewlfft.aur.aur:
     name:
       - spotify
       - gcalcli
@@ -42,7 +42,7 @@
   become_user: aur_builder
 
 - name: AWS Tools from AUR
-  aur:
+  kewlfft.aur.aur:
     name:
       - aws-cli-v2-bin
       - aws-session-manager-plugin

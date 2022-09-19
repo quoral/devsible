@@ -8,7 +8,7 @@
     - kanshi-changed
   when: ansible_distribution == "Ubuntu"
 
-- aur:
+- kewlfft.aur.aur:
     name: kanshi-git
   become: True
   become_user: aur_builder

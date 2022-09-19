@@ -1,4 +1,4 @@
-- aur:
+- kewlfft.aur.aur:
     name:
       - discord_arch_electron
       - slack-desktop
@@ -6,3 +6,12 @@
   become_user: aur_builder
   tags:
     - chat_applications
+  when: ansible_distribution == "Archlinux"
+
+- community.general.homebrew_cask:
+    name:
+      - discord
+      - whatsapp
+  tags:
+    - chat_applications
+  when: ansible_distribution == "MacOSX"

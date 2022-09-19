@@ -42,7 +42,7 @@
   with_items: "{{ keys }}"
 
 - name: Upgrade all packages...
-  aur:
+  kewlfft.aur.aur:
     upgrade: True
   become: True
   become_user: aur_builder

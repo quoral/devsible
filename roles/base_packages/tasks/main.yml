@@ -1,9 +1,10 @@
 ---
 
-- name: "Include Ubuntu Tasks"
-  include_tasks: "main_ubuntu.yml"
+- include_tasks: "main_ubuntu.yml"
   when: ansible_distribution == "Ubuntu"
 
-- name: "Include Arch Tasks"
-  include_tasks: "main_arch.yml"
+- include_tasks: "main_arch.yml"
   when: ansible_distribution == "Archlinux"
+
+- include_tasks: main_mac.yml
+  when: ansible_distribution == 'MacOSX'

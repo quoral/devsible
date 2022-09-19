@@ -1,5 +1,5 @@
 - name: "Install planner"
-  aur:
+  kewlfft.aur.aur:
     name: elementary-planner-git
   become: True
   become_user: aur_builder

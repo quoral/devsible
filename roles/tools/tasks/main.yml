@@ -11,3 +11,10 @@
       tags: tools
   when: ansible_distribution == "Archlinux"
   tags: tools
+
+- include_tasks:
+    file: main_mac.yml
+    apply:
+      tags: tools
+  when: ansible_distribution == 'MacOSX'
+  tags: tools

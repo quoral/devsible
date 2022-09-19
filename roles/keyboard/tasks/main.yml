@@ -19,7 +19,22 @@
   tags: keyboard
   when: ansible_distribution == "Archlinux"
 
-- aur:
+- community.general.homebrew_tap:
+    name:
+      - osx-cross/avr
+  tags:
+    - keyboard
+  when: ansible_distribution == 'MacOSX'
+
+- community.general.homebrew:
+    name:
+      - teensy_loader_cli
+      - qmk/qmk/qmk
+      - avr-gcc
+  tags: keyboard
+  when: ansible_distribution == 'MacOSX'
+
+- kewlfft.aur.aur:
     name:
       - qmk
   become: True
@@ -33,11 +48,20 @@
   check_mode: no
   changed_when: False
   tags: keyboard
+  when: ansible_distribution == "Archlinux"
+
+- name: "Register where teensy installed"
+  command: "which teensy_loader_cli"
+  register: teensy_location
+  check_mode: no
+  changed_when: False
+  tags: keyboard
+  when: ansible_distribution == "MacOSX"
 
 - name: Create a symbolic link
   ansible.builtin.file:
     src: "{{ teensy_location.stdout }}"
-    dest: /usr/bin/teensy_loader_cli
+    dest: /usr/local/bin/teensy_loader_cli
     state: link
   become: True
   tags: keyboard

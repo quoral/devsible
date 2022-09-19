@@ -1,5 +1,12 @@
-- name: Run package upgrades
-  hosts: computer
+- name: "base roles"
+  hosts: base
+  roles:
+    - fishshell
+    - starship
+    - chat_applications
+
+- name: linux roles
+  hosts: linux
   roles:
     - sway
     - pipewire
@@ -8,5 +15,8 @@
     - wl-clipboard
     - wf_recorder
     - kanshi
-    - chat_applications
-    - starship
+
+- name:
+  hosts: mac
+  roles:
+    - karabiner

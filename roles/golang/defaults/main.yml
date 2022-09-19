@@ -9,6 +9,6 @@ default_packages:
   - "github.com/fatih/gomodifytags"
   - "github.com/bazelbuild/bazelisk"
   - "github.com/aquasecurity/tfsec/cmd/tfsec"
-  - "github.com/terraform-docs/terraform-docs@v0.11.0"
   - "github.com/bazelbuild/buildtools/buildozer"
   - "github.com/bazelbuild/buildtools/buildifier"
+  - "github.com/golangci/golangci-lint/cmd/golangci-lint"

@@ -1,0 +1,5 @@
+
+- name: "Ensure tools is available"
+  community.general.homebrew_cask:
+    name:
+      - docker

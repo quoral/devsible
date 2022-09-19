@@ -9,7 +9,7 @@
     name: vim
   become: True
 
-- aur:
+- kewlfft.aur.aur:
     name: visual-studio-code-bin
   become: True
   become_user: aur_builder

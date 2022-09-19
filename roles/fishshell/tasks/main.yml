@@ -3,21 +3,32 @@
     name: fish
   become: true
   when: ansible_distribution == "Ubuntu"
+  tags: fishshell
+
 
 - name: "Install fish"
   community.general.pacman:
     name: fish
   become: true
   when: ansible_distribution == "Archlinux"
+  tags: fishshell
+
+- name: "Install fish"
+  community.general.homebrew:
+    name: fish
+  when: ansible_distribution == 'MacOSX'
+  tags: fishshell
 
 - name: "Register where fish is installed"
   command: "which fish"
   register: fish_location
   changed_when: False
   check_mode: no
+  tags: fishshell
 
 - name: "Set shell on my user"
   user:
     name: "{{ ansible_user_id }}"
     shell: "{{ fish_location.stdout }}"
   become: true
+  tags: fishshell

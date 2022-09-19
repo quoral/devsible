@@ -3,26 +3,19 @@ asdf_git_info:
 
 asdf_packages:
   - name: kubectl
-    version: 1.19.1
-  - name: hub
-    version: v2.14.2
   - name: minikube
-    version: 1.11.0
+    version: 1.25.2
   - name: kind
+    version: 0.11.1
   - name: terraform
-    version: 0.14.4
   - name: tflint
+    version: 0.34.1
   - name: terragrunt
-    version: 0.28.2
+    version: 0.36.3
   - name: golang
-    version: 1.17.5
-  - name: gohugo
-    version: extended_0.68.1
-  - name: java
-    version: adoptopenjdk-8.0.275+1.openj9-0.23.0
-  - name: "github-cli"
-    version: "latest"
+  - name: github-cli
+    version: 2.5.2
   - name: nodejs
-    version: "14.17.0"
   - name: yarn
-    version: latest
+    version: 1.22.17
+  - name: shellcheck
