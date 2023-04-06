@@ -14,12 +14,3 @@
     GO111MODULE: "on"
   changed_when: false
   tags: golang
-
-- name: "Symlink it to bazel trucker!"
-  file:
-    src: "{{ ansible_env.HOME }}/Code/go/bin/bazelisk"
-    dest: "{{ ansible_env.HOME }}/.local/bin/bazel"
-    state: link
-  tags:
-    - golang
-    - bazelisk

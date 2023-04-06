@@ -13,15 +13,7 @@
     - pipewire
   become_user: aur_builder
   become: True
-
-- name: make sure xdg-desktop-portal is running
-  systemd:
-    name: xdg-desktop-portal
-    enabled: yes
-    scope: user
-  tags:
-    - pipewire
-
+  when: ansible_distribution == "Archlinux"
 - name: make sure pipewire and its components are running
   systemd:
     name: "{{item}}"
@@ -32,3 +24,44 @@
     - pipewire-pulse
   tags:
     - pipewire
+  when: ansible_distribution == "Archlinux"
+
+- name: install pipewire and deps
+  apt:
+    name: 
+      - libldacbt-abr2
+      - libldacbt-enc2
+      - libspa-0.2-bluetooth
+      - pipewire-audio-client-libraries
+      - pipewire-media-session-
+      - wireplumber
+  become: True
+  when: ansible_distribution == "Ubuntu"
+
+- name: ensure pulseaudio is removed
+  apt:
+    name: 
+      - pulseaudio-module-bluetooth
+    state: absent
+  become: True
+  when: ansible_distribution == "Ubuntu"
+
+- name: make sure pipewire and its components are running
+  systemd:
+    name: "{{item}}"
+    enabled: yes
+    scope: user
+  with_items:
+    - wireplumber.service
+  tags:
+    - pipewire
+  when: ansible_distribution == "Ubuntu"
+
+- name: make sure xdg-desktop-portal is running
+  systemd:
+    name: xdg-desktop-portal
+    enabled: yes
+    scope: user
+  tags:
+    - pipewire
+

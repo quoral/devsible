@@ -1,1 +1,0 @@
-kitty_path: "{{ github_code_path }}/kitty"

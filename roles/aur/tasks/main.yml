@@ -2,6 +2,7 @@
     name: aur_builder
     group: wheel
   become: True
+  when: ansible_distribution == "Ubuntu"
 
 - lineinfile:
     path: /etc/sudoers.d/11-install-aur_builder
@@ -9,6 +10,7 @@
     create: yes
     validate: 'visudo -cf %s'
   become: True
+  when: ansible_distribution == "Ubuntu"
 
 - name: "Ensure aur_builder .gnupg folder exists"
   file:
@@ -16,6 +18,7 @@
     state: directory
   become: True
   become_user: aur_builder
+  when: ansible_distribution == "Ubuntu"
 
 - name: "Copy our dirmngr.conf"
   copy:
@@ -24,6 +27,7 @@
   notify: kill-aur-builder-dirmngr
   become: True
   become_user: aur_builder
+  when: ansible_distribution == "Ubuntu"
 
 - meta: flush_handlers
 
@@ -33,6 +37,7 @@
   become_user: aur_builder
   register: gpg_keys
   changed_when: False
+  when: ansible_distribution == "Ubuntu"
 
 - name: "Import specific keys that are nice :tm:"
   command: "gpg --keyserver {{ item.keyserver }} --recv-keys {{ item.key }}"
@@ -40,9 +45,11 @@
   become_user: aur_builder
   when: item.key not in gpg_keys.stdout_lines
   with_items: "{{ keys }}"
+  when: ansible_distribution == "Ubuntu"
 
 - name: Upgrade all packages...
   kewlfft.aur.aur:
     upgrade: True
   become: True
   become_user: aur_builder
+  when: ansible_distribution == "Ubuntu"

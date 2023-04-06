@@ -9,3 +9,9 @@
     name:
       - starship
   when: ansible_distribution == "MacOSX"
+
+- name: Install starship
+  community.general.snap:
+    name:
+      - starship
+  when: ansible_distribution == "Ubuntu"

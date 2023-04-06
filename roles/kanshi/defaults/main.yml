@@ -1,1 +1,0 @@
-kanshi_directory: "{{ github_code_path }}/kanshi"

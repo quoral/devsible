@@ -1,1 +1,0 @@
-light_directory: "{{ github_code_path }}/light"

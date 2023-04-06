@@ -17,6 +17,6 @@
 - name: "Install emacs"
   apt:
     name:
-      - emacs26
+      - emacs28
     update_cache: True
   become: True

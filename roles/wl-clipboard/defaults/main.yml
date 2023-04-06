@@ -1,1 +1,0 @@
-wl_clipboard_directory: "{{ github_code_path }}/wl-clipboard"

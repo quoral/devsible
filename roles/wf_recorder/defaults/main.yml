@@ -1,2 +1,0 @@
-
-wf_recorder_path: "{{ github_code_path }}/wf-recorder"

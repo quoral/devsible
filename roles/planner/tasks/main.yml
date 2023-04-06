@@ -1,6 +1,0 @@
-- name: "Install planner"
-  kewlfft.aur.aur:
-    name: elementary-planner-git
-  become: True
-  become_user: aur_builder
-  tags: planner

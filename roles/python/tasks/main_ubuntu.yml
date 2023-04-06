@@ -10,13 +10,3 @@
   tags:
     - python
 
-- name: "Lazy way to ensure that I can compile stuff on root"
-  pip:
-    executable: pip3
-    name:
-      - ninja
-      - meson
-    state: latest
-  become: True
-  tags:
-    - python

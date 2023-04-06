@@ -1,6 +1,0 @@
-wayland_path: "{{ github_code_path }}/wayland"
-wlroots_path: "{{ github_code_path }}/wlroots"
-sway_path: "{{ github_code_path }}/sway"
-waybar_path: "{{ github_code_path }}/waybar"
-swaylock_path: "{{ github_code_path }}/swaylock"
-swayidle_path: "{{ github_code_path }}/swayidle"

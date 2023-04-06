@@ -1,44 +1,5 @@
 - name: "Install Kitty Run-Time Dependencies"
   apt:
     name:
-      - python3.8
-      - libharfbuzz0b
-      - libharfbuzz-dev
-      - zlib1g
-      - libpng16-16
-      - libfreetype6
-      - libfontconfig1
-      - libcanberra0
-      - libglfw3-wayland
-      - imagemagick-6.q16
-      - python3-pygments
+      - kitty
   become: True
-  tags:
-    - kitty
-
-- name: "Build time dependencies"
-  apt:
-    name:
-      - libdbus-1-dev
-      - libxcursor-dev
-      - libxrandr-dev
-      - libxi-dev
-      - libxinerama-dev
-      - libgl1-mesa-dev
-      - libxkbcommon-x11-dev
-      - libfontconfig-dev
-      - libpython3.8-dev
-      - python3-sphinx
-      - liblcms2-dev
-  become: True
-  tags:
-    - kitty
-
-- name: "Clone kitty"
-  git:
-    recursive: true
-    repo: "https://github.com/kovidgoyal/kitty"
-    dest: "{{ kitty_path }}"
-  notify: kitty-changed
-  tags:
-    - kitty

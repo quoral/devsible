@@ -10,6 +10,7 @@
       - playerctl
   become: True
   tags: pulseaudio
+  when: ansible_distribution == "Archlinux"
 
 - kewlfft.aur.aur:
     name:
@@ -17,3 +18,10 @@
   become: True
   become_user: aur_builder
   tags: pulseaudio
+  when: ansible_distribution == "Archlinux"
+
+- apt:
+    name: "pavucontrol"
+  become: True
+  tags: pulseaudio
+  when: ansible_distribution == "Ubuntu"

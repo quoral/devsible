@@ -5,7 +5,6 @@
   when: ansible_distribution == "Ubuntu"
   tags: fishshell
 
-
 - name: "Install fish"
   community.general.pacman:
     name: fish

@@ -1,12 +1,10 @@
 - name: "Get Kanshi"
-  git:
-    repo: "https://github.com/emersion/kanshi.git"
-    dest: "{{ kanshi_directory }}"
-  tags:
-    - kanshi
-  notify:
-    - kanshi-changed
+   apt:
+    name:
+      - light
+  become: True
   when: ansible_distribution == "Ubuntu"
+
 
 - kewlfft.aur.aur:
     name: kanshi-git

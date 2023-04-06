@@ -1,7 +1,6 @@
-- name: "wl-clipboard does not have a good version in apt. Compile it yourself"
-  git:
-    repo: "https://github.com/bugaevc/wl-clipboard.git"
-    dest: "{{ wl_clipboard_directory }}"
-  notify: wl-clipboard-changed
+- name: "wl-clipboard install"
+  apt: 
+    name: 
+      - wl-clipboard
   tags:
     - wl-clipboard
