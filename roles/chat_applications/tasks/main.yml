@@ -1,6 +1,6 @@
 - kewlfft.aur.aur:
     name:
-      - discord_arch_electron
+      - discord
       - slack-desktop
   become: True
   become_user: aur_builder

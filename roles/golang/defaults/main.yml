@@ -12,3 +12,8 @@ default_packages:
   - "github.com/bazelbuild/buildtools/buildozer"
   - "github.com/bazelbuild/buildtools/buildifier"
   - "github.com/golangci/golangci-lint/cmd/golangci-lint"
+  - "golang.org/x/tools/gopls"
+  - "github.com/zmb3/gogetdoc"
+  - "github.com/ramya-rao-a/go-outline"
+  - "github.com/rogpeppe/godef"
+  - "github.com/stamblerre/gocode"

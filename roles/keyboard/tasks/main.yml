@@ -43,7 +43,7 @@
   when: ansible_distribution == "Archlinux"
 
 - name: "Register where teensy installed"
-  command: "which teensy-loader-cli"
+  command: "which teensy_loader_cli"
   register: teensy_location
   check_mode: no
   changed_when: False

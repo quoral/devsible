@@ -5,6 +5,8 @@
       - kanshi-git
       - grim-git
       - wofi-hg
+      - swaybg
+      - autotiling
   become: True
   become_user: aur_builder
 
@@ -19,4 +21,6 @@
       - swayidle
       - swaylock
       - playerctl
+      - gtklock
+      - corrupter-bin
   become: True

@@ -1,15 +1,31 @@
-
+---
 - name: emacs install
   community.general.pacman:
     name: emacs
-  become: True
+  become: true
+
+- name: ensure directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/systemd/user"
+    state: directory
+
+- name: Copy SSH Agent
+  copy:
+    src: "files/emacs-daemon.service"
+    dest: "{{ ansible_env.HOME }}/.config/systemd/user/emacs-daemon.service"
+
+- name: Make sure ssh-agent is enabled
+  systemd:
+    name: emacs-daemon
+    scope: user
+    enabled: true
 
 - name: vim install
   community.general.pacman:
     name: vim
-  become: True
+  become: true
 
 - kewlfft.aur.aur:
     name: visual-studio-code-bin
-  become: True
+  become: true
   become_user: aur_builder

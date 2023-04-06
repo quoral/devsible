@@ -1,13 +1,17 @@
 
 - name: "Ensure cache is updated"
-  community.general.pacman:
+  kewlfft.aur.aur:
     name:
       - pipewire
+      - pipewire-alsa
+      - pipewire-pulse
+      - pipewire-jack
       - xdg-desktop-portal
-      - xdg-desktop-portal-wlr-git
+      - xdg-desktop-portal-wlr
       - libpipewire02
   tags:
     - pipewire
+  become_user: aur_builder
   become: True
 
 - name: make sure xdg-desktop-portal is running
@@ -18,10 +22,13 @@
   tags:
     - pipewire
 
-- name: make sure pipewire is running
+- name: make sure pipewire and its components are running
   systemd:
-    name: pipewire
+    name: "{{item}}"
     enabled: yes
     scope: user
+  with_items:
+    - pipewire
+    - pipewire-pulse
   tags:
     - pipewire

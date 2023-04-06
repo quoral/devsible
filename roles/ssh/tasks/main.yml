@@ -9,3 +9,29 @@
     state: touch
     access_time: preserve
     modification_time: preserve
+
+- name: ensure directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/systemd/user"
+    state: directory
+
+- name: Copy SSH Agent
+  copy:
+    src: "files/ssh-agent.service"
+    dest: "{{ ansible_env.HOME }}/.config/systemd/user/ssh-agent.service"
+
+- name: ensure directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/environment.d"
+    state: directory
+
+- name: Copy local env
+  copy:
+    src: "files/ssh_auth_socket.conf"
+    dest: "{{ ansible_env.HOME }}/.config/environment.d/ssh_auth_socket.conf"
+
+- name: Make sure ssh-agent is enabled
+  systemd:
+    name: ssh-agent
+    scope: user
+    enabled: true

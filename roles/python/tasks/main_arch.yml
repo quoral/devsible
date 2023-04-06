@@ -3,4 +3,5 @@
     name:
       - python
       - python-pip
+      - python-setuptools
   become: True

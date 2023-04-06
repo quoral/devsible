@@ -11,8 +11,7 @@
     - ssh
     - kernel_settings
     - linux-fonts
-    - pulseaudio
-    
+
 - name: "Run Mac Base"
   hosts: mac
   roles:    

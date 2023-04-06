@@ -17,8 +17,13 @@
       - ttf-font-awesome
       - ttf-roboto
       - noto-fonts-emoji
-      - powerline-fonts
       - adobe-source-han-sans-otc-fonts
       - adobe-source-han-sans-otc-fonts
   become: True
+  when: ansible_distribution == "Archlinux"
+
+- kewlfft.aur.aur:
+    name: powerline-fonts-git
+  become: True
+  become_user: aur_builder
   when: ansible_distribution == "Archlinux"

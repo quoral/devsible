@@ -1,4 +1,5 @@
 ---
+- import_playbook: pre_playbook.yml
 - import_playbook: upgrade.yml
 - import_playbook: laptop.yml
 - import_playbook: programming.yml

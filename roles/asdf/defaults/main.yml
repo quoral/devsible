@@ -2,11 +2,6 @@ asdf_git_info:
   before: HEAD
 
 asdf_packages:
-  - name: kubectl
-  - name: minikube
-    version: 1.25.2
-  - name: kind
-    version: 0.11.1
   - name: terraform
   - name: tflint
     version: 0.34.1
@@ -14,8 +9,8 @@ asdf_packages:
     version: 0.36.3
   - name: golang
   - name: github-cli
-    version: 2.5.2
-  - name: nodejs
-  - name: yarn
-    version: 1.22.17
+    version: 2.18.1
   - name: shellcheck
+  - name: nodejs
+    version: 18.12.0
+  - name: yarn
