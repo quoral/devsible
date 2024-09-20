@@ -6,18 +6,8 @@
     - command
 
 - name: "Install dependencies of the executable"
-  pip:
-    executable: pip3
-    name:
-      - gitpython
-      - python-dateutil
-  tags:
-    - command
-
-- name: "Symlink Devsible shortcut"
-  file:
-    src: "{{ own_code_path }}/devsible/files/devsible.py"
-    dest: "{{ ansible_env.HOME }}/.local/bin/devsible"
-    state: link
+  community.general.pipx:
+    name: command
+    source: "{{ own_code_path }}/devsible/files/command"
   tags:
     - command

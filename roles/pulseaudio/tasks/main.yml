@@ -1,4 +1,3 @@
--
 - name: "Install pulseaudio and other good stuff"
   community.general.pacman:
     name:
@@ -21,7 +20,9 @@
   when: ansible_distribution == "Archlinux"
 
 - apt:
-    name: "pavucontrol"
+    name:
+      - pavucontrol
+      - pulseaudio-utils
   become: True
   tags: pulseaudio
   when: ansible_distribution == "Ubuntu"

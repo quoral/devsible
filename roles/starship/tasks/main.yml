@@ -14,4 +14,6 @@
   community.general.snap:
     name:
       - starship
+    channel: edge
+  become: True
   when: ansible_distribution == "Ubuntu"

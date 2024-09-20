@@ -22,3 +22,20 @@
 - name: "Install doom if folder not exists"
   command: ~/.emacs.d/bin/doom --yes install
   when: not doom_path.stat.exists
+
+- name: ensure directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/systemd/user"
+    state: directory
+
+- name: Copy Emacs Daemon
+  copy:
+    src: "files/emacs-daemon.service"
+    dest: "{{ ansible_env.HOME }}/.config/systemd/user/emacs-daemon.service"
+
+- name: Make sure ssh-agent is enabled
+  systemd:
+    name: emacs-daemon
+    scope: user
+    enabled: true
+

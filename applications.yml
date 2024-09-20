@@ -8,8 +8,8 @@
 - name: Run package upgrades
   hosts: linux
   roles:
-    - snap
     - lib_dependencies
     - yubikey
     - bluetooth
     - 1password
+    - pulseaudio

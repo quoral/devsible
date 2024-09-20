@@ -1,7 +1,7 @@
 - name: "Get Kanshi"
-   apt:
+  apt:
     name:
-      - light
+    - kanshi
   become: True
   when: ansible_distribution == "Ubuntu"
 

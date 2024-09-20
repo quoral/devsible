@@ -8,3 +8,8 @@
 
 - include_tasks: main_mac.yml
   when: ansible_distribution == 'MacOSX'
+
+- name: Set timezone to Europe/Stockholm
+  community.general.timezone:
+    name: Europe/Stockholm
+  become: True

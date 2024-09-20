@@ -15,3 +15,12 @@
   tags:
     - chat_applications
   when: ansible_distribution == "MacOSX"
+
+- name: "Install Snap stuff"
+  snap:
+    name: 
+      - discord
+      - whatsdesk
+  tags:
+    - chat_applications
+  become: true

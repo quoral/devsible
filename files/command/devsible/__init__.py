@@ -3,18 +3,18 @@ import os
 import sys
 import subprocess
 import argparse
+import pathlib
 try:
     import apt
 except ImportError:
     pass
 
-from git import Repo
 from pathlib import Path
 
-repo_location = Path(os.path.dirname(os.path.realpath(__file__))).parent
+repo_location = Path(os.path.dirname(os.path.realpath(__file__))).parent.parent.parent
 
 parser = argparse.ArgumentParser(description="Devsible shortcut - With shortcuts for syncing change")
-parser.add_argument("--ignore-changes", action='store_true', 
+parser.add_argument("--check-changes", action='store_false', 
                     help="Ensure that all cloned repositories are not checked for changes (Implies they are not cloned either)")
 parser.add_argument("--git-check", "-c", action='store_true',
                     help="Check status of all git repositories.")
@@ -29,13 +29,13 @@ git_repositories = [(repo_location, "devsible"), (Path(repo_location, "roles/dot
 
 inventory_file = None
 
+
 if sys.platform.startswith('linux'):
-    inventory_file = "linux.ini"
+    inventory_file = "ubuntu.ini"
 elif sys.platform.startswith('darwin'):
     inventory_file = "mac.ini"
 
 args = parser.parse_args()
-command = ["ansible-playbook", "--inventory=inventory/{}".format(inventory_file), "playbook.yml"]
 
 def get_changes(repo, name):
     changed = repo.is_dirty()
@@ -59,26 +59,29 @@ def upgradable_packages():
     cache = apt.Cache()
     return [pkg for pkg in cache if pkg.is_upgradable]
 
-if args.ignore_changes:
-    command += ["-e", "check_dotfiles_repo=false"]
+def main():
+    command = ["ansible-playbook", "--inventory=inventory/{}".format(inventory_file), "playbook.yml"]
 
-if args.check:
-    command += ["--check", "--diff"]
+    if args.check_changes:
+        command += ["-e", "check_dotfiles_repo=false"]
 
-if args.tags:
-    command += ["--tags={}".format(args.tags)]
+    if args.check:
+        command += ["--check", "--diff"]
 
-if args.verbose:
-    command += ["--verbose"]
+    if args.tags:
+        command += ["--tags={}".format(args.tags)]
 
-if args.git_check:
-    all_changes(git_repositories)
+    if args.verbose:
+        command += ["--verbose"]
 
-if args.upgradable_packages:
-    print("packages:")
-    for pkg in upgradable_packages():
-        print("  - {}".format(pkg))
+    if args.git_check:
+        all_changes(git_repositories)
 
-if args.no_ansible:
-    subprocess.run(command, cwd=repo_location)
+    if args.upgradable_packages:
+        print("packages:")
+        for pkg in upgradable_packages():
+            print("  - {}".format(pkg))
+
+    if args.no_ansible:
+        subprocess.run(command, cwd=repo_location)
 

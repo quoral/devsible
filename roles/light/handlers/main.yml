@@ -1,0 +1,7 @@
+- name: "Reload acpid"
+  service:
+    name: acpid
+    state: restarted
+  become: True
+  listen:
+    - acpid-changed

@@ -11,7 +11,9 @@
       - aptitude
       - snapd
       - python3-pip
-      - sshpass
+      - pipx
+      - sshpass 
+      - network-manager
   become: true
 
 - name: "Live on the edge, add source!"

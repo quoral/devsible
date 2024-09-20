@@ -10,27 +10,25 @@
   when: ansible_distribution == "MacOSX"
 
 - name: "Ensure linux Python deps are made available"
-  pip:
-    executable: pip3
-    name:
-      - pulsectl
-      - ninja
-      - meson
+  community.general.pipx:
+    name: "{{ item }}"
     state: latest
+  with_items:
+  - ninja
+  - meson
   tags:
     - python
   when: ansible_distribution == "Archlinux" or ansible_distribution == "Ubuntu"
 
 - name: "Ensure other deps are made available"
-  pip:
-    executable: pip3
-    name:
-      - pipenv
-      - psutil
-      - emoji
-      - cookiecutter
-      - pre-commit
-      - sqlfluff
+  community.general.pipx:
+    name: "{{ item }}"
     state: latest
+  with_items:
+  - pipenv
+  - cookiecutter
+  - pre-commit
+  - sqlfluff
+  - gpt-command-line
   tags:
     - python

@@ -1,0 +1,6 @@
+- include_tasks:
+    file: "main_ubuntu.yml"
+    apply:
+      tags: albert
+  when: ansible_distribution == "Ubuntu"
+  tags: albert

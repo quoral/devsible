@@ -5,7 +5,7 @@
   
 - name: "Add docker package source"
   apt_repository:
-    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu disco stable
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu mantic stable
     state: present
   become: True
   register: docker_package_source

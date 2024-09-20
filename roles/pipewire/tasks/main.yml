@@ -33,7 +33,6 @@
       - libldacbt-enc2
       - libspa-0.2-bluetooth
       - pipewire-audio-client-libraries
-      - pipewire-media-session-
       - wireplumber
   become: True
   when: ansible_distribution == "Ubuntu"
@@ -42,6 +41,7 @@
   apt:
     name: 
       - pulseaudio-module-bluetooth
+      - pipewire-media-session
     state: absent
   become: True
   when: ansible_distribution == "Ubuntu"
@@ -57,11 +57,4 @@
     - pipewire
   when: ansible_distribution == "Ubuntu"
 
-- name: make sure xdg-desktop-portal is running
-  systemd:
-    name: xdg-desktop-portal
-    enabled: yes
-    scope: user
-  tags:
-    - pipewire
 

@@ -1,5 +1,5 @@
 - name: "Get a better backlight manager"
-   apt:
+  apt:
     name:
-      - light
+    - light
   become: True

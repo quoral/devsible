@@ -1,22 +1,8 @@
 - name: "VsCode"
   snap:
-    name: code-insiders
+    name: 
+      - code-insiders
+      - emacs
     classic: yes
   become: true
 
-- name: "Install emacs ppa"
-  apt_repository:
-    repo: ppa:ubuntu-elisp/ppa
-  become: True
-
-- name: "Install emacs ppa"
-  apt_repository:
-    repo: ppa:kelleyk/emacs
-  become: True
-
-- name: "Install emacs"
-  apt:
-    name:
-      - emacs28
-    update_cache: True
-  become: True

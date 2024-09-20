@@ -1,0 +1,47 @@
+- name: "Install dependencies"
+  apt:
+    name:
+      - meson
+      - libgjs-dev
+      - gjs
+      - libgtk-layer-shell-dev
+      - libgtk-3-dev
+      - libpulse-dev
+      - network-manager-dev
+      - libgnome-bluetooth-3.0-dev
+      - libdbusmenu-gtk3-dev
+      - libsoup-3.0-dev
+  become: true
+
+- name: Install packages based on package.json.
+  community.general.npm:
+    name: typescript
+    global: true
+
+- name: "Get latest ags"
+  git:
+    repo: https://github.com/Aylur/ags.git
+    dest: "{{ ansible_env.HOME }}/Code/Github/ags"
+    update: true
+    recursive: true
+  register: ags_repo
+
+- name: compile ags
+  shell:
+    cmd: |
+      npm install
+    chdir: "{{ ansible_env.HOME }}/Code/Github/ags"
+  when: ags_repo.changed
+
+- name: install ags
+  shell:
+    cmd: |
+      asdf
+      meson setup build
+      meson install -C build
+    chdir: "{{ ansible_env.HOME }}/Code/Github/ags"
+  become: true
+  become_user: root
+  become_method: sudo
+  become_flags: "-Es"
+  when: ags_repo.changed

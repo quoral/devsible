@@ -15,4 +15,3 @@
   become: True
   tags:
     - light
-  notify: acpid-changed

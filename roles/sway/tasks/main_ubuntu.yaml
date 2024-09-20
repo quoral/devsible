@@ -14,6 +14,8 @@
       - sway
       - waybar
       - swaylock
+      - xwayland
+      - wofi
   become: True
   tags:
     - sway
@@ -28,33 +30,3 @@
   become: True
   tags:
     - sway
-
-- name: "Copy misc file"
-  copy:
-    src: "{{ waybar_path | expanduser }}/resources/custom_modules/mediaplayer.py"
-    dest: "/usr/local/bin/mediaplayer.py"
-    remote_src: yes
-    mode: preserve
-  become: True
-  tags:
-    - waybar
-
-- name: "Clone swaylock"
-  git:
-    repo: "https://github.com/swaywm/swaylock"
-    dest: "{{swaylock_path}}"
-  tags:
-    - wayland
-  notify:
-    - swaylock-changed
-
-- name: "Clone swayidle"
-  git:
-    repo: "https://github.com/swaywm/swayidle"
-    dest: "{{swayidle_path}}"
-  tags:
-    - wayland
-  notify:
-    - swayidle-changed
-
-- meta: flush_handlers

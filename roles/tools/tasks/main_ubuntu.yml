@@ -5,22 +5,6 @@
       - ranger
   become: true
 
-- name: "Install spotify key"
-  apt_key:
-    url: https://download.spotify.com/debian/pubkey.gpg
-  become: True
-
-- name: "Install spotify repo"
-  apt_repository:
-    repo: deb http://repository.spotify.com stable non-free
-    update_cache: True
-  become: True
-
-- name: "Install spotify-client"
-  apt:
-    name: spotify-client
-  become: True
-
 - name: "Install utilities"
   apt:
     name:
@@ -44,11 +28,7 @@
       - mercurial
   become: true
 
-- name: "install virtualbox and dependencies"
-  apt:
-    name:
-      - virtualbox 
-      - virtualbox-dkms
-      - linux-headers-generic
+- name: "Install Snap stuff"
+  snap:
+    name: spotify
   become: true
-
