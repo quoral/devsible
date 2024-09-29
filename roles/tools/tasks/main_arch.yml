@@ -22,6 +22,7 @@
       - remmina
       - freerdp
       - bind
+      - git-absorb
   become: true
 
 - name: "Install virtualbox"
@@ -31,20 +32,8 @@
       - virtualbox-host-dkms
   become: True
 
-- name: Tools from AUR
-  kewlfft.aur.aur:
+- name: "Music"
+  community.general.pacman:
     name:
-      - spotify
-      - gcalcli
-      - spicetify-cli
-      - spicetify-themes-git
-  become: True
-  become_user: aur_builder
-
-- name: AWS Tools from AUR
-  kewlfft.aur.aur:
-    name:
-      - aws-cli-v2-bin
-      - aws-session-manager-plugin
-  become: True
-  become_user: aur_builder
+      - spotify-launcher
+  become: true

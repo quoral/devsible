@@ -1,0 +1,152 @@
+
+- name: "AUR Dependencies"
+  kewlfft.aur.aur:
+    name:
+      - gjs
+      - glib2
+      - glib2-devel
+      - glibc
+      - gtk3
+      - gtk-layer-shell
+      - libpulse
+      - pam
+      - microtex-git
+      - hyprland-git
+      - xwaylandvideobridge-git
+  tags:
+    - hyprland
+  become_user: aur_builder
+  become: True
+  when: ansible_distribution == "Archlinux"
+
+- name: "Other Pacman Dependencies"
+  community.general.pacman:
+    name:
+      - cmake
+      - meson
+      - cpio 
+  tags:
+    - hyprland
+  become: True
+  when: ansible_distribution == "Archlinux"
+
+- name: "Pacman Dependencies" 
+  community.general.pacman:
+    name:
+      - gnome-system-monitor
+      - thunar
+      - nwg-displays
+      - wireplumber
+      - libdbusmenu-gtk3
+      - playerctl
+      - swww
+      - ddcutil
+      - axel
+      - brightnessctl
+      - bc
+      - coreutils
+      - cliphist
+      - cmake
+      - curl
+      - fuzzel
+      - rsync
+      - wget
+      - ripgrep
+      - jq
+      - npm
+      - meson
+      - typescript
+      - gjs
+      - xdg-user-dirs
+      - adw-gtk-theme-git
+      - qt5ct
+      - qt5-wayland
+      - fontconfig
+      - ttf-readex-pro
+      - ttf-jetbrains-mono-nerd
+      - ttf-material-symbols-variable-git
+      - ttf-space-mono-nerd
+      - ttf-rubik-vf
+      - ttf-gabarito-git
+      - polkit-gnome
+      - gnome-keyring
+      - gnome-control-center
+      - blueberry
+      - networkmanager
+      - gammastep
+      - gnome-bluetooth-3.0
+      - webp-pixbuf-loader
+      - gtk-layer-shell
+      - gtk3
+      - gtksourceview3
+      - gobject-introspection
+      - upower
+      - yad
+      - ydotool
+      - xdg-user-dirs-gtk
+      - tinyxml2
+      - gtkmm3
+      - gtksourceviewmm
+      - cairomm
+      - xdg-desktop-portal
+      - xdg-desktop-portal-gtk
+      - xdg-desktop-portal-hyprland-git
+      - swappy
+      - wf-recorder-git
+      - grim-git
+      - tesseract
+      - tesseract-data-eng
+      - slurp
+      - dart-sass
+      - python-pywayland
+      - python-psutil
+      - hypridle-git
+      - hyprutils-git
+      - hyprlock-git
+      - wlogout
+      - wl-clipboard-git
+      - hyprpicker-git
+      - pavucontrol
+      - anyrun-git
+      - python-build
+      - python-pillow
+      - python-pywal
+      - python-setuptools-scm
+      - python-wheel
+      - python-materialyoucolor-git
+      - gradience
+      - python-libsass
+      - python-material-color-utilities
+      - plasma-browser-integration
+  tags:
+    - hyprland
+  become: True
+  when: ansible_distribution == "Archlinux"
+
+- name: "Get hyprland custom deps"
+  git:
+    repo: https://github.com/end-4/dots-hyprland.git
+    dest: "/home/aur_builder/dots-hyprland"
+    update: true
+    recursive: true
+    force: true
+  register: dots_hyprland
+  become: True
+  become_user: aur_builder  
+  tags:
+    - hyprland
+
+- name: run makepkgs
+  command: makepkg -si --noconfirm
+  args:
+    chdir: "/home/aur_builder/dots-hyprland/arch-packages/{{ item }}"
+  become: True
+  become_user: aur_builder  
+  with_items:
+    - illogical-impulse-ags
+    - illogical-impulse-microtex-git
+    - illogical-impulse-oneui4-icons-git
+    - illogical-impulse-bibata-modern-classic-bin
+  when: dots_hyprland.changed
+  tags:
+    - hyprland

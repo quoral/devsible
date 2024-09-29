@@ -4,3 +4,10 @@
       tags: albert
   when: ansible_distribution == "Ubuntu"
   tags: albert
+
+- include_tasks:
+    file: "main_arch.yml"
+    apply:
+      tags: albert
+  when: ansible_distribution == "Archlinux"
+  tags: albert

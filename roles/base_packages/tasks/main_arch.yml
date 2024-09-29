@@ -1,10 +1,17 @@
 ---
 
-- name: "Ensure cache is updated"
+- name: "Upgrade all Pacman"
   community.general.pacman:
     update_cache: yes
     upgrade: yes
   become: True
+
+- name: "Upgrade all AUR"
+  kewlfft.aur.aur:
+    update_cache: yes
+    upgrade: yes
+  become: True
+  become_user: aur_builder
 
 - name: "Ensure sshpass is installed"
   community.general.pacman:

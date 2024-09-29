@@ -11,5 +11,5 @@ asdf_packages:
   - name: github-cli
   - name: shellcheck
   - name: nodejs
-    version: 18.12.0
+    version: 22.8.0
   - name: buf

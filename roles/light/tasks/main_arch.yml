@@ -1,5 +1,5 @@
 - kewlfft.aur.aur:
-    name: light-git
+    name: light
   become: True
   become_user: aur_builder
 

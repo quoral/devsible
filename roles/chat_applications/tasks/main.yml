@@ -8,6 +8,14 @@
     - chat_applications
   when: ansible_distribution == "Archlinux"
 
+- community.general.pacman:
+    name:
+      - discord
+  become: True
+  tags:
+    - chat_applications
+  when: ansible_distribution == "Archlinux"
+
 - community.general.homebrew_cask:
     name:
       - discord
@@ -23,4 +31,5 @@
       - whatsdesk
   tags:
     - chat_applications
+  when: ansible_distribution == "Ubuntu"
   become: true

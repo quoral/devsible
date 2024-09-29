@@ -12,6 +12,7 @@ except ImportError:
 from pathlib import Path
 
 repo_location = Path(os.path.dirname(os.path.realpath(__file__))).parent.parent.parent
+print(repo_location)
 
 parser = argparse.ArgumentParser(description="Devsible shortcut - With shortcuts for syncing change")
 parser.add_argument("--check-changes", action='store_false', 
@@ -85,3 +86,4 @@ def main():
     if args.no_ansible:
         subprocess.run(command, cwd=repo_location)
 
+ 

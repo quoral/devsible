@@ -9,6 +9,7 @@
   hosts: linux
   roles:
     - sway
+    - hyprland
     - pipewire
     - kitty
     - light

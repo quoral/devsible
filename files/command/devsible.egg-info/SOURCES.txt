@@ -1,0 +1,7 @@
+setup.py
+devsible/__init__.py
+devsible.egg-info/PKG-INFO
+devsible.egg-info/SOURCES.txt
+devsible.egg-info/dependency_links.txt
+devsible.egg-info/entry_points.txt
+devsible.egg-info/top_level.txt

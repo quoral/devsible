@@ -1,6 +1,0 @@
-- kewlfft.aur.aur:
-    name:
-      - 1password
-      - 1password-cli
-  become: True
-  become_user: aur_builder

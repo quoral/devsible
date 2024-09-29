@@ -2,18 +2,25 @@
 - name: "Ensure cache is updated"
   kewlfft.aur.aur:
     name:
-      - pipewire
       - pipewire-alsa
       - pipewire-pulse
       - pipewire-jack
-      - xdg-desktop-portal
-      - xdg-desktop-portal-wlr
-      - libpipewire02
   tags:
     - pipewire
   become_user: aur_builder
   become: True
   when: ansible_distribution == "Archlinux"
+
+- community.general.pacman:
+    name:
+      - pipewire
+      - xdg-desktop-portal
+      - xdg-desktop-portal-wlr
+  tags:
+    - pipewire
+  become: True
+  when: ansible_distribution == "Archlinux"
+
 - name: make sure pipewire and its components are running
   systemd:
     name: "{{item}}"

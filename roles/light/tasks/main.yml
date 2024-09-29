@@ -1,9 +1,20 @@
-- include_tasks: main_ubuntu.yml
+- import_tasks: main_ubuntu.yml
   when: ansible_distribution == "Ubuntu"
+  tags:
+    - light
 
-- include_tasks: main_arch.yml
+- import_tasks: main_arch.yml
   when: ansible_distribution == "Archlinux"
+  tags:
+    - light
 
+#- name: ensure folder
+#  ansible.builtin.file:
+#    path: /etc/acpi/events
+#    state: directory
+#  become: True
+#  tags:
+#    - light
 
 - name: "Add acpid brightness controls"
   copy:

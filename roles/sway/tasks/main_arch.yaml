@@ -1,18 +1,18 @@
 - kewlfft.aur.aur:
     name:
-      - sway
-      - wlroots
-      - kanshi-git
       - grim-git
       - wofi-hg
-      - swaybg
-      - autotiling
+      - corrupter-git
   become: True
   become_user: aur_builder
 
 - name: "Ensure cache is updated"
   community.general.pacman:
     name:
+      - xorg-xwayland
+      - kanshi
+      - swaybg
+      - sway
       - waybar
       - dmenu
       - swayidle
@@ -22,5 +22,5 @@
       - swaylock
       - playerctl
       - gtklock
-      - corrupter-bin
+      - autotiling
   become: True

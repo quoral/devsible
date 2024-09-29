@@ -1,8 +1,7 @@
-- kewlfft.aur.aur:
+- community.general.pacman:
     name:
       - starship
   become: True
-  become_user: aur_builder
   when: ansible_distribution == "Archlinux"
 
 - community.general.homebrew:

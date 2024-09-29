@@ -4,4 +4,5 @@
       - python
       - python-pip
       - python-setuptools
+      - python-pipx
   become: True

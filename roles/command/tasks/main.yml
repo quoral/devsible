@@ -8,6 +8,7 @@
 - name: "Install dependencies of the executable"
   community.general.pipx:
     name: command
+    editable: True
     source: "{{ own_code_path }}/devsible/files/command"
   tags:
     - command

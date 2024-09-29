@@ -6,8 +6,8 @@
   when: ansible_distribution == "Ubuntu"
 
 
-- kewlfft.aur.aur:
-    name: kanshi-git
+- community.general.pacman:
+    name: kanshi
   become: True
   become_user: aur_builder
   when: ansible_distribution == "Archlinux"
