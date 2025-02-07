@@ -23,6 +23,7 @@
       - freerdp
       - bind
       - git-absorb
+      - cameractrls
   become: true
 
 - name: "Install virtualbox"

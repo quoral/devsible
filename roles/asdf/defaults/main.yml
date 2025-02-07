@@ -3,6 +3,7 @@ asdf_git_info:
 
 asdf_packages:
   - name: terraform
+    repo: https://github.com/asdf-community/asdf-hashicorp
   - name: tflint
     version: 0.34.1
   - name: terragrunt

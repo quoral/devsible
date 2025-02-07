@@ -1,8 +1,12 @@
 ---
 - name: emacs install
   community.general.pacman:
-    name: emacs
+    name: 
+      - emacs
+      - neovim
+      - lazygit
   become: true
+
 - name: vim install
   community.general.pacman:
     name: vim
