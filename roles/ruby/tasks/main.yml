@@ -1,10 +1,10 @@
 - name: Install rbenv and ruby-build
+  become: "{{ ansible_system == 'Linux' }}"
   ansible.builtin.package:
     name:
       - rbenv
       - ruby-build
     state: present
-  become: true
 
 - name: Install ruby
   ansible.builtin.command:
