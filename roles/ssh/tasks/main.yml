@@ -35,3 +35,4 @@
     name: ssh-agent
     scope: user
     enabled: true
+  when: ansible_distribution != "MacOSX"

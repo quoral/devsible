@@ -14,3 +14,5 @@ asdf_packages:
   - name: nodejs
     version: 22.8.0
   - name: buf
+  - name: yarn
+

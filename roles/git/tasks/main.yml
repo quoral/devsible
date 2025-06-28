@@ -1,0 +1,23 @@
+---
+# Tasks for managing Git and GitHub
+
+- name: Ensure GitHub CLI is installed
+  ansible.builtin.package:
+    name: gh
+    state: present
+  tags:
+    - git
+
+- name: Install gh-dash extension
+  ansible.builtin.command:
+    cmd: gh extension install dlvhdr/gh-dash
+    creates: ~/.config/gh/extensions/gh-dash
+  tags:
+    - git
+
+- name: Install gh-dependabot extension
+  ansible.builtin.command:
+    cmd: gh extension install einride/gh-dependabot
+    creates: ~/.config/gh/extensions/gh-dependabot
+  tags:
+    - git

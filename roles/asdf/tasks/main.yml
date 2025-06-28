@@ -1,45 +1,16 @@
-
-- name: "Get latest asdf"
-  tags:
-    - asdf
-  git:
-    repo: https://github.com/asdf-vm/asdf.git
-    dest: ~/.asdf
-    update: false
-  register: asdf_git_pre
-
-- name: "Update asdf to latest"
-  tags:
-    - asdf
-  command: ~/.asdf/bin/asdf update
-  changed_when: false
+- community.general.homebrew:
+    name:
+      - asdf
 
 - name: "Create completions folder"
   file:
     path: ~/.config/fish/completions
     state: directory
 
-- name: "Get completions"
-  tags:
-    - asdf
-  copy:
-    src: ~/.asdf/completions/asdf.fish
-    dest: ~/.config/fish/completions/asdf.fish
-
-- name: "Asdf state"
-  tags:
-    - asdf
-  git:
-    repo: https://github.com/asdf-vm/asdf.git
-    dest: ~/.asdf
-    update: false
-  register: asdf_git_post
-  changed_when: "asdf_git_pre.before != asdf_git_post.before"
-
 - name: "Install asdf plugins"
   tags:
     - asdf
-  command: "~/.asdf/bin/asdf plugin-add {{ item.name }} {{ item.repo | default('')}}"
+  command: "asdf plugin add {{ item.name }} {{ item.repo | default('')}}"
   with_items: "{{ asdf_packages }}"
   register: asdf_plugin
   failed_when: "asdf_plugin.rc not in (0, 2)"
@@ -55,12 +26,17 @@
   failed_when: "asdf_hook.rc not in (0, 2)"
   changed_when: false
 
+- name: "Set package versions"
+  tags:
+    - asdf
+  command: "asdf set {{ item.name }} {{ item.version | default('latest') }}"
+  with_items: "{{ asdf_packages }}"
+  changed_when: false
+
 - name: "Install asdf packages"
   tags:
     - asdf
-  command: "~/.asdf/bin/asdf install {{ item.name }} {{ item.version | default('latest') }}"
-  environment:
-    PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.asdf/bin"
+  command: "asdf install {{ item.name }} {{ item.version | default('latest') }}"
   with_items: "{{ asdf_packages }}"
   register: async_asdf_package
   async: 60
@@ -82,14 +58,12 @@
 - name: "Set global versions"
   tags:
     - asdf
-  command: "~/.asdf/bin/asdf global {{ item.name }} {{ item.version | default('latest') }}"
-  environment:
-    PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.asdf/bin"
+  command: "asdf global {{ item.name }} {{ item.version | default('latest') }}"
   with_items: "{{ asdf_packages }}"
   changed_when: false
 
 - name: "Force reshim after plugins"
   tags:
     - asdf
-  command: "~/.asdf/bin/asdf reshim"
+  command: "asdf reshim"
   changed_when: false

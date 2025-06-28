@@ -3,7 +3,9 @@
   hosts: base
   roles:
     - command
-    - browsers
+    - browsers    
+    - 1password
+
 
 - name: Run package upgrades
   hosts: linux
@@ -11,4 +13,3 @@
     - lib_dependencies
     - yubikey
     - bluetooth
-    - 1password

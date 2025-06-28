@@ -1,4 +1,28 @@
+- community.general.homebrew:
+    name:
+      - neovim
+      - luarocks
+      - lazygit
+
 - community.general.homebrew_cask:
-    name: 
-     - visual-studio-code
-     - emacs
+    name:
+      - visual-studio-code
+      - emacs
+
+- community.general.osx_defaults:
+    domain: com.microsoft.VSCode
+    key: ApplePressAndHoldEnabled
+    type: bool
+    value: false
+
+- community.general.osx_defaults:
+    domain: com.microsoft.VSCodeInsiders
+    key: ApplePressAndHoldEnabled
+    type: bool
+    value: false
+
+- name: Copy Emacs Daemon
+  copy:
+    src: "files/gnu.emacs.daemon.plist"
+    dest: "{{ ansible_env.HOME }}/Library/LaunchAgents/gnu.emacs.daemon.plist"
+  tags: editor

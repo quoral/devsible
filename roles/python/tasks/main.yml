@@ -7,12 +7,21 @@
 - community.general.homebrew:
     name:
       - python3
+      - python-packaging
+      - pipx
   when: ansible_distribution == "MacOSX"
+
+- name: "Register where pipx is installed"
+  command: "which pipx"
+  register: pipx_location
+  check_mode: no
+  changed_when: False
 
 - name: "Ensure linux Python deps are made available"
   community.general.pipx:
     name: "{{ item }}"
     state: latest
+    executable: "{{ pipx_location.stdout }}"
   with_items:
   - ninja
   - meson
@@ -24,6 +33,7 @@
   community.general.pipx:
     name: "{{ item }}"
     state: latest
+    executable: "{{ pipx_location.stdout }}"
   with_items:
   - pipenv
   - cookiecutter

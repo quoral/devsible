@@ -4,3 +4,5 @@
       - chromium
       - firefox
   become: True
+  tags:
+    - browsers

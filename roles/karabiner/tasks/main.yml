@@ -1,3 +1,37 @@
 - community.general.homebrew_cask:
     name:
       - karabiner-elements
+  tags:
+    - karabiner
+
+- name: "Ensure Keybinding folder exists"
+  file:
+    state: directory 
+    dest: "{{ ansible_env.HOME }}/Library/Keybindings"
+  tags:
+    - karabiner
+
+- name: Copy Keybinding file
+  copy:
+    src: "files/DefaultKeyBinding.dict"
+    dest: "{{ ansible_env.HOME }}/Library/Keybindings/DefaultKeyBinding.dict"
+  tags:
+    - karabiner
+
+# defaults write -g InitialKeyRepeat -float 10.0 # normal minimum is 15 (225 ms)
+# defaults write -g KeyRepeat -float 1.0 # normal minimum is 2 (30 ms)
+- name: Set Initial Key Repeat Speed
+  community.general.osx_defaults:
+    key: InitialKeyRepeat
+    type: float
+    value: 30.0
+  tags:
+    - karabiner
+
+- name: Set Key Repeat Speed
+  community.general.osx_defaults:
+    key: KeyRepeat
+    type: float
+    value: 2
+  tags:
+    - karabiner

@@ -1,5 +1,5 @@
 - name: "Get go-asdf location"
-  command: "~/.asdf/bin/asdf which go"
+  command: "asdf which go latest"
   register: go_location
   check_mode: no
   changed_when: false

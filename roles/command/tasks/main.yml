@@ -5,10 +5,18 @@
   tags:
     - command
 
+
+- name: "Register where pipx is installed"
+  command: "which pipx"
+  register: pipx_location
+  check_mode: no
+  changed_when: False
+
 - name: "Install dependencies of the executable"
   community.general.pipx:
     name: command
     editable: True
+    executable: "{{ pipx_location.stdout }}"
     source: "{{ own_code_path }}/devsible/files/command"
   tags:
     - command

@@ -5,3 +5,4 @@ tmp/
 
 
 roles/dotfiles
+.aider*

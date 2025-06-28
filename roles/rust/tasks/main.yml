@@ -1,0 +1,6 @@
+- include_tasks:
+    file: main_mac.yml
+    apply:
+      tags: rust
+  when: ansible_distribution == 'MacOSX'
+  tags: rust

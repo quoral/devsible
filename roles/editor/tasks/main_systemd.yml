@@ -1,0 +1,11 @@
+- name: ensure directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/systemd/user"
+    state: directory
+  tags: editor
+
+- name: Copy Emacs Daemon
+  copy:
+    src: "files/emacs-daemon.service"
+    dest: "{{ ansible_env.HOME }}/.config/systemd/user/emacs-daemon.service"
+  tags: editor

@@ -1,0 +1,3 @@
+- community.general.homebrew:
+    name:
+      - rustup

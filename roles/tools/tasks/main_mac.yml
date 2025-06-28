@@ -2,6 +2,8 @@
   community.general.homebrew:
     name:
       - gnupg
+      - git-crypt
+      - direnv
       - gnu-tar
       - subversion
       - fzf
@@ -9,9 +11,26 @@
       - jq
       - awscli
       - golangci-lint
+      - pnpm
+      - ripgrep
+      - imagemagick
+      - ast-grep
+      - lsd
 
 - community.general.homebrew_cask:
-    name: 
+    name:
       - spotify
       - session-manager-plugin
       - vagrant
+      - cloudflare-warp
+
+- community.general.homebrew_cask:
+    name:
+      - raycast
+      - nikitabobko/tap/aerospace
+      - kitty
+      - ghostty
+      - obsidian
+      - linear-linear
+      - proxyman
+      - mos

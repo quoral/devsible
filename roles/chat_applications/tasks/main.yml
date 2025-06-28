@@ -20,6 +20,8 @@
     name:
       - discord
       - whatsapp
+      - slack
+      - signal
   tags:
     - chat_applications
   when: ansible_distribution == "MacOSX"

@@ -1,8 +1,11 @@
 - include_tasks: main_ubuntu.yml
   when: ansible_distribution == "Ubuntu"
+  tags: browsers
 
 - include_tasks: main_arch.yml
   when: ansible_distribution == "Archlinux"
+  tags: browsers
 
 - include_tasks: main_mac.yml
   when: ansible_distribution == 'MacOSX'
+  tags: browsers

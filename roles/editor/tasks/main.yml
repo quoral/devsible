@@ -6,36 +6,40 @@
 
 - include_tasks:
     file: main_mac.yml
+    apply:
+      tags: editor
   when: ansible_distribution == 'MacOSX'
+  tags: editor
+
+- include_tasks:
+    file: main_systemd.yml
+    apply:
+      tags: editor
+  tags: editor
+  when: ansible_distribution != "MacOSX"
 
 - name: "emacs doom git repository"
   git:
     repo: https://github.com/hlissner/doom-emacs
     dest: ~/.emacs.d
   register: emacs_doom
+  tags: editor
 
 - name: "Stat doom folder"
   stat:
     path: ~/.doom.d
   register: doom_path
+  tags: editor
 
 - name: "Install doom if folder not exists"
   command: ~/.emacs.d/bin/doom --yes install
   when: not doom_path.stat.exists
-
-- name: ensure directory exists
-  file:
-    path: "{{ ansible_env.HOME }}/.config/systemd/user"
-    state: directory
-
-- name: Copy Emacs Daemon
-  copy:
-    src: "files/emacs-daemon.service"
-    dest: "{{ ansible_env.HOME }}/.config/systemd/user/emacs-daemon.service"
+  tags: editor
 
 - name: Make sure ssh-agent is enabled
   systemd:
     name: emacs-daemon
     scope: user
     enabled: true
-
+  when: ansible_distribution != "MacOSX"
+  tags: editor
