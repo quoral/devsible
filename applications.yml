@@ -5,6 +5,7 @@
     - command
     - browsers    
     - 1password
+    - ollama
 
 
 - name: Run package upgrades
