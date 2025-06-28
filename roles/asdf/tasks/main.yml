@@ -26,13 +26,6 @@
   failed_when: "asdf_hook.rc not in (0, 2)"
   changed_when: false
 
-- name: "Set package versions"
-  tags:
-    - asdf
-  command: "asdf set {{ item.name }} {{ item.version | default('latest') }}"
-  with_items: "{{ asdf_packages }}"
-  changed_when: false
-
 - name: "Install asdf packages"
   tags:
     - asdf
