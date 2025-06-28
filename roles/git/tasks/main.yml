@@ -8,10 +8,20 @@
   tags:
     - git
 
+- name: Check if user is logged in to GitHub CLI
+  ansible.builtin.command:
+    cmd: gh auth token
+  register: gh_auth_status
+  changed_when: false
+  ignore_errors: true
+  tags:
+    - git
+
 - name: Install gh-dash extension
   ansible.builtin.command:
     cmd: gh extension install dlvhdr/gh-dash
     creates: ~/.config/gh/extensions/gh-dash
+  when: gh_auth_status.rc == 0
   tags:
     - git
 
@@ -19,5 +29,6 @@
   ansible.builtin.command:
     cmd: gh extension install einride/gh-dependabot
     creates: ~/.config/gh/extensions/gh-dependabot
+  when: gh_auth_status.rc == 0
   tags:
     - git
