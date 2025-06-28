@@ -2,3 +2,4 @@
 - name: Laptop specific settings
   hosts: laptop
   roles:
+    - role: docks

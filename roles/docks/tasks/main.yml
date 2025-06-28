@@ -1,0 +1,33 @@
+---
+- name: Docks tasks for macOS
+  when: ansible_system == 'Darwin'
+  tags: [docks]
+  block:
+    - name: Install dockutil
+      community.general.homebrew:
+        name: dockutil
+        state: present
+
+    - name: Set dock autohide
+      community.general.osx_defaults:
+        domain: com.apple.dock
+        key: autohide
+        type: bool
+        value: "{{ dock_autohide }}"
+      notify: restart dock
+
+    - name: Remove all items from dock
+      ansible.builtin.command: dockutil --remove all
+      changed_when: true
+      notify: restart dock
+
+    - name: Add items to dock
+      ansible.builtin.command: >
+        {% if item.type is defined and item.type == 'spacer' %}
+        dockutil --add '' --type spacer
+        {% else %}
+        dockutil --add '{{ item.path }}' --label '{{ item.name }}'
+        {% endif %}
+      loop: "{{ dock_items }}"
+      changed_when: true
+      notify: restart dock

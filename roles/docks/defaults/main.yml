@@ -1,0 +1,23 @@
+---
+dock_autohide: true
+dock_items:
+  - name: Ghostty
+    path: "/Applications/Ghostty.app"
+  - name: Zen
+    path: "/Applications/Zen.app"
+  - name: Obsidian
+    path: "/Applications/Obsidian.app"
+  - name: Slack
+    path: "/Applications/Slack.app"
+  - name: WhatsApp
+    path: "/Applications/WhatsApp.app"
+  - name: Discord
+    path: "/Applications/Discord.app"
+  - name: Spotify
+    path: "/Applications/Spotify.app"
+  - name: Emacs
+    path: "/Applications/Emacs.app"
+  - name: Linear
+    path: "/Applications/Linear.app"
+  - name: Downloads
+    path: "/Users/quoral/Downloads"
