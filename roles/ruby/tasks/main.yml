@@ -17,6 +17,7 @@
   changed_when: false
 
 - name: Install bundler
-  ansible.builtin.command:
-    cmd: "gem install bundler"
+  ansible.builtin.shell: "rbenv init - --no-rehash bash && gem install bundler"
+  args:
+    executable: /bin/bash
   changed_when: false
