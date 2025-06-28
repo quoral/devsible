@@ -1,0 +1,22 @@
+- name: Install rbenv and ruby-build
+  ansible.builtin.package:
+    name:
+      - rbenv
+      - ruby-build
+    state: present
+  become: true
+
+- name: Install ruby
+  ansible.builtin.command:
+    cmd: "rbenv install {{ ruby_version }} --skip-existing"
+  changed_when: false
+
+- name: Set global ruby version
+  ansible.builtin.command:
+    cmd: "rbenv global {{ ruby_version }}"
+  changed_when: false
+
+- name: Install bundler
+  ansible.builtin.command:
+    cmd: "gem install bundler"
+  changed_when: false
