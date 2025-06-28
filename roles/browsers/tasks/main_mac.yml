@@ -4,3 +4,15 @@
       - zen-browser
   tags:
     - browsers
+
+- name: "Install defaultbrowser"
+  community.general.homebrew:
+    name: defaultbrowser
+  tags:
+    - browsers
+
+- name: "Set Zen as default browser"
+  command: "defaultbrowser zen"
+  changed_when: false
+  tags:
+    - browsers

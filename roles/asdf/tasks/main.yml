@@ -14,7 +14,7 @@
   with_items: "{{ asdf_packages }}"
   register: asdf_plugin
   failed_when: "asdf_plugin.rc not in (0, 2)"
-  changed_when: "asdf_plugin.rc != 2"
+  changed_when: "'already added' not in asdf_plugin.stderr"
 
 - name: "Run asdf plugin hooks"
   tags:
@@ -53,7 +53,7 @@
   delay: 2
   until: _asdf_install_result.finished
   loop: "{{ async_asdf_package.results }}"
-  changed_when: _asdf_install_result.finished and _asdf_install_result.stdout is not search("already installed")
+  changed_when: _asdf_install_result.finished and _asdf_install_result.stderr is not search("already installed")
 
 - name: "Set global versions"
   tags:
