@@ -58,7 +58,7 @@
 - name: "Set global versions"
   tags:
     - asdf
-  command: "asdf global {{ item.name }} {{ item.version | default('latest') }}"
+  command: "asdf set --home {{ item.name }} {{ item.version | default('latest') }}"
   with_items: "{{ asdf_packages }}"
   changed_when: false
 

@@ -21,6 +21,11 @@
     type: bool
     value: false
 
+- name: Create LaunchAgents Folder
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/Library/LaunchAgents"
+    state: directory
+
 - name: Copy Emacs Daemon
   copy:
     src: "files/gnu.emacs.daemon.plist"
